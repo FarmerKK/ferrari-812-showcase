@@ -8,13 +8,14 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import gsap from 'gsap';
 import { createIcons, Bookmark, Paintbrush, CircleDot, Disc3, CarFront, Armchair, Lightbulb, FolderOpen, RotateCcw, ArrowUpRight, Scan, ArrowRight, X, Mouse, Video, ChevronDown, Orbit, Focus, Layers3, Combine, Settings2, Sunset, Camera, Maximize } from 'lucide';
 import { createCar, applyConfig, disposeCar } from './car.js';
+import { loadDetailedCar } from './detailed-car.js';
 import { createEnvironment, environmentPresets } from './environment.js';
 
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const iconsUpdate=()=>createIcons({icons:{Bookmark,Paintbrush,CircleDot,Disc3,CarFront,Armchair,Lightbulb,FolderOpen,RotateCcw,ArrowUpRight,Scan,ArrowRight,X,Mouse,Video,ChevronDown,Orbit,Focus,Layers3,Combine,Settings2,Sunset,Camera,Maximize},attrs:{'stroke-width':1.5}});
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const duration=reducedMotion?.01:1.15;
-const DEFAULTS={paint:'#b91516',paintName:'Rosso Corsa',finish:'gloss',roughness:.22,metalness:.35,clearcoat:1,wheelColor:'#333638',wheelMaterial:'polished',wheelStyle:'split',caliperColor:'#edb422',tireRoughness:.91,seatColor:'#73201b',dashColor:'#171b1b',interiorMaterial:'leather',carbonTrim:true,mirrorFinish:'paint',aero:'standard',headlights:false,taillights:true,brakeLights:false,indicators:false,environment:'sunset',quality:'adaptive'};
+const DEFAULTS={paint:'#d20b16',paintName:'Rosso Corsa',finish:'gloss',roughness:.20,metalness:.25,clearcoat:1,wheelColor:'#4b5054',wheelMaterial:'polished',wheelStyle:'split',caliperColor:'#edb422',tireRoughness:.91,seatColor:'#73201b',dashColor:'#171b1b',interiorMaterial:'leather',carbonTrim:true,mirrorFinish:'paint',aero:'standard',headlights:false,taillights:true,brakeLights:false,indicators:false,environment:'sunset',quality:'adaptive'};
 let config={...DEFAULTS},car,renderer,scene,camera,controls,composer,bloom,environment;
 let selected=null,selectionMaterials=new Map(),currentCategory='paint',currentPage='showcase',cameraMode='orbit';
 let animationId,alive=true,frameCount=0,lastPerf=performance.now(),fps=60,lowQuality=false,qualityCooldown=0;
@@ -22,7 +23,7 @@ let cameraFit=1,hasViewport=false;
 let doorsOpen=false,hoodOpen=false,wheelSpin=false,steer=0,cinematic=false,modelBusy=false,cameraTransition=false;
 const doorMotion={angle:0},hoodMotion={angle:0};
 const pointerStart=new THREE.Vector2(),raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();
-const paintColors=[['Rosso Corsa','#b91516'],['Giallo Modena','#d5ae35'],['Nero Daytona','#151c1a'],['Bianco Avus','#e5e2d7'],['Grigio Silverstone','#777d78'],['Blu Pozzi','#15394e']];
+const paintColors=[['Rosso Corsa','#d20b16'],['Giallo Modena','#d5ae35'],['Nero Daytona','#151c1a'],['Bianco Avus','#e5e2d7'],['Grigio Silverstone','#777d78'],['Blu Pozzi','#15394e']];
 let toastTimer;
 function toast(message){$('#toast').textContent=message;$('#toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('visible'),3500);}
 function download(data,name,type){const blob=data instanceof Blob?data:new Blob([data],{type});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);}
@@ -45,7 +46,7 @@ function colorInput(key,label){return `<label class="custom-color">${label}<inpu
 function drawCategory(){
   const panel=$('#category-content');let html='';
   if(currentCategory==='paint')html=`<div class="field-eyebrow">EXTERIOR COLOR</div><div class="field-title"><span id="paint-name">${config.paintName}</span><small>PERSONALISE</small></div>${swatches(paintColors,'paint')}${colorInput('paint','Bespoke color')}<div class="field-eyebrow">PAINT FINISH</div>${segmented('finish',[['gloss','Gloss'],['matte','Matte'],['metallic','Metallic'],['pearl','Pearl'],['carbon','Carbon']])}${slider('roughness','Surface roughness')}${slider('metalness','Metallic intensity')}${slider('clearcoat','Clearcoat')}`;
-  if(currentCategory==='wheels')html=`<div class="field-eyebrow">20-INCH ALLOY WHEELS</div><div class="field-title">A signature in motion</div>${segmented('wheelStyle',[['split','Split spoke'],['star','Forged star']])}${swatches([['Graphite','#333638'],['Silver','#b8bec3'],['Gold','#9a7e42'],['Black','#101413']],'wheelColor')}${colorInput('wheelColor','Wheel color')}${segmented('wheelMaterial',[['polished','Polished alloy'],['satin','Satin alloy']])}${slider('tireRoughness','Rubber roughness')}`;
+  if(currentCategory==='wheels')html=`<div class="field-eyebrow">20-INCH ALLOY WHEELS</div><div class="field-title">A signature in motion</div>${segmented('wheelStyle',[['split','Split spoke'],['star','Forged star']])}${swatches([['Graphite','#4b5054'],['Silver','#b8bec3'],['Gold','#9a7e42'],['Black','#101413']],'wheelColor')}${colorInput('wheelColor','Wheel color')}${segmented('wheelMaterial',[['polished','Polished alloy'],['satin','Satin alloy']])}${slider('tireRoughness','Rubber roughness')}`;
   if(currentCategory==='brakes')html=`<div class="field-eyebrow">CARBON-CERAMIC INSPIRED</div><div class="field-title">The finishing accent</div>${swatches([['Yellow','#edb422'],['Red','#c32f22'],['Silver','#a7aca6'],['Black','#242c27'],['Blue','#255c93']],'caliperColor')}${colorInput('caliperColor','Caliper color')}<p class="subtle">Four individually inspectable calipers and perforated discs. Select a wheel to explore the assembly.</p><button class="secondary-button" data-view="wheel">Inspect front wheel <i data-lucide="arrow-right"></i></button>`;
   if(currentCategory==='exterior')html=`<div class="field-eyebrow">AERODYNAMIC DETAILS</div><div class="field-title">Form follows feeling</div>${segmented('aero',[['standard','Standard aero'],['extended','Extended aero']])}<div class="field-eyebrow">MIRROR FINISH</div>${segmented('mirrorFinish',[['paint','Body color'],['carbon','Carbon fibre']])}<p class="subtle">Extended aero adjusts the carbon splitter, diffuser and trailing lip. An illustrative styling package.</p>`;
   if(currentCategory==='interior')html=`<div class="field-eyebrow">COCKPIT COLLECTION</div><div class="field-title">Your personal space</div>${swatches([['Bordeaux','#73201b'],['Cuoio','#996a3e'],['Nero','#202824'],['Crema','#c9baa0']],'seatColor')}${colorInput('seatColor','Seat color')}${colorInput('dashColor','Dashboard color')}${segmented('interiorMaterial',[['leather','Leather'],['suede','Suede']])}${toggle('carbonTrim','Carbon interior trim')}<button class="secondary-button" data-view="interior">Enter the cockpit <i data-lucide="arrow-right"></i></button>`;
@@ -56,7 +57,7 @@ function clearHighlight(){for(const [mesh,material] of selectionMaterials){const
 function highlight(){if(!selected)return;selected.traverse(o=>{if(o.isMesh&&o.material?.clone){selectionMaterials.set(o,o.material);o.material=o.material.clone();if(o.material.emissive){o.material.emissive.set('#d56830');o.material.emissiveIntensity=.45;}}});}
 function updateCar(){clearHighlight();applyConfig(car,config);highlight();environment.headlamps.forEach(l=>l.intensity=config.headlights?7:0);}
 function setConfig(key,value){config[key]=value;if(key==='paint')config.paintName=paintColors.find(p=>p[1]===value)?.[0]||'Bespoke color';
-  if(key==='finish'){const finishes={gloss:[.22,.35,1],matte:[.82,.12,0],metallic:[.28,.91,.85],pearl:[.24,.57,1],carbon:[.34,.55,.7]};[config.roughness,config.metalness,config.clearcoat]=finishes[value];}
+  if(key==='finish'){const finishes={gloss:[.20,.25,1],matte:[.82,.12,0],metallic:[.28,.91,.85],pearl:[.24,.57,1],carbon:[.34,.55,.7]};[config.roughness,config.metalness,config.clearcoat]=finishes[value];}
   updateCar();
 }
 function selectPart(part,{focus=false}={}){
@@ -86,7 +87,7 @@ function goCamera(mode){const view=cameraViews[mode];if(!view)return;cameraMode=
 }
 function setDoors(open){doorsOpen=open;gsap.to(doorMotion,{angle:open?.78:0,duration,ease:'power2.inOut',overwrite:true,onUpdate:()=>{for(const s of [-1,1]){const side=s===1?'left':'right',door=car.parts.get(`${side}-door`);if(!door)continue;const pivot=door.userData.originalPosition,q=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),-s*doorMotion.angle);for(const id of [`${side}-door`,`${side}-side-window`,`${side}-mirror`]){const p=car.parts.get(id);if(!p||p.userData.detached)continue;p.position.copy(p.userData.originalPosition).sub(pivot).applyQuaternion(q).add(pivot);p.quaternion.copy(p.userData.originalQuaternion).premultiply(q);}}}});drawMechanics();}
 function setHood(open){hoodOpen=open;const p=car.parts.get('hood');gsap.to(hoodMotion,{angle:open?-.88:0,duration,ease:'power2.inOut',overwrite:true,onUpdate:()=>{if(p&&!p.userData.detached)p.rotation.z=hoodMotion.angle;}});drawMechanics();}
-function setSteering(value){steer=value;for(const g of car.wheels)if(g.userData.axle==='front')g.rotation.y=value*.45;for(const g of car.steering)g.rotation.x=value*1.2;}
+function setSteering(value){steer=value;for(const g of car.steerable||car.wheels)if(g.userData.axle==='front')g.rotation.y=value*.45;for(const g of car.steering)g.rotation.x=value*1.2;}
 function drawMechanics(){$('#mechanics-menu').innerHTML=`<label class="setting-row">Open doors<input type="checkbox" id="doors-control" ${doorsOpen?'checked':''}/></label><label class="setting-row">Open hood<input type="checkbox" id="hood-control" ${hoodOpen?'checked':''}/></label><label class="setting-row">Spin wheels<input type="checkbox" id="spin-control" ${wheelSpin?'checked':''}/></label><label class="range-label" for="steer-control">Steering</label><input id="steer-control" type="range" min="-1" max="1" step=".01" value="${steer}"/>`;}
 function renderPartsList(){const q=$('#part-search').value.toLowerCase();$('#parts-list').replaceChildren();for(const p of car.parts.values()){if(!`${p.userData.name} ${p.userData.category}`.toLowerCase().includes(q))continue;const b=document.createElement('button');b.dataset.part=p.userData.partId;const label=document.createElement('span');label.textContent=p.userData.name;const state=document.createElement('small');state.textContent=p.userData.detached?'DETACHED':p.userData.category.toUpperCase();b.append(label,state);$('#parts-list').append(b);}}
 function setPage(page){currentPage=page;$$('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.page===page));$('main').classList.remove('parts-mode','environment-mode','configure-mode');if(page==='parts')$('main').classList.add('parts-mode');if(page==='environment')$('main').classList.add('environment-mode');if(page==='customize')$('main').classList.add('configure-mode');$('#parts-drawer').hidden=page!=='parts';$('#environment-drawer').hidden=page!=='environment';if(page==='parts')renderPartsList();if(page==='environment')renderEnvironments();}
@@ -135,7 +136,7 @@ async function exportModel(){
   const snapshots=[];
   for(const p of car.parts.values()){gsap.killTweensOf(p.position);gsap.killTweensOf(p.rotation);snapshots.push([p,p.position.clone(),p.quaternion.clone()]);p.position.copy(p.userData.originalPosition);p.quaternion.copy(p.userData.originalQuaternion);}
   car.root.traverse(o=>{const n=o.geometry?.getAttribute('normal');if(n){const v=new THREE.Vector3();for(let i=0;i<n.count;i++){v.fromBufferAttribute(n,i);if(v.lengthSq()<1e-10)v.set(0,1,0);else v.normalize();n.setXYZ(i,v.x,v.y,v.z);}n.needsUpdate=true;}});
-  try{const {GLTFExporter}=await import('three/addons/exporters/GLTFExporter.js');const exporter=new GLTFExporter();const result=await exporter.parseAsync(car.root,{binary:true,onlyVisible:true,trs:true});download(result,'812-procedural-reconstruction.glb','model/gltf-binary');toast('Assembled model exported as GLB.');}catch(error){console.error('Model export failed',error);toast('Model export failed. Please try again.');}
+  try{const {GLTFExporter}=await import('three/addons/exporters/GLTFExporter.js');const exporter=new GLTFExporter();const result=await exporter.parseAsync(car.root,{binary:true,onlyVisible:true,trs:true});download(result,'812-superfast-atelier.glb','model/gltf-binary');toast('Assembled model exported as GLB.');}catch(error){console.error('Model export failed',error);toast('Model export failed. Please try again.');}
   finally{for(const [p,pos,q]of snapshots){p.position.copy(pos);p.quaternion.copy(q);}highlight();modelBusy=false;$('#export-model').disabled=false;}
 }
 async function importModel(file){
@@ -166,16 +167,17 @@ function tick(now){
   if(!cameraTransition)controls.update(elapsed);
   if(wheelSpin)for(const g of car.wheels){g.rotation.z+=elapsed*.65;}
   car.materials.indicator.emissiveIntensity=config.indicators&&Math.floor(now/470)%2===0?3:0;
+  if(car.source==='licensed-cc0'){const flash=config.indicators&&Math.floor(now/470)%2===0;car.materials.headlight.emissive.set(flash?'#ff7900':'#e5f3ff');car.materials.headlight.emissiveIntensity=flash?2.3:config.headlights?3.4:.15;}
   if(cinematic){camera.position.y=1.8+Math.sin(now*.0002)*.28;controls.target.y=.64;}
   render();frameCount++;
   if(now-lastPerf>2500){fps=Math.round(frameCount*1000/(now-lastPerf));$('#performance').textContent=`${fps} FPS · ${lowQuality?'PERFORMANCE':'HIGH'} QUALITY`;frameCount=0;lastPerf=now;if(config.quality==='adaptive'&&now>qualityCooldown&&fps<25&&!lowQuality){setQuality('low');config.quality='adaptive';qualityCooldown=now+15000;}}
 }
-function boot(){
+async function boot(){
   try{
     scene=new THREE.Scene();renderer=new THREE.WebGLRenderer({antialias:true,alpha:false,preserveDrawingBuffer:true,powerPreference:'high-performance'});renderer.info.autoReset=false;renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.outputColorSpace=THREE.SRGBColorSpace;$('#viewport').appendChild(renderer.domElement);
     camera=new THREE.PerspectiveCamera(35,1,.02,600);controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.065;controls.minDistance=.12;controls.maxDistance=21;controls.maxPolarAngle=Math.PI*.49;controls.enablePan=true;controls.screenSpacePanning=true;controls.target.set(0,.62,0);
     const rt=new THREE.WebGLRenderTarget(1,1,{type:THREE.HalfFloatType});rt.samples=4;composer=new EffectComposer(renderer,rt);composer.addPass(new RenderPass(scene,camera));bloom=new UnrealBloomPass(new THREE.Vector2(1,1),.13,.28,1.45);composer.addPass(bloom);composer.addPass(new OutputPass());
-    $('#load-status').textContent='Building the circuit';environment=createEnvironment(scene,renderer);car=createCar();scene.add(car.root);updateCar();setupEvents();drawCategory();drawMechanics();renderPartsList();setEnvironment('sunset');resize();setQuality('adaptive');
+    $('#load-status').textContent='Loading the detailed 812';environment=createEnvironment(scene,renderer);car=await loadDetailedCar((loaded,total)=>{$('#load-status').textContent=total?`Loading the detailed 812 · ${Math.round(loaded/total*100)}%`:'Loading the detailed 812';});scene.add(car.root);updateCar();setupEvents();drawCategory();drawMechanics();renderPartsList();setEnvironment('sunset');resize();setQuality('adaptive');
     const initial=new THREE.Vector3(...cameraViews.orbit.pos).multiplyScalar(cameraFit);if(innerWidth<640)controls.target.y=-.38;camera.position.copy(initial);controls.update();render();iconsUpdate();lastPerf=performance.now();
     $('#loading').style.opacity='0';setTimeout(()=>$('#loading').remove(),650);animationId=requestAnimationFrame(tick);
     // Read-only diagnostics for manual QA; actions remain exposed through the UI.

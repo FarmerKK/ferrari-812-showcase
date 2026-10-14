@@ -5,3 +5,5 @@ output/
 .env*
 !.env.example
 .openai/local/
+assets/source/*.blend
+assets/source/*.blend1

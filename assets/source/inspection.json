@@ -1,0 +1,3672 @@
+[
+  {
+    "name": "back",
+    "vertices": 19,
+    "faces": 1,
+    "materials": [
+      "tailight"
+    ],
+    "bounds": [
+      [
+        -0.494,
+        1.3802,
+        0.2943
+      ],
+      [
+        0.494,
+        1.4746,
+        0.3178
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "block in",
+    "vertices": 718,
+    "faces": 575,
+    "materials": [
+      "mat mt"
+    ],
+    "bounds": [
+      [
+        -0.6584,
+        -1.5967,
+        0.0926
+      ],
+      [
+        0.6584,
+        1.1342,
+        0.5108
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "body",
+    "vertices": 81,
+    "faces": 47,
+    "materials": [
+      "Car Paint "
+    ],
+    "bounds": [
+      [
+        -0.3354,
+        0.6395,
+        0.6035
+      ],
+      [
+        0.3354,
+        1.461,
+        0.8222
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "body.001",
+    "vertices": 3811,
+    "faces": 3970,
+    "materials": [
+      "Car Paint ",
+      "hole",
+      "glossy black.001",
+      "glossy black.002",
+      "Material.002"
+    ],
+    "bounds": [
+      [
+        -0.6656,
+        -0.3802,
+        0.1065
+      ],
+      [
+        0.6656,
+        1.5145,
+        0.865
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "body.003",
+    "vertices": 500,
+    "faces": 467,
+    "materials": [
+      "mat mt",
+      "hole"
+    ],
+    "bounds": [
+      [
+        -0.5588,
+        -0.3774,
+        0.5608
+      ],
+      [
+        0.5588,
+        1.2994,
+        0.8638
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 1,
+        "render_level": 2,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "brake",
+    "vertices": 8423,
+    "faces": 8060,
+    "materials": [
+      "brake"
+    ],
+    "bounds": [
+      [
+        0.4909,
+        -1.0991,
+        0.1168
+      ],
+      [
+        0.5188,
+        -0.8398,
+        0.3761
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 1,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "brake.001",
+    "vertices": 8423,
+    "faces": 8060,
+    "materials": [
+      "brake"
+    ],
+    "bounds": [
+      [
+        -0.5201,
+        -1.0991,
+        0.1168
+      ],
+      [
+        -0.4922,
+        -0.8398,
+        0.3761
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 1,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "brake.002",
+    "vertices": 3511,
+    "faces": 3432,
+    "materials": [
+      "brake.001",
+      "mat"
+    ],
+    "bounds": [
+      [
+        0.4754,
+        -0.9235,
+        0.1325
+      ],
+      [
+        0.5296,
+        -0.8352,
+        0.3605
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "brake.003",
+    "vertices": 3511,
+    "faces": 3432,
+    "materials": [
+      "brake.001",
+      "mat"
+    ],
+    "bounds": [
+      [
+        -0.5308,
+        -0.9235,
+        0.1325
+      ],
+      [
+        -0.4767,
+        -0.8352,
+        0.3605
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "brake.004",
+    "vertices": 8423,
+    "faces": 8060,
+    "materials": [
+      "brake"
+    ],
+    "bounds": [
+      [
+        0.4905,
+        0.7123,
+        0.1207
+      ],
+      [
+        0.5193,
+        0.98,
+        0.3884
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 1,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "brake.005",
+    "vertices": 3511,
+    "faces": 3432,
+    "materials": [
+      "brake.001",
+      "mat"
+    ],
+    "bounds": [
+      [
+        0.4745,
+        0.7075,
+        0.1369
+      ],
+      [
+        0.5305,
+        0.7987,
+        0.3723
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "brake.006",
+    "vertices": 8423,
+    "faces": 8060,
+    "materials": [
+      "brake"
+    ],
+    "bounds": [
+      [
+        -0.5206,
+        0.7123,
+        0.1207
+      ],
+      [
+        -0.4918,
+        0.98,
+        0.3884
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 1,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "brake.007",
+    "vertices": 3511,
+    "faces": 3432,
+    "materials": [
+      "brake.001",
+      "mat"
+    ],
+    "bounds": [
+      [
+        -0.5317,
+        0.7075,
+        0.1369
+      ],
+      [
+        -0.4758,
+        0.7987,
+        0.3723
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "bumper",
+    "vertices": 2677,
+    "faces": 3071,
+    "materials": [
+      "bumper",
+      "hole",
+      "Car Paint "
+    ],
+    "bounds": [
+      [
+        -0.6321,
+        1.1283,
+        0.0907
+      ],
+      [
+        0.6321,
+        1.516,
+        0.3196
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "bumper.002",
+    "vertices": 377,
+    "faces": 207,
+    "materials": [
+      "mat mt"
+    ],
+    "bounds": [
+      [
+        -0.5584,
+        1.2623,
+        0.499
+      ],
+      [
+        0.5584,
+        1.4326,
+        0.6064
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Circle.005",
+    "vertices": 292,
+    "faces": 282,
+    "materials": [
+      "whipper rubber.002"
+    ],
+    "bounds": [
+      [
+        -0.358,
+        -0.5339,
+        0.584
+      ],
+      [
+        -0.3349,
+        -0.5116,
+        0.6151
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 1,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Circle.006",
+    "vertices": 158,
+    "faces": 126,
+    "materials": [
+      "whipper rubber.002"
+    ],
+    "bounds": [
+      [
+        -0.0322,
+        -0.5187,
+        0.6116
+      ],
+      [
+        0.0093,
+        -0.4861,
+        0.6363
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Circle.008",
+    "vertices": 384,
+    "faces": 384,
+    "materials": [
+      "whipper rubber.002"
+    ],
+    "bounds": [
+      [
+        -0.3612,
+        -0.5367,
+        0.5743
+      ],
+      [
+        -0.3302,
+        -0.5046,
+        0.6005
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Circle.036",
+    "vertices": 292,
+    "faces": 282,
+    "materials": [
+      "whipper rubber.002"
+    ],
+    "bounds": [
+      [
+        0.0104,
+        -0.5956,
+        0.5922
+      ],
+      [
+        0.0325,
+        -0.5679,
+        0.6217
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 1,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Circle.037",
+    "vertices": 158,
+    "faces": 126,
+    "materials": [
+      "whipper rubber.002"
+    ],
+    "bounds": [
+      [
+        0.3091,
+        -0.4766,
+        0.6045
+      ],
+      [
+        0.3518,
+        -0.4381,
+        0.6302
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Circle.039",
+    "vertices": 384,
+    "faces": 384,
+    "materials": [
+      "whipper rubber.002"
+    ],
+    "bounds": [
+      [
+        0.0079,
+        -0.5924,
+        0.5823
+      ],
+      [
+        0.0319,
+        -0.5654,
+        0.6077
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cube",
+    "vertices": 24,
+    "faces": 22,
+    "materials": [
+      "mat mt"
+    ],
+    "bounds": [
+      [
+        -0.5304,
+        0.4678,
+        0.6233
+      ],
+      [
+        0.5304,
+        0.5387,
+        0.8084
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "BEVEL",
+        "name": "Bevel",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cube.001",
+    "vertices": 43,
+    "faces": 37,
+    "materials": [
+      "Mat mt.001"
+    ],
+    "bounds": [
+      [
+        0.1649,
+        -0.0381,
+        0.4949
+      ],
+      [
+        0.3634,
+        0.0692,
+        0.6469
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 3,
+        "render_level": 3,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cube.002",
+    "vertices": 46,
+    "faces": 39,
+    "materials": [
+      "Mat mt.001"
+    ],
+    "bounds": [
+      [
+        0.1816,
+        -0.1698,
+        0.4709
+      ],
+      [
+        0.3468,
+        0.0147,
+        0.6414
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 3,
+        "render_level": 3,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cube.003",
+    "vertices": 78,
+    "faces": 65,
+    "materials": [
+      "Mat MT",
+      "metal"
+    ],
+    "bounds": [
+      [
+        -0.0695,
+        -0.0415,
+        0.7074
+      ],
+      [
+        0.0838,
+        -0.0071,
+        0.7647
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cube.004",
+    "vertices": 632,
+    "faces": 630,
+    "materials": [
+      "whipper rubber.002"
+    ],
+    "bounds": [
+      [
+        0.1873,
+        -0.5318,
+        0.5601
+      ],
+      [
+        0.4899,
+        -0.3612,
+        0.6559
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "WEIGHTED_NORMAL",
+        "name": "WeightedNormal",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "LATTICE",
+        "name": "Lattice",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cube.006",
+    "vertices": 304,
+    "faces": 302,
+    "materials": [
+      "whipper rubber.002"
+    ],
+    "bounds": [
+      [
+        -0.3613,
+        -0.5357,
+        0.5959
+      ],
+      [
+        -0.2857,
+        -0.5111,
+        0.6219
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 1,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cube.007",
+    "vertices": 64,
+    "faces": 62,
+    "materials": [
+      "whipper rubber.002"
+    ],
+    "bounds": [
+      [
+        -0.3143,
+        -0.5393,
+        0.5931
+      ],
+      [
+        -0.0119,
+        -0.49,
+        0.6477
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 1,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cube.008",
+    "vertices": 480,
+    "faces": 437,
+    "materials": [
+      "whipper rubber.002"
+    ],
+    "bounds": [
+      [
+        -0.1488,
+        -0.565,
+        0.5669
+      ],
+      [
+        0.1514,
+        -0.4299,
+        0.6699
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 1,
+        "render_level": 2,
+        "visible": true
+      },
+      {
+        "type": "LATTICE",
+        "name": "Lattice",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cube.009",
+    "vertices": 632,
+    "faces": 630,
+    "materials": [
+      "whipper rubber.002"
+    ],
+    "bounds": [
+      [
+        -0.1527,
+        -0.5609,
+        0.5642
+      ],
+      [
+        0.1553,
+        -0.428,
+        0.6644
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "WEIGHTED_NORMAL",
+        "name": "WeightedNormal",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "LATTICE",
+        "name": "Lattice",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cube.019",
+    "vertices": 304,
+    "faces": 302,
+    "materials": [
+      "whipper rubber.002"
+    ],
+    "bounds": [
+      [
+        0.0056,
+        -0.599,
+        0.6033
+      ],
+      [
+        0.0809,
+        -0.5527,
+        0.627
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 1,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cube.020",
+    "vertices": 64,
+    "faces": 62,
+    "materials": [
+      "whipper rubber.002"
+    ],
+    "bounds": [
+      [
+        0.049,
+        -0.5866,
+        0.5981
+      ],
+      [
+        0.3366,
+        -0.4461,
+        0.6423
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 1,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cube.021",
+    "vertices": 480,
+    "faces": 437,
+    "materials": [
+      "whipper rubber.002"
+    ],
+    "bounds": [
+      [
+        0.1915,
+        -0.5354,
+        0.5622
+      ],
+      [
+        0.4875,
+        -0.3642,
+        0.6613
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 1,
+        "render_level": 2,
+        "visible": true
+      },
+      {
+        "type": "LATTICE",
+        "name": "Lattice",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Curve.001",
+    "vertices": 2750,
+    "faces": 4101,
+    "materials": [
+      "chrome"
+    ],
+    "bounds": [
+      [
+        -0.0664,
+        1.1659,
+        0.6734
+      ],
+      [
+        0.0675,
+        1.1966,
+        0.6892
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cylinder",
+    "vertices": 64,
+    "faces": 34,
+    "materials": [
+      "Mat MT"
+    ],
+    "bounds": [
+      [
+        0.002,
+        -0.0364,
+        0.7415
+      ],
+      [
+        0.0123,
+        -0.0092,
+        0.7793
+      ]
+    ],
+    "modifiers": []
+  },
+  {
+    "name": "Cylinder.001",
+    "vertices": 258,
+    "faces": 256,
+    "materials": [
+      "glass"
+    ],
+    "bounds": [
+      [
+        -0.4178,
+        1.3677,
+        0.5219
+      ],
+      [
+        0.4178,
+        1.4165,
+        0.6052
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "BEVEL",
+        "name": "Bevel",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cylinder.002",
+    "vertices": 256,
+    "faces": 225,
+    "materials": [
+      "glossy black.001",
+      "taillight"
+    ],
+    "bounds": [
+      [
+        -0.4328,
+        1.3208,
+        0.5088
+      ],
+      [
+        0.4328,
+        1.4117,
+        0.6179
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "BEVEL",
+        "name": "Bevel",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cylinder.003",
+    "vertices": 160,
+    "faces": 128,
+    "materials": [
+      "glass"
+    ],
+    "bounds": [
+      [
+        -0.4267,
+        1.3097,
+        0.5132
+      ],
+      [
+        0.4267,
+        1.4211,
+        0.6135
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "BEVEL",
+        "name": "Bevel",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cylinder.004",
+    "vertices": 258,
+    "faces": 256,
+    "materials": [
+      "glass"
+    ],
+    "bounds": [
+      [
+        -0.5233,
+        1.3194,
+        0.515
+      ],
+      [
+        0.5233,
+        1.366,
+        0.5987
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "BEVEL",
+        "name": "Bevel",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cylinder.005",
+    "vertices": 256,
+    "faces": 225,
+    "materials": [
+      "glossy black.001",
+      "taillight"
+    ],
+    "bounds": [
+      [
+        -0.5377,
+        1.2713,
+        0.5018
+      ],
+      [
+        0.5377,
+        1.3621,
+        0.611
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "BEVEL",
+        "name": "Bevel",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cylinder.006",
+    "vertices": 160,
+    "faces": 128,
+    "materials": [
+      "glass"
+    ],
+    "bounds": [
+      [
+        -0.5316,
+        1.2601,
+        0.5062
+      ],
+      [
+        0.5316,
+        1.3716,
+        0.6066
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "BEVEL",
+        "name": "Bevel",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cylinder.007",
+    "vertices": 200,
+    "faces": 177,
+    "materials": [
+      "whipper rubber.002"
+    ],
+    "bounds": [
+      [
+        0.3336,
+        -0.4616,
+        0.6079
+      ],
+      [
+        0.3473,
+        -0.444,
+        0.622
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cylinder.008",
+    "vertices": 200,
+    "faces": 177,
+    "materials": [
+      "whipper rubber.002"
+    ],
+    "bounds": [
+      [
+        0.0164,
+        -0.5917,
+        0.605
+      ],
+      [
+        0.0269,
+        -0.5757,
+        0.6188
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cylinder.009",
+    "vertices": 200,
+    "faces": 177,
+    "materials": [
+      "shiny metal.002"
+    ],
+    "bounds": [
+      [
+        -0.0068,
+        -0.5088,
+        0.6148
+      ],
+      [
+        0.0036,
+        -0.4912,
+        0.6276
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Cylinder.010",
+    "vertices": 200,
+    "faces": 177,
+    "materials": [
+      "whipper rubber.002"
+    ],
+    "bounds": [
+      [
+        -0.3496,
+        -0.5325,
+        0.5983
+      ],
+      [
+        -0.3432,
+        -0.5159,
+        0.6111
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "dashboard",
+    "vertices": 265,
+    "faces": 236,
+    "materials": [
+      "Mat mt.001"
+    ],
+    "bounds": [
+      [
+        -0.5905,
+        -0.5592,
+        0.1517
+      ],
+      [
+        0.5843,
+        0.2269,
+        0.683
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "door",
+    "vertices": 172,
+    "faces": 138,
+    "materials": [
+      "Car Paint "
+    ],
+    "bounds": [
+      [
+        -0.6654,
+        -0.3415,
+        0.1502
+      ],
+      [
+        0.6654,
+        0.5392,
+        0.6305
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 3,
+        "render_level": 3,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "door.001",
+    "vertices": 82,
+    "faces": 62,
+    "materials": [
+      "mat mt"
+    ],
+    "bounds": [
+      [
+        -0.6549,
+        -0.7075,
+        0.1059
+      ],
+      [
+        0.6549,
+        0.579,
+        0.1651
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 3,
+        "render_level": 3,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "door.002",
+    "vertices": 338,
+    "faces": 298,
+    "materials": [
+      "mat mt"
+    ],
+    "bounds": [
+      [
+        -0.5792,
+        -0.5217,
+        0.1901
+      ],
+      [
+        0.5792,
+        1.3292,
+        0.7374
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 3,
+        "render_level": 3,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "door.003",
+    "vertices": 16,
+    "faces": 9,
+    "materials": [
+      "body"
+    ],
+    "bounds": [
+      [
+        -0.6323,
+        0.4285,
+        0.5037
+      ],
+      [
+        0.6323,
+        0.4902,
+        0.5533
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 3,
+        "render_level": 3,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "exhaust",
+    "vertices": 512,
+    "faces": 514,
+    "materials": [
+      "chrome",
+      "mat mt.001"
+    ],
+    "bounds": [
+      [
+        -0.526,
+        1.3102,
+        0.1885
+      ],
+      [
+        0.526,
+        1.4537,
+        0.2595
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "front grill",
+    "vertices": 202,
+    "faces": 240,
+    "materials": [
+      "glossy black"
+    ],
+    "bounds": [
+      [
+        -0.5282,
+        -1.5504,
+        0.1216
+      ],
+      [
+        0.5282,
+        -1.3695,
+        0.304
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "glass",
+    "vertices": 18,
+    "faces": 6,
+    "materials": [
+      "glass.001"
+    ],
+    "bounds": [
+      [
+        -0.2929,
+        0.6395,
+        0.6741
+      ],
+      [
+        0.2929,
+        1.2107,
+        0.8226
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "glass.001",
+    "vertices": 8,
+    "faces": 1,
+    "materials": [
+      "body"
+    ],
+    "bounds": [
+      [
+        -0.2697,
+        1.2092,
+        0.66
+      ],
+      [
+        0.2697,
+        1.3057,
+        0.6791
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "glass.002",
+    "vertices": 22,
+    "faces": 10,
+    "materials": [
+      "mat mt"
+    ],
+    "bounds": [
+      [
+        -0.2929,
+        0.6397,
+        0.6705
+      ],
+      [
+        0.2929,
+        1.2107,
+        0.82
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "hedlight",
+    "vertices": 3057,
+    "faces": 2903,
+    "materials": [
+      "mat mt.002",
+      "glass",
+      "chrome"
+    ],
+    "bounds": [
+      [
+        -0.5835,
+        -1.5264,
+        0.3176
+      ],
+      [
+        0.5835,
+        -1.1402,
+        0.5359
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "hedlight.001",
+    "vertices": 68,
+    "faces": 47,
+    "materials": [
+      "glass"
+    ],
+    "bounds": [
+      [
+        -0.5808,
+        -1.5254,
+        0.3485
+      ],
+      [
+        0.5808,
+        -1.1398,
+        0.5359
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "hedlight.002",
+    "vertices": 236,
+    "faces": 228,
+    "materials": [
+      "mat mt",
+      "glass",
+      "chrome"
+    ],
+    "bounds": [
+      [
+        -0.5727,
+        -1.5131,
+        0.3482
+      ],
+      [
+        0.5727,
+        -1.1446,
+        0.5233
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "hole",
+    "vertices": 44,
+    "faces": 40,
+    "materials": [
+      "hole"
+    ],
+    "bounds": [
+      [
+        -0.5841,
+        1.0924,
+        0.6054
+      ],
+      [
+        0.5841,
+        1.2118,
+        0.654
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "holr",
+    "vertices": 34,
+    "faces": 22,
+    "materials": [
+      "hole"
+    ],
+    "bounds": [
+      [
+        -0.5549,
+        0.691,
+        0.6201
+      ],
+      [
+        0.5549,
+        0.8433,
+        0.7114
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "logo",
+    "vertices": 990,
+    "faces": 1034,
+    "materials": [
+      "chrome"
+    ],
+    "bounds": [
+      [
+        -0.0373,
+        -1.5912,
+        0.1897
+      ],
+      [
+        0.0247,
+        -1.5023,
+        0.2763
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "logo.001",
+    "vertices": 990,
+    "faces": 1034,
+    "materials": [
+      "chrome"
+    ],
+    "bounds": [
+      [
+        -0.0277,
+        1.451,
+        0.5241
+      ],
+      [
+        0.0216,
+        1.4893,
+        0.5844
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "logo.002",
+    "vertices": 990,
+    "faces": 1034,
+    "materials": [
+      "chrome"
+    ],
+    "bounds": [
+      [
+        0.575,
+        0.8332,
+        0.2307
+      ],
+      [
+        0.608,
+        0.8586,
+        0.2676
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "logo.003",
+    "vertices": 990,
+    "faces": 1034,
+    "materials": [
+      "chrome"
+    ],
+    "bounds": [
+      [
+        0.5772,
+        -0.9829,
+        0.226
+      ],
+      [
+        0.6102,
+        -0.9575,
+        0.2629
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "logo.004",
+    "vertices": 990,
+    "faces": 1034,
+    "materials": [
+      "chrome"
+    ],
+    "bounds": [
+      [
+        -0.6137,
+        0.8332,
+        0.2307
+      ],
+      [
+        -0.5807,
+        0.8586,
+        0.2676
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "logo.005",
+    "vertices": 990,
+    "faces": 1034,
+    "materials": [
+      "chrome"
+    ],
+    "bounds": [
+      [
+        -0.6116,
+        -0.9829,
+        0.226
+      ],
+      [
+        -0.5786,
+        -0.9575,
+        0.2629
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "mirror",
+    "vertices": 1522,
+    "faces": 1607,
+    "materials": [
+      "Car Paint ",
+      "glossy black",
+      "chrome"
+    ],
+    "bounds": [
+      [
+        -0.7081,
+        -0.2172,
+        0.595
+      ],
+      [
+        0.7081,
+        -0.0102,
+        0.6959
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane",
+    "vertices": 406,
+    "faces": 333,
+    "materials": [
+      "Car Paint "
+    ],
+    "bounds": [
+      [
+        -0.6586,
+        -1.5978,
+        0.1178
+      ],
+      [
+        0.6586,
+        -1.1234,
+        0.4854
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 3,
+        "render_level": 3,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.001",
+    "vertices": 39,
+    "faces": 18,
+    "materials": [
+      "Car Paint "
+    ],
+    "bounds": [
+      [
+        -0.4951,
+        -1.5251,
+        0.3464
+      ],
+      [
+        0.4951,
+        -1.2022,
+        0.5251
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 3,
+        "render_level": 3,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.002",
+    "vertices": 26,
+    "faces": 18,
+    "materials": [
+      "hole"
+    ],
+    "bounds": [
+      [
+        -0.4889,
+        -1.3354,
+        0.4434
+      ],
+      [
+        0.4889,
+        -1.2035,
+        0.5206
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 3,
+        "render_level": 3,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.003",
+    "vertices": 149,
+    "faces": 120,
+    "materials": [
+      "Car Paint "
+    ],
+    "bounds": [
+      [
+        -0.6558,
+        -0.7074,
+        0.1307
+      ],
+      [
+        0.6558,
+        -0.3214,
+        0.4132
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 3,
+        "render_level": 3,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.004",
+    "vertices": 14,
+    "faces": 3,
+    "materials": [
+      "hole"
+    ],
+    "bounds": [
+      [
+        -0.4801,
+        -1.0121,
+        0.5573
+      ],
+      [
+        0.4801,
+        -0.8091,
+        0.5708
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 3,
+        "render_level": 3,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.005",
+    "vertices": 9609,
+    "faces": 6816,
+    "materials": [
+      "glossy black.001"
+    ],
+    "bounds": [
+      [
+        -0.5161,
+        -1.5757,
+        0.1547
+      ],
+      [
+        0.5379,
+        -1.3238,
+        0.3159
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.006",
+    "vertices": 13,
+    "faces": 4,
+    "materials": [
+      "logo.001"
+    ],
+    "bounds": [
+      [
+        -0.0118,
+        -1.558,
+        0.3526
+      ],
+      [
+        0.0118,
+        -1.5275,
+        0.3791
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 3,
+        "render_level": 3,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.007",
+    "vertices": 192,
+    "faces": 156,
+    "materials": [
+      "Car Paint "
+    ],
+    "bounds": [
+      [
+        -0.5491,
+        -1.4796,
+        0.4142
+      ],
+      [
+        0.5491,
+        -0.4066,
+        0.6031
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 3,
+        "render_level": 3,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.008",
+    "vertices": 259,
+    "faces": 259,
+    "materials": [
+      "rubber"
+    ],
+    "bounds": [
+      [
+        -0.5799,
+        -0.2953,
+        0.5805
+      ],
+      [
+        0.5799,
+        0.7866,
+        0.8187
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      },
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.009",
+    "vertices": 27,
+    "faces": 12,
+    "materials": [
+      "glass.001"
+    ],
+    "bounds": [
+      [
+        -0.5721,
+        -0.2593,
+        0.5953
+      ],
+      [
+        0.5721,
+        0.4985,
+        0.8056
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.010",
+    "vertices": 13,
+    "faces": 5,
+    "materials": [
+      "glass.001"
+    ],
+    "bounds": [
+      [
+        -0.5293,
+        0.4684,
+        0.6313
+      ],
+      [
+        0.5293,
+        0.7367,
+        0.7906
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.011",
+    "vertices": 16,
+    "faces": 1,
+    "materials": [
+      "hole"
+    ],
+    "bounds": [
+      [
+        -0.5592,
+        -1.376,
+        0.1675
+      ],
+      [
+        0.5592,
+        -1.3297,
+        0.2869
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.012",
+    "vertices": 58752,
+    "faces": 61574,
+    "materials": [
+      "Front Tire",
+      "Front Tire.001"
+    ],
+    "bounds": [
+      [
+        0.4498,
+        -1.2142,
+        -0.0002
+      ],
+      [
+        0.666,
+        -0.7261,
+        0.488
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "WEIGHTED_NORMAL",
+        "name": "WeightedNormal",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.013",
+    "vertices": 58752,
+    "faces": 61574,
+    "materials": [
+      "Front Tire",
+      "Front Tire.001"
+    ],
+    "bounds": [
+      [
+        -0.6673,
+        -1.2142,
+        -0.0002
+      ],
+      [
+        -0.451,
+        -0.7261,
+        0.488
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "WEIGHTED_NORMAL",
+        "name": "WeightedNormal",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.014",
+    "vertices": 58752,
+    "faces": 61574,
+    "materials": [
+      "Front Tire",
+      "Front Tire.001"
+    ],
+    "bounds": [
+      [
+        0.4463,
+        0.5948,
+        -0.0
+      ],
+      [
+        0.6696,
+        1.0988,
+        0.504
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "WEIGHTED_NORMAL",
+        "name": "WeightedNormal",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.015",
+    "vertices": 58752,
+    "faces": 61574,
+    "materials": [
+      "Front Tire",
+      "Front Tire.001"
+    ],
+    "bounds": [
+      [
+        -0.6708,
+        0.5948,
+        -0.0
+      ],
+      [
+        -0.4475,
+        1.0988,
+        0.504
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "WEIGHTED_NORMAL",
+        "name": "WeightedNormal",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.016",
+    "vertices": 22,
+    "faces": 1,
+    "materials": [
+      "mat mt"
+    ],
+    "bounds": [
+      [
+        -0.5035,
+        -1.4582,
+        0.1318
+      ],
+      [
+        0.5035,
+        -1.3009,
+        0.3105
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.017",
+    "vertices": 352,
+    "faces": 322,
+    "materials": [
+      "white.007",
+      "glossy black.004"
+    ],
+    "bounds": [
+      [
+        -0.163,
+        1.4734,
+        0.3563
+      ],
+      [
+        0.1588,
+        1.5128,
+        0.4546
+      ]
+    ],
+    "modifiers": []
+  },
+  {
+    "name": "Plane.018",
+    "vertices": 38,
+    "faces": 21,
+    "materials": [
+      "Mat mt.001"
+    ],
+    "bounds": [
+      [
+        -0.5288,
+        0.4645,
+        0.6275
+      ],
+      [
+        0.5288,
+        0.7446,
+        0.7938
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.019",
+    "vertices": 14,
+    "faces": 8,
+    "materials": [
+      "rubber"
+    ],
+    "bounds": [
+      [
+        -0.5672,
+        -0.2576,
+        0.5946
+      ],
+      [
+        0.5672,
+        -0.138,
+        0.6672
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.020",
+    "vertices": 98,
+    "faces": 94,
+    "materials": [
+      "glossy black.001"
+    ],
+    "bounds": [
+      [
+        -0.6506,
+        -1.5605,
+        0.0862
+      ],
+      [
+        0.6506,
+        -1.2426,
+        0.1283
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "Plane.021",
+    "vertices": 14,
+    "faces": 1,
+    "materials": [
+      "hole"
+    ],
+    "bounds": [
+      [
+        -0.6495,
+        -0.6998,
+        0.1867
+      ],
+      [
+        0.6495,
+        -0.6881,
+        0.4112
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "rim.001",
+    "vertices": 5356,
+    "faces": 3799,
+    "materials": [
+      "glossy black.003"
+    ],
+    "bounds": [
+      [
+        -0.6638,
+        -1.1928,
+        0.0213
+      ],
+      [
+        -0.4885,
+        -0.7471,
+        0.467
+      ]
+    ],
+    "modifiers": []
+  },
+  {
+    "name": "rim.002",
+    "vertices": 5356,
+    "faces": 3799,
+    "materials": [
+      "glossy black.003"
+    ],
+    "bounds": [
+      [
+        0.4815,
+        0.6165,
+        0.0221
+      ],
+      [
+        0.6626,
+        1.0767,
+        0.4823
+      ]
+    ],
+    "modifiers": []
+  },
+  {
+    "name": "rim.003",
+    "vertices": 5356,
+    "faces": 3799,
+    "materials": [
+      "glossy black.003"
+    ],
+    "bounds": [
+      [
+        0.4873,
+        -1.1928,
+        0.0213
+      ],
+      [
+        0.6626,
+        -0.7471,
+        0.467
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "BEVEL",
+        "name": "Bevel",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "rim.004",
+    "vertices": 5356,
+    "faces": 3799,
+    "materials": [
+      "glossy black.003"
+    ],
+    "bounds": [
+      [
+        -0.6638,
+        0.6165,
+        0.0221
+      ],
+      [
+        -0.4828,
+        1.0767,
+        0.4823
+      ]
+    ],
+    "modifiers": []
+  },
+  {
+    "name": "roof",
+    "vertices": 14,
+    "faces": 1,
+    "materials": [
+      "glossy black"
+    ],
+    "bounds": [
+      [
+        -0.212,
+        0.5593,
+        0.8143
+      ],
+      [
+        0.212,
+        0.6399,
+        0.8445
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "side",
+    "vertices": 338,
+    "faces": 275,
+    "materials": [
+      "Car Paint "
+    ],
+    "bounds": [
+      [
+        -0.6591,
+        -1.2254,
+        0.1798
+      ],
+      [
+        0.6591,
+        -0.2892,
+        0.594
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 3,
+        "render_level": 3,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "side.001",
+    "vertices": 60,
+    "faces": 46,
+    "materials": [
+      "glass.001"
+    ],
+    "bounds": [
+      [
+        -0.5424,
+        -0.5289,
+        0.5692
+      ],
+      [
+        0.5424,
+        0.0834,
+        0.8331
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "side.003",
+    "vertices": 22,
+    "faces": 10,
+    "materials": [
+      "mat mt"
+    ],
+    "bounds": [
+      [
+        -0.5258,
+        -0.6086,
+        0.5799
+      ],
+      [
+        0.5258,
+        -0.4029,
+        0.5962
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      },
+      {
+        "type": "SOLIDIFY",
+        "name": "Solidify",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "side.004",
+    "vertices": 38,
+    "faces": 18,
+    "materials": [
+      "Mat mt.001"
+    ],
+    "bounds": [
+      [
+        -0.5428,
+        -0.5295,
+        0.5716
+      ],
+      [
+        0.5428,
+        0.0873,
+        0.8357
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "MIRROR",
+        "name": "Mirror",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      },
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      },
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "side.005",
+    "vertices": 92,
+    "faces": 50,
+    "materials": [
+      "lgo"
+    ],
+    "bounds": [
+      [
+        -0.6298,
+        -0.4791,
+        0.4463
+      ],
+      [
+        0.6298,
+        -0.4238,
+        0.5107
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "NODES",
+        "name": "Auto Smooth",
+        "level": null,
+        "render_level": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "sit",
+    "vertices": 12953,
+    "faces": 12544,
+    "materials": [
+      "Mat mt.001"
+    ],
+    "bounds": [
+      [
+        -0.5245,
+        -0.1644,
+        0.1711
+      ],
+      [
+        0.5073,
+        0.4428,
+        0.8501
+      ]
+    ],
+    "modifiers": []
+  },
+  {
+    "name": "steer",
+    "vertices": 257,
+    "faces": 256,
+    "materials": [
+      "Mat mt.001"
+    ],
+    "bounds": [
+      [
+        0.1472,
+        -0.472,
+        0.4989
+      ],
+      [
+        0.3813,
+        0.053,
+        0.7116
+      ]
+    ],
+    "modifiers": [
+      {
+        "type": "SUBSURF",
+        "name": "Subdivision",
+        "level": 2,
+        "render_level": 2,
+        "visible": true
+      }
+    ]
+  }
+]

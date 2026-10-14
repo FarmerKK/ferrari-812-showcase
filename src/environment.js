@@ -102,12 +102,12 @@ export function createEnvironment(scene,renderer) {
   function setMode(mode){
     const p=environmentPresets[mode];if(!p)return;current=mode;
     const inStudio=mode==='studio';circuit.visible=!inStudio;studio.visible=inStudio;sky.visible=!inStudio;scene.background=new THREE.Color(p.sky);scene.fog=new THREE.FogExp2(p.fog,inStudio?.013:mode==='night'?.009:.0029);
-    sun.position.set(...p.sun);sun.color.set(mode==='sunset'?'#ffddae':mode==='night'?'#a8c5f4':'#f6f3e7');sun.intensity=p.intensity;hemisphere.intensity=p.ambient;fill.intensity=mode==='night'?1.1:inStudio?2.0:1.0;rim.intensity=inStudio?3:mode==='night'?1.8:1.4;
+    sun.position.set(...p.sun);sun.color.set(mode==='sunset'?'#ffddae':mode==='night'?'#a8c5f4':'#f6f3e7');sun.intensity=p.intensity;hemisphere.intensity=inStudio?.65:p.ambient;fill.intensity=mode==='night'?1.1:inStudio?.8:1.0;rim.intensity=inStudio?1.8:mode==='night'?1.8:1.4;
     renderer.toneMappingExposure=p.exposure;
     floodlights.forEach(l=>{l.intensity=mode==='night'?80:0;});
     const uniforms=sky.material.uniforms;uniforms.turbidity.value=mode==='sunset'?5:2;uniforms.rayleigh.value=mode==='sunset'?1.4:2;uniforms.mieCoefficient.value=.004;uniforms.mieDirectionalG.value=.8;uniforms.sunPosition.value.copy(sun.position).normalize();
     if(skyRT){skyRT.dispose();skyRT=null;}
-    if(inStudio||mode==='night'){scene.environment=roomRT.texture;scene.environmentIntensity=inStudio?1.15:.65;}
+    if(inStudio||mode==='night'){scene.environment=roomRT.texture;scene.environmentIntensity=inStudio?.58:.65;}
     else{skyRT=pmrem.fromScene(sky,.04);scene.environment=skyRT.texture;scene.environmentIntensity=mode==='sunset'?.24:.55;}
   }
   setMode(current);

@@ -1,8 +1,8 @@
 # 812 Superfast · Interactive Atelier
 
-เว็บไซต์ Three.js ที่หมุน/ซูมรถจริงใน 3D, ปรับสีและวัสดุ, เลือกและถอดประกอบ 57 กลุ่มชิ้นส่วน และเปลี่ยนฉากสนามแข่งได้
+เว็บไซต์ Three.js สำหรับหมุน/ซูม Ferrari 812 ใน 3D ปรับแต่งวัสดุ สำรวจ 53 กลุ่มชิ้นส่วน และเปลี่ยนฉากสนามแข่ง
 
-**โมเดลเป็น procedural approximation จากภาพอ้างอิง ไม่ใช่ CAD หรือโมเดล Ferrari อย่างเป็นทางการ และยังไม่ถึงระดับ photorealistic automotive CGI**
+ตัวถังใช้โมเดลที่สร้างโดย **Jayrenn Reeve** เผยแพร่เป็น **CC0** บน [BlenderKit](https://www.blenderkit.com/asset-gallery-detail/22191abd-fa78-43e9-81fe-6cded0d53483/). ทรงฝากระโปรง ซุ้มล้อ หลังคา และร่องเว้าประตูมาจากโมเดลนี้ ล้อปรับตามภาพอ้างอิง ส่วนเครื่องยนต์และช่วงล่างเพิ่มเติมเป็นภาพจำลอง ไม่มีข้อมูล CAD ของ Ferrari
 
 ## เปิดใช้งาน
 
@@ -14,76 +14,59 @@ npm install
 npm run dev
 ```
 
-เปิด URL ที่ Vite แสดง เช่น `http://127.0.0.1:5173/`
-
 ```powershell
 npm run build
-npm run preview
+npm run preview -- --port 5173
 ```
 
-ไฟล์ deploy อยู่ใน `dist/` และโฮสต์บน static hosting ได้โดยไม่ต้องมี backend หรือ API key หน้าเริ่มต้นสร้างโมเดลจาก source โดยตรง ไม่ดาวน์โหลด GLB 13 MB ระหว่างโหลดครั้งแรก
+ไฟล์ static อยู่ใน `dist/`. หน้าเริ่มต้นโหลดโมเดล Draco ประมาณ 3.7 MB พร้อม decoder ภายในเว็บ ไม่ต้องมี backend หรือ API key
 
-## วิธีสำรวจ
+## การใช้งาน
 
-- ลากเมาส์/นิ้วเพื่อ orbit, scroll หรือ pinch เพื่อ zoom; กล้องมี damping
-- คลิกตัวรถเพื่อเลือกและ highlight ชิ้นส่วน หรือค้นจาก Parts explorer
-- Detach / Reassemble ใช้ตำแหน่งเดิมที่บันทึกไว้; Exploded view / Assemble ใช้ครบ 57 กลุ่ม
-- แผง Paint, Wheels, Brakes, Exterior, Interior, Lights เปลี่ยนวัสดุหรือ geometry ของรถจริง
-- Camera มี orbit, front, rear, left, right, top, interior, wheel, engine และ cinematic
-- Mechanics เปิดประตูพร้อมกระจกและกระจกข้าง, เปิดฝากระโปรง, หมุนล้อ และปรับพวงมาลัย
-- Environment เลือก Daylight, Golden hour, Night racing หรือ Cinematic studio
-- Save configuration / Load saved / Reset เก็บ preset บน browser เดิมด้วย LocalStorage
-- Capture PNG บันทึก canvas render; About this reconstruction → Export model ส่งออก GLB ของ configuration ปัจจุบันในสภาพประกอบแล้ว
-- เมื่อ viewport ได้ keyboard focus: ลูกศรซ้าย/ขวาหมุน, ลูกศรขึ้น/ลงหรือ +/- ซูม, R reset camera, E explode, A assemble
+- ลากเพื่อ orbit; scroll/pinch เพื่อ zoom; คลิกรถหรือค้นใน Parts explorer เพื่อเลือกชิ้นส่วน
+- Detach/Reassemble และ Exploded view/Assemble คืนตำแหน่งและการหมุนเดิมของ 53 กลุ่ม
+- Paint, Wheels, Brakes, Exterior, Interior และ Lights เปลี่ยนวัสดุ/geometry จริง
+- Mechanics เปิดประตูพร้อมกระจกและกระจกข้าง เปิดฝากระโปรง หมุนล้อ และปรับพวงมาลัย
+- กล้องมี 10 มุม รวม cockpit, engine และ cinematic; แสงมี daylight, sunset, night และ studio
+- Save/Load/Reset เก็บ configuration ใน LocalStorage; Capture PNG บันทึก render
+- About this reconstruction → Export model ส่งออก GLB ของ configuration ปัจจุบันในสภาพประกอบ
+- เมื่อ canvas มี keyboard focus: ลูกศรหมุน/ซูม, +/- ซูม, R reset camera, E explode, A assemble
 
-## ไฟล์สำคัญ
+## Source และโมเดล
 
 | ไฟล์ | หน้าที่ |
 | --- | --- |
-| `src/car.js` | Procedural surfaces, wheel arches, 57 part groups, PBR materials และ configurator binding |
-| `src/environment.js` | สนาม 3D, pit buildings, grandstands, barriers, sky, PMREM environment และแสง |
-| `src/main.js` | Interaction, raycasting, GSAP animation, cameras, presets, export/import, render loop |
-| `src/style.css` | Responsive luxury configurator UI |
-| `public/models/812-procedural-reconstruction.glb` | โมเดล assembled ที่ส่งออกจริงจากเว็บ |
-| `docs/IMAGE_ANALYSIS.md` | วิเคราะห์ภาพ, ข้อมูลที่ยืนยันได้ และสิ่งที่ประมาณ |
-| `docs/MODEL_PIPELINE.md` | เหตุผลเลือก procedural และวิธีเปลี่ยนโมเดล |
-| `docs/TEST_RESULTS.md` | ผลทดสอบและข้อจำกัด |
-| `docs/model-inspection.json` | ผลตรวจ GLB ด้วย Blender 4.5.3 |
-| `qa/acceptance.cjs` | Browser acceptance checks สำหรับ Playwright CLI |
-| `tools/inspect_model.py` | Script ตรวจโมเดลผ่าน Blender background |
+| `src/detailed-car.js` | โหลดตัวถัง CC0, จัด 53 กลุ่ม, ผูกวัสดุและชุดล้อ |
+| `src/car.js` | วัสดุ ล้อ และเครื่องยนต์/ช่วงล่างจำลองที่ใช้ประกอบ |
+| `src/main.js` | Interaction, animation, cameras, presets และ export/import |
+| `src/environment.js` | สนามสมมุติ แสง PMREM sky และ contact shadows |
+| `public/models/812-superfast-detailed.glb` | ตัวถัง CC0 ที่แปลงและบีบอัดสำหรับโหลดหน้าเว็บ |
+| `public/models/812-superfast-atelier.glb` | โมเดลประกอบที่ส่งออกจากเว็บ พร้อมล้อและชิ้นส่วนเพิ่มเติม |
+| `tools/prepare_detailed_model.py` | แปลงต้นฉบับ Blender เป็น semantic GLB |
+| `assets/source/blenderkit-metadata.json` | Metadata ผู้สร้างและสิทธิ์จาก public API |
+| `docs/MODEL_PIPELINE.md` | ขั้นตอนประมวลผลและข้อจำกัด |
+| `docs/THIRD_PARTY.md` | ที่มาและสิทธิ์ใช้งาน |
+| `docs/TEST_RESULTS.md` | ผลทดสอบโมเดลรุ่นปัจจุบัน |
 
-## เพิ่มโมเดลคุณภาพสูง
+ไฟล์ต้นฉบับ `assets/source/ferrari-812-cc0.blend` อยู่ใน workspace และไม่รวมใน Git; ดาวน์โหลดซ้ำได้จากรายการของผู้สร้าง กระบวนการ Blender เปิดไฟล์ด้วย `use_scripts=False` และ `--disable-autoexec`
 
-About this reconstruction → Import GLB รองรับไฟล์ self-contained GLB ไม่เกิน 100 MB และ Draco decoder แบบ lazy-loaded ใช้ไฟล์ที่มีสิทธิ์ใช้งานเท่านั้น
+## การทดสอบ
 
-Importer อ่าน `userData.partId` หรือ semantic mesh names เช่น `hood`, `left_door`, `right_door`, `front_bumper`, `roof`, `engine`, `dashboard`, `steering_wheel` โดยไม่ตัด mesh แบบสุ่ม วัตถุที่ไม่มีขอบเขตชัดเจนจะเก็บไว้ intact การปรับแต่งและกลไกของ GLB ภายนอกขึ้นกับโครงสร้างและวัสดุของไฟล์ ต้องมีการ mapping เพิ่มสำหรับงาน production ไม่ใช่ auto-segmentation ที่รับประกันความแม่นยำ
-
-โมเดลเดิมกลับมาเมื่อ reload หน้าเว็บ Credentials สำหรับ image-to-3D ควรอยู่ใน server environment เท่านั้น; `.env.example` แสดงชื่อที่ใช้ได้โดยไม่มี secret ไม่มีคีย์หรือบริการที่มีค่าใช้จ่ายถูกใช้ในงานนี้
-
-## Performance และ rendering
-
-ACES tone mapping, clearcoat/iridescence, procedural carbon texture, PMREM reflections, soft shadow maps, subtle bloom, contact-occlusion texture, MSAA และ adaptive DPR สนามใช้ instancing สำหรับที่นั่ง, kerbs, shutters และ barriers; ลายยางและรูจานเบรกใช้ instancing เช่นกัน Exporter/GLTFLoader/Draco โหลดเมื่อใช้งาน
-
-Adaptive quality ลด DPR และข้าม bloom เมื่อ FPS ต่ำ ภาพและ performance ขึ้นกับ GPU/browser; 60 FPS เป็นเป้าหมาย ไม่ใช่การรับประกันทุกอุปกรณ์ ไม่มี external HDRI, SSAO/GTAO, KTX2 หรือ texture compression pipeline ในต้นแบบนี้
-
-## ทดสอบซ้ำ
-
-เปิด production preview ก่อน แล้วใช้ Playwright CLI:
+เปิด production preview แล้วใช้ Playwright CLI:
 
 ```powershell
-npx --yes --package @playwright/cli playwright-cli -s=atelier open http://127.0.0.1:4173 --headed
-npx --yes --package @playwright/cli playwright-cli -s=atelier run-code --filename qa/acceptance.cjs
+npx --yes --package @playwright/cli playwright-cli -s=atelier open http://127.0.0.1:5173
+npx --yes --package @playwright/cli playwright-cli -s=atelier run-code --filename qa/detailed-acceptance.cjs
 ```
 
-Script ใช้หน้าปัจจุบันและสร้างภาพ/ไฟล์ใน `output/playwright/` ตรวจสี วัสดุ กล้อง transform restoration, animation, save/load, PNG/GLB และ mobile layout โดยไม่มี test framework เพิ่ม
+รุ่นปัจจุบันผ่าน 50 assertions และไม่มี JavaScript runtime errors ภาพและไฟล์อยู่ใน `output/playwright/`. Scripts `qa/acceptance.cjs` และ `qa/final-smoke.cjs` เป็นการทดสอบรุ่น procedural เก่า ใช้ detailed-acceptance สำหรับรุ่นปัจจุบัน
 
-## ข้อจำกัดหลัก
+## ข้อจำกัด
 
-- รูปทรงภายนอกและอุปกรณ์ภายในเป็นการประมาณจากภาพ; ไม่มีการวัด hidden geometry, suspension kinematics หรือ engineering interfaces
-- ตัวถังมีลักษณะ procedural อยู่ และไม่เท่ากับ licensed high-detail 812 GLB
-- Aero packages และเครื่องยนต์ภายในเป็น visualization; ไม่ได้จำลอง CFD หรือกลไกรถจริง
-- สนามแข่งเป็นสนามสมมุติ ไม่ใช่สนามจริงที่ scan มา
-- Mobile ตรวจใน desktop Chromium viewport และ pointer emulation; ยังไม่ทดสอบบน physical phone
-- Importer ไม่รับประกันการปรับแต่งทุกส่วนสำหรับ GLB ที่ไม่รู้จัก
+ตัวถังเป็นงานของศิลปิน มีความโค้งและรายละเอียดจริง แต่ไม่มีการรับรองมิติทางวิศวกรรม หลังคาและแก้มหลังต่อเนื่องเก็บเป็นกลุ่มเดียวเพื่อรักษาผิว เครื่องยนต์ ช่วงล่าง และ aero packages เป็น visualization สนามสมมุติ ไม่มี CFD หรือ suspension solver
 
-ข้อมูลรถ: [Ferrari official launch specification](https://www.ferrari.com/en-US/corporate/articles/the-ferrari-812-superfast-the-new-extreme-performance-v12-berlinetta). การใช้งานนี้เป็น independent reference-inspired showcase.
+Rendering ใช้ ACES, clearcoat, PMREM, shadow maps, bloom และ adaptive DPR. Performance ขึ้นกับ GPU/browser; mobile ตรวจใน Chromium viewport 390 × 844 ยังไม่ได้ทดสอบ physical phone
+
+Import GLB เป็นตัวเลือกสำหรับ asset ภายนอกที่มีสิทธิ์ใช้งาน ความสามารถขึ้นกับ semantic groups และ material mapping ของไฟล์ ไม่รับประกัน arbitrary GLB ทุกไฟล์ ไม่มี provider credentials ในเว็บ
+
+ข้อมูลรถ: [Ferrari official launch specification](https://www.ferrari.com/en-US/corporate/articles/the-ferrari-812-superfast-the-new-extreme-performance-v12-berlinetta). เว็บไซต์นี้เป็น independent showcase

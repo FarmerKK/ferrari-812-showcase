@@ -1,0 +1,229 @@
+{
+  "author": "Jayrenn Reeve",
+  "license": "CC0",
+  "assetBaseId": "22191abd-fa78-43e9-81fe-6cded0d53483",
+  "groupCount": 47,
+  "groups": {
+    "steering-wheel": [
+      "steer"
+    ],
+    "driver-seat": [
+      "sit"
+    ],
+    "passenger-seat": [
+      "sit"
+    ],
+    "left-front-fender": [
+      "Plane.003",
+      "Plane.021",
+      "side",
+      "side.005"
+    ],
+    "right-front-fender": [
+      "Plane.003",
+      "Plane.021",
+      "side",
+      "side.005"
+    ],
+    "windscreen": [
+      "Circle.005",
+      "Circle.006",
+      "Circle.008",
+      "Circle.036",
+      "Circle.037",
+      "Circle.039",
+      "Cube.004",
+      "Cube.006",
+      "Cube.007",
+      "Cube.008",
+      "Cube.009",
+      "Cube.019",
+      "Cube.020",
+      "Cube.021",
+      "Cylinder.007",
+      "Cylinder.008",
+      "Cylinder.009",
+      "Cylinder.010",
+      "Plane.019",
+      "side.001",
+      "side.003",
+      "side.004"
+    ],
+    "main-body": [
+      "body.001",
+      "Curve.001",
+      "hole",
+      "holr",
+      "roof"
+    ],
+    "right-rear-wheel": [
+      "logo.004",
+      "rim.004"
+    ],
+    "left-front-wheel": [
+      "logo.003",
+      "rim.003"
+    ],
+    "left-rear-wheel": [
+      "logo.002",
+      "rim.002"
+    ],
+    "right-front-wheel": [
+      "logo.005",
+      "rim.001"
+    ],
+    "front-splitter": [
+      "Plane.020"
+    ],
+    "left-quarter-window": [
+      "Plane.010",
+      "Plane.018"
+    ],
+    "right-quarter-window": [
+      "Plane.010",
+      "Plane.018"
+    ],
+    "rear-bumper": [
+      "bumper",
+      "bumper.002",
+      "logo.001",
+      "Plane.017"
+    ],
+    "front-bumper": [
+      "logo",
+      "Plane",
+      "Plane.001",
+      "Plane.016"
+    ],
+    "right-rear-tire": [
+      "Plane.015"
+    ],
+    "left-rear-tire": [
+      "Plane.014"
+    ],
+    "right-front-tire": [
+      "Plane.013"
+    ],
+    "left-front-tire": [
+      "Plane.012"
+    ],
+    "front-grille": [
+      "front grill",
+      "Plane.002",
+      "Plane.005",
+      "Plane.011"
+    ],
+    "left-side-window": [
+      "Plane.008",
+      "Plane.009"
+    ],
+    "right-side-window": [
+      "Plane.008",
+      "Plane.009"
+    ],
+    "hood": [
+      "Plane.004",
+      "Plane.006",
+      "Plane.007"
+    ],
+    "left-mirror": [
+      "mirror"
+    ],
+    "right-mirror": [
+      "mirror"
+    ],
+    "left-headlight": [
+      "hedlight",
+      "hedlight.001",
+      "hedlight.002"
+    ],
+    "right-headlight": [
+      "hedlight",
+      "hedlight.001",
+      "hedlight.002"
+    ],
+    "rear-window": [
+      "glass",
+      "glass.002"
+    ],
+    "rear-deck": [
+      "body",
+      "glass.001"
+    ],
+    "exhaust": [
+      "exhaust"
+    ],
+    "left-door": [
+      "door",
+      "door.001",
+      "door.002",
+      "door.003"
+    ],
+    "right-door": [
+      "door",
+      "door.001",
+      "door.002",
+      "door.003"
+    ],
+    "dashboard": [
+      "dashboard"
+    ],
+    "taillights": [
+      "back",
+      "Cylinder.001",
+      "Cylinder.002",
+      "Cylinder.003",
+      "Cylinder.004",
+      "Cylinder.005",
+      "Cylinder.006"
+    ],
+    "center-console": [
+      "Cube.001",
+      "Cube.002",
+      "Cube.003",
+      "Cylinder"
+    ],
+    "interior-trim": [
+      "body.003",
+      "Cube"
+    ],
+    "right-rear-caliper": [
+      "brake.007"
+    ],
+    "right-rear-disc": [
+      "brake.006"
+    ],
+    "left-rear-caliper": [
+      "brake.005"
+    ],
+    "left-rear-disc": [
+      "brake.004"
+    ],
+    "right-front-caliper": [
+      "brake.003"
+    ],
+    "left-front-caliper": [
+      "brake.002"
+    ],
+    "right-front-disc": [
+      "brake.001"
+    ],
+    "left-front-disc": [
+      "brake"
+    ],
+    "chassis": [
+      "block in"
+    ],
+    "rear-diffuser": [
+      "bumper:carbon-material"
+    ]
+  },
+  "meshObjects": 119,
+  "trianglesApprox": 701994,
+  "glbBytes": 3717300,
+  "notes": [
+    "Original body kept contiguous. No arbitrary body cuts.",
+    "Dense tires decimated; subdivision baked up to level 2.",
+    "PBR materials rebuilt for WebGL; original badge textures preserved."
+  ]
+}

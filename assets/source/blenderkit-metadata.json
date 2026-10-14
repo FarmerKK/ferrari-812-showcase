@@ -1,0 +1,530 @@
+{
+  "pk": 22631,
+  "url": "https://www.blenderkit.com/api/v1/assets/4fdd69f6-e715-4529-bbd3-8487ccd85a01/",
+  "id": "4fdd69f6-e715-4529-bbd3-8487ccd85a01",
+  "assetBaseId": "22191abd-fa78-43e9-81fe-6cded0d53483",
+  "versionNumber": 1,
+  "author": {
+    "id": 114910,
+    "firstName": "Jayrenn",
+    "lastName": "Reeve",
+    "gravatarHash": "ed3bf7cc8db1aaf7dff9aa9d143e8ae6",
+    "avatar128": "/avatar-redirect/1cd8b44e-d723-4aa1-b627-908b684e7847/128/",
+    "avatar256": "/avatar-redirect/1cd8b44e-d723-4aa1-b627-908b684e7847/256/",
+    "avatar512": "/avatar-redirect/1cd8b44e-d723-4aa1-b627-908b684e7847/512/",
+    "aboutMe": "Create your 3D model now!! By simply click the link below to make your request.\r\nhttps://www.instagram.com/jayrenn_reeve/",
+    "aboutMeUrl": "https://www.artstation.com/jayrennreeve2",
+    "fullName": "Jayrenn Reeve",
+    "socialNetworks": [
+      {
+        "socialNetwork": {
+          "name": "Instagram",
+          "icon": "<i class=\"fab fa-instagram\" title=\"Instagram\"></i><span class=\"sr-only\">Instagram</span>",
+          "order": 3
+        },
+        "url": "https://www.instagram.com/jayrenn_reeve"
+      },
+      {
+        "socialNetwork": {
+          "name": "ArtStation",
+          "icon": "<i class=\"fab fa-artstation\" title=\"ArtStation\"></i><span class=\"sr-only\">ArtStation</span>",
+          "order": 5
+        },
+        "url": "https://www.artstation.com/jayrennreeve2"
+      }
+    ]
+  },
+  "name": "Ferrari 812 superfast",
+  "displayName": "Ferrari 812 superfast",
+  "description": "Ferrari 812 superfast,with simple interior,cycles ready,high poly",
+  "descriptionHtml": "<p>Ferrari 812 superfast,with simple interior,cycles ready,high poly</p>",
+  "assetType": "model",
+  "category": "luxury-supercar",
+  "isFree": true,
+  "isForSale": false,
+  "basePrice": null,
+  "tags": [
+    "public"
+  ],
+  "license": "cc_zero",
+  "sourceAppName": "blender",
+  "sourceAppVersion": "2.93.2",
+  "addonVersion": "2.93.0",
+  "created": "2021-09-21T20:24:33.859554+07:00",
+  "lastUserInteraction": "2021-09-24T23:59:51.22452+07:00",
+  "verificationStatus": "validated",
+  "isPrivate": false,
+  "files": [
+    {
+      "fileType": "blend",
+      "id": 82216,
+      "downloadUrl": "https://www.blenderkit.com/api/v1/downloads/0afd4011-a4aa-4b39-95d9-638b14e51987/",
+      "uuid": "0afd4011-a4aa-4b39-95d9-638b14e51987",
+      "created": "2021-09-24T23:59:47.884104+07:00",
+      "isThumbnail": false,
+      "modified": "2025-12-22T22:27:38.850194+07:00",
+      "mimeType": null,
+      "resolution": null,
+      "fileUploadSize": 66894490,
+      "isFeatured": false,
+      "filename": "assets/4fdd69f6e7154529bbd38487ccd85a01/files/blend_87f1425f-7cda-421e-8cd9-b05ddf04b7f0.blend",
+      "flexFactor": null
+    },
+    {
+      "fileType": "resolution_0_5K",
+      "id": 315093,
+      "downloadUrl": "https://www.blenderkit.com/api/v1/downloads/637ab00d-c4e3-426f-b810-6a2f26d4cd70/",
+      "uuid": "637ab00d-c4e3-426f-b810-6a2f26d4cd70",
+      "created": "2024-01-30T23:27:07.467228+07:00",
+      "isThumbnail": false,
+      "modified": "2024-01-30T23:27:07.467249+07:00",
+      "mimeType": null,
+      "resolution": null,
+      "fileUploadSize": 24333225,
+      "isFeatured": false,
+      "filename": "assets/4fdd69f6e7154529bbd38487ccd85a01/files/resolution_0_5K_316a4507-c6f3-49a3-be67-d9b46af95d54.blend",
+      "flexFactor": null
+    },
+    {
+      "fileType": "resolution_1K",
+      "id": 315092,
+      "downloadUrl": "https://www.blenderkit.com/api/v1/downloads/1d1f13f3-f823-4dc0-bf98-d413b4973df0/",
+      "uuid": "1d1f13f3-f823-4dc0-bf98-d413b4973df0",
+      "created": "2024-01-30T23:27:05.240393+07:00",
+      "isThumbnail": false,
+      "modified": "2024-01-30T23:27:05.240411+07:00",
+      "mimeType": null,
+      "resolution": null,
+      "fileUploadSize": 25600364,
+      "isFeatured": false,
+      "filename": "assets/4fdd69f6e7154529bbd38487ccd85a01/files/resolution_1K_9b599396-ac9a-4b6c-a984-3f79cbd28cb6.blend",
+      "flexFactor": null
+    },
+    {
+      "fileType": "resolution_2K",
+      "id": 315087,
+      "downloadUrl": "https://www.blenderkit.com/api/v1/downloads/3c36e29f-da98-4556-9168-e28d2ff04ef0/",
+      "uuid": "3c36e29f-da98-4556-9168-e28d2ff04ef0",
+      "created": "2024-01-30T23:26:59.758744+07:00",
+      "isThumbnail": false,
+      "modified": "2024-01-30T23:26:59.758761+07:00",
+      "mimeType": null,
+      "resolution": null,
+      "fileUploadSize": 30591074,
+      "isFeatured": false,
+      "filename": "assets/4fdd69f6e7154529bbd38487ccd85a01/files/resolution_2K_8f978002-bcf0-48fc-a21b-586fe2b1b95a.blend",
+      "flexFactor": null
+    },
+    {
+      "fileType": "resolution_4K",
+      "id": 315085,
+      "downloadUrl": "https://www.blenderkit.com/api/v1/downloads/a91fabf0-1052-4a51-8b1a-8e64e1285999/",
+      "uuid": "a91fabf0-1052-4a51-8b1a-8e64e1285999",
+      "created": "2024-01-30T23:26:57.276174+07:00",
+      "isThumbnail": false,
+      "modified": "2024-01-30T23:26:57.276187+07:00",
+      "mimeType": null,
+      "resolution": null,
+      "fileUploadSize": 47696606,
+      "isFeatured": false,
+      "filename": "assets/4fdd69f6e7154529bbd38487ccd85a01/files/resolution_4K_09fc5406-878d-481c-9b11-a35dcf894a98.blend",
+      "flexFactor": null
+    },
+    {
+      "fileType": "thumbnail",
+      "id": 112607,
+      "downloadUrl": "https://www.blenderkit.com/api/v1/downloads/1127176a-24d7-4744-8bbd-19d58d2bdf8c/",
+      "uuid": "1127176a-24d7-4744-8bbd-19d58d2bdf8c",
+      "fileThumbnail": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.96x96_q85_crop-%2C.jpg",
+      "fileThumbnailLarge": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.1024x1024_q85_crop-%2C.jpg",
+      "created": "2022-04-24T19:07:48.107048+07:00",
+      "isThumbnail": true,
+      "modified": "2025-12-23T00:20:35.967808+07:00",
+      "mimeType": null,
+      "resolution": null,
+      "fileUploadSize": 470084,
+      "width": 1080,
+      "height": 1080,
+      "isFeatured": false,
+      "filename": "assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg",
+      "thumbnailSmallUrl": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.256x256_q85_crop-%2C.jpg",
+      "thumbnailMiddleUrl": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.512x512_q85_crop-%2C.jpg",
+      "thumbnailLargeUrl": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.1024x1024_q85_crop-%2C.jpg",
+      "thumbnailXlargeUrl": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.2048x2048_q85_crop-%2C.jpg",
+      "thumbnailSmallUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.256x256_q85.jpg",
+      "thumbnailMiddleUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.512x512_q85.jpg",
+      "thumbnailLargeUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.1024x1024_q85.jpg",
+      "thumbnailXlargeUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.2048x2048_q85.jpg",
+      "thumbnailSmallUrlWebp": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.256x256_q85_crop-%2C.jpg.webp?webp_generated=1766453555",
+      "thumbnailMiddleUrlWebp": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.512x512_q85_crop-%2C.jpg.webp?webp_generated=1766453555",
+      "thumbnailLargeUrlWebp": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.1024x1024_q85_crop-%2C.jpg.webp?webp_generated=1766453555",
+      "thumbnailXlargeUrlWebp": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.2048x2048_q85_crop-%2C.jpg.webp?webp_generated=1766453555",
+      "thumbnailSmallUrlNonsquaredWebp": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.256x256_q85.jpg.webp?webp_generated=1766453555",
+      "thumbnailMiddleUrlNonsquaredWebp": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.512x512_q85.jpg.webp?webp_generated=1766453555",
+      "thumbnailLargeUrlNonsquaredWebp": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.1024x1024_q85.jpg.webp?webp_generated=1766453555",
+      "thumbnailXlargeUrlNonsquaredWebp": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.2048x2048_q85.jpg.webp?webp_generated=1766453555",
+      "thumbnailSocialUrl": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.1200x630_q85_background-black.jpg",
+      "animationUrl": null,
+      "flexFactor": null
+    }
+  ],
+  "filesSize": 195585843,
+  "showMarketingLabels": true,
+  "webpGeneratedTimestamp": 1766453555,
+  "score": 4968.0,
+  "ratingsMedian": {
+    "bookmarks": 1.0,
+    "workingHours": 54.0,
+    "quality": 10.0,
+    "virtualPrice": null
+  },
+  "ratingsAverage": {
+    "bookmarks": 0.9878048780487805,
+    "workingHours": 54.0,
+    "quality": 9.2,
+    "virtualPrice": null
+  },
+  "ratingsCount": {
+    "bookmarks": 574,
+    "workingHours": 12,
+    "quality": 15,
+    "virtualPrice": 0
+  },
+  "ratingsSum": {
+    "bookmarks": 567.0,
+    "workingHours": 920.5,
+    "quality": 138.0,
+    "virtualPrice": null,
+    "score": 4968.0
+  },
+  "pageBlocks": null,
+  "access": "free",
+  "accessLabel": "Free",
+  "videoLink": "",
+  "dictParameters": {
+    "sexualizedContent": false,
+    "joinBlenderkitDiscounts": true,
+    "addons": true,
+    "platforms": [
+      "windows-x64",
+      "macos-arm64",
+      "linux-x64",
+      "macos-x64",
+      "windows-arm64"
+    ],
+    "faceCount": 360425,
+    "textureResolutionMax": 6144,
+    "productionLevel": "finished",
+    "procedural": false,
+    "modelStyle": "realistic",
+    "condition": "new",
+    "purePbr": false,
+    "shaders": [
+      "principled",
+      "glossy",
+      "add shader",
+      "mix shader",
+      "emission"
+    ],
+    "animated": false,
+    "uv": true,
+    "textureResolutionMin": 648,
+    "engines": [
+      "cycles"
+    ],
+    "modifiers": [
+      "subsurf",
+      "mirror",
+      "solidify",
+      "weighted normal",
+      "bevel",
+      "lattice"
+    ],
+    "materials": [
+      "glossy black.004",
+      "Mat mt.001",
+      "lgo",
+      "mat mt",
+      "glass.001",
+      "Car Paint",
+      "glossy black",
+      "glossy black.003",
+      "hole",
+      "glossy black.001",
+      "rubber",
+      "white.007",
+      "Front Tire",
+      "Front Tire.001",
+      "logo.001",
+      "chrome",
+      "glass",
+      "mat mt.002",
+      "body",
+      "mat mt.001",
+      "brake.001",
+      "mat",
+      "brake",
+      "whipper rubber.002",
+      "shiny metal.002",
+      "taillight",
+      "Mat MT",
+      "metal",
+      "bumper",
+      "glossy black.002",
+      "Material.002",
+      "tailight"
+    ],
+    "rig": false,
+    "simulation": false,
+    "dimensionX": 1.4162,
+    "dimensionY": 3.1138,
+    "dimensionZ": 0.8652,
+    "boundBoxMinX": -0.7081,
+    "boundBoxMinY": -1.5978,
+    "boundBoxMinZ": -0.0002,
+    "boundBoxMaxX": 0.7081,
+    "boundBoxMaxY": 1.516,
+    "boundBoxMaxZ": 0.865,
+    "faceCountRender": 1600803,
+    "meshPolyType": "quad_dominant",
+    "manifold": false,
+    "objectCount": 105,
+    "nodeCount": 255,
+    "textureCount": 11,
+    "megapixels": 109,
+    "imageAltTextGen4v": "High-poly red 3D rendered model of a sports car, designed for Blender, with a detailed exterior."
+  },
+  "lastZipFileUpload": null,
+  "lastPhotoThumbnailUpload": null,
+  "lastAnimatedThumbnailUpload": null,
+  "lastGltfGodotUpload": null,
+  "lastWireThumbnailUpload": null,
+  "lastVideoUpload": null,
+  "lastPrxcUpload": null,
+  "lastResolutionUpload": "2024-01-30T23:27:07.467228+07:00",
+  "lastThumbnailUpload": "2022-04-24T19:07:48.107048+07:00",
+  "lastGltfUpload": null,
+  "lastBlendUpload": "2021-09-24T23:59:47.884104+07:00",
+  "canDownload": true,
+  "canDownloadError": true,
+  "parameters": [
+    {
+      "parameterType": "sexualizedContent",
+      "value": false
+    },
+    {
+      "parameterType": "joinBlenderkitDiscounts",
+      "value": true
+    },
+    {
+      "parameterType": "addons",
+      "value": true
+    },
+    {
+      "parameterType": "platforms",
+      "value": [
+        "windows-x64",
+        "macos-arm64",
+        "linux-x64",
+        "macos-x64",
+        "windows-arm64"
+      ]
+    },
+    {
+      "parameterType": "faceCount",
+      "value": 360425
+    },
+    {
+      "parameterType": "textureResolutionMax",
+      "value": 6144
+    },
+    {
+      "parameterType": "productionLevel",
+      "value": "finished"
+    },
+    {
+      "parameterType": "procedural",
+      "value": false
+    },
+    {
+      "parameterType": "modelStyle",
+      "value": "realistic"
+    },
+    {
+      "parameterType": "condition",
+      "value": "new"
+    },
+    {
+      "parameterType": "purePbr",
+      "value": false
+    },
+    {
+      "parameterType": "shaders",
+      "value": [
+        "principled",
+        "glossy",
+        "add shader",
+        "mix shader",
+        "emission"
+      ]
+    },
+    {
+      "parameterType": "animated",
+      "value": false
+    },
+    {
+      "parameterType": "uv",
+      "value": true
+    },
+    {
+      "parameterType": "textureResolutionMin",
+      "value": 648
+    },
+    {
+      "parameterType": "engines",
+      "value": [
+        "cycles"
+      ]
+    },
+    {
+      "parameterType": "modifiers",
+      "value": [
+        "subsurf",
+        "mirror",
+        "solidify",
+        "weighted normal",
+        "bevel",
+        "lattice"
+      ]
+    },
+    {
+      "parameterType": "materials",
+      "value": [
+        "glossy black.004",
+        "Mat mt.001",
+        "lgo",
+        "mat mt",
+        "glass.001",
+        "Car Paint",
+        "glossy black",
+        "glossy black.003",
+        "hole",
+        "glossy black.001",
+        "rubber",
+        "white.007",
+        "Front Tire",
+        "Front Tire.001",
+        "logo.001",
+        "chrome",
+        "glass",
+        "mat mt.002",
+        "body",
+        "mat mt.001",
+        "brake.001",
+        "mat",
+        "brake",
+        "whipper rubber.002",
+        "shiny metal.002",
+        "taillight",
+        "Mat MT",
+        "metal",
+        "bumper",
+        "glossy black.002",
+        "Material.002",
+        "tailight"
+      ]
+    },
+    {
+      "parameterType": "rig",
+      "value": false
+    },
+    {
+      "parameterType": "simulation",
+      "value": false
+    },
+    {
+      "parameterType": "dimensionX",
+      "value": 1.4162
+    },
+    {
+      "parameterType": "dimensionY",
+      "value": 3.1138
+    },
+    {
+      "parameterType": "dimensionZ",
+      "value": 0.8652
+    },
+    {
+      "parameterType": "boundBoxMinX",
+      "value": -0.7081
+    },
+    {
+      "parameterType": "boundBoxMinY",
+      "value": -1.5978
+    },
+    {
+      "parameterType": "boundBoxMinZ",
+      "value": -0.0002
+    },
+    {
+      "parameterType": "boundBoxMaxX",
+      "value": 0.7081
+    },
+    {
+      "parameterType": "boundBoxMaxY",
+      "value": 1.516
+    },
+    {
+      "parameterType": "boundBoxMaxZ",
+      "value": 0.865
+    },
+    {
+      "parameterType": "faceCountRender",
+      "value": 1600803
+    },
+    {
+      "parameterType": "meshPolyType",
+      "value": "quad_dominant"
+    },
+    {
+      "parameterType": "manifold",
+      "value": false
+    },
+    {
+      "parameterType": "objectCount",
+      "value": 105
+    },
+    {
+      "parameterType": "nodeCount",
+      "value": 255
+    },
+    {
+      "parameterType": "textureCount",
+      "value": 11
+    },
+    {
+      "parameterType": "megapixels",
+      "value": 109
+    },
+    {
+      "parameterType": "imageAltTextGen4v",
+      "value": "High-poly red 3D rendered model of a sports car, designed for Blender, with a detailed exterior."
+    }
+  ],
+  "thumbnailSmallUrl": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.256x256_q85_crop-%2C.jpg",
+  "thumbnailMiddleUrl": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.512x512_q85_crop-%2C.jpg",
+  "thumbnailLargeUrl": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.1024x1024_q85_crop-%2C.jpg",
+  "thumbnailXlargeUrl": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.2048x2048_q85_crop-%2C.jpg",
+  "thumbnailSmallUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.256x256_q85.jpg",
+  "thumbnailMiddleUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.512x512_q85.jpg",
+  "thumbnailLargeUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.1024x1024_q85.jpg",
+  "thumbnailXlargeUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.2048x2048_q85.jpg",
+  "thumbnailSmallUrlWebp": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.256x256_q85_crop-%2C.jpg.webp?webp_generated=1766453555",
+  "thumbnailMiddleUrlWebp": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.512x512_q85_crop-%2C.jpg.webp?webp_generated=1766453555",
+  "thumbnailLargeUrlWebp": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.1024x1024_q85_crop-%2C.jpg.webp?webp_generated=1766453555",
+  "thumbnailXlargeUrlWebp": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.2048x2048_q85_crop-%2C.jpg.webp?webp_generated=1766453555",
+  "thumbnailSmallUrlNonsquaredWebp": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.256x256_q85.jpg.webp?webp_generated=1766453555",
+  "thumbnailMiddleUrlNonsquaredWebp": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.512x512_q85.jpg.webp?webp_generated=1766453555",
+  "thumbnailLargeUrlNonsquaredWebp": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.1024x1024_q85.jpg.webp?webp_generated=1766453555",
+  "thumbnailXlargeUrlNonsquaredWebp": "https://public.blenderkit.com/thumbnails/assets/4fdd69f6e7154529bbd38487ccd85a01/files/thumbnail_24d89860-ec22-4a48-9719-1580fd6be71c.jpg.2048x2048_q85.jpg.webp?webp_generated=1766453555"
+}
