@@ -10,19 +10,29 @@
   "bounds_in_blender_z_up_meters": {
     "min": [
       -2.32852840423584,
-      -1.0590089559555054,
+      -1.0590072870254517,
       -0.0077832043170928955
     ],
     "max": [
-      2.3285083770751953,
+      2.3285107612609863,
       1.0590102672576904,
-      1.275909662246704
+      1.2759017944335938
     ]
   },
   "parts": [
     {
-      "id": "steering-wheel",
-      "name": "Steering wheel",
+      "id": "center-console",
+      "name": "Center console",
+      "category": "Interior"
+    },
+    {
+      "id": "chassis",
+      "name": "Underbody",
+      "category": "Mechanical"
+    },
+    {
+      "id": "dashboard",
+      "name": "Dashboard",
       "category": "Interior"
     },
     {
@@ -31,68 +41,18 @@
       "category": "Interior"
     },
     {
-      "id": "passenger-seat",
-      "name": "Passenger seat",
-      "category": "Interior"
+      "id": "engine",
+      "name": "V12 engine assembly",
+      "category": "Engine"
     },
     {
-      "id": "left-front-fender",
-      "name": "Left front fender",
-      "category": "Body"
+      "id": "engine-covers",
+      "name": "V12 engine covers",
+      "category": "Engine"
     },
     {
-      "id": "right-front-fender",
-      "name": "Right front fender",
-      "category": "Body"
-    },
-    {
-      "id": "windscreen",
-      "name": "Windscreen and wipers",
-      "category": "Body"
-    },
-    {
-      "id": "main-body",
-      "name": "Body shell",
-      "category": "Body"
-    },
-    {
-      "id": "right-rear-wheel",
-      "name": "Right rear wheel",
-      "category": "Wheels"
-    },
-    {
-      "id": "left-front-wheel",
-      "name": "Left front wheel",
-      "category": "Wheels"
-    },
-    {
-      "id": "left-rear-wheel",
-      "name": "Left rear wheel",
-      "category": "Wheels"
-    },
-    {
-      "id": "right-front-wheel",
-      "name": "Right front wheel",
-      "category": "Wheels"
-    },
-    {
-      "id": "front-splitter",
-      "name": "Front splitter",
-      "category": "Exterior"
-    },
-    {
-      "id": "left-quarter-window",
-      "name": "Left quarter window",
-      "category": "Body"
-    },
-    {
-      "id": "right-quarter-window",
-      "name": "Right quarter window",
-      "category": "Body"
-    },
-    {
-      "id": "rear-bumper",
-      "name": "Rear bumper",
+      "id": "exhaust",
+      "name": "Quad exhaust system",
       "category": "Rear"
     },
     {
@@ -101,19 +61,49 @@
       "category": "Front"
     },
     {
-      "id": "right-rear-tire",
-      "name": "Right rear tire",
-      "category": "Wheels"
+      "id": "front-grille",
+      "name": "Front grille",
+      "category": "Front"
     },
     {
-      "id": "left-rear-tire",
-      "name": "Left rear tire",
-      "category": "Wheels"
+      "id": "front-splitter",
+      "name": "Front splitter",
+      "category": "Exterior"
     },
     {
-      "id": "right-front-tire",
-      "name": "Right front tire",
-      "category": "Wheels"
+      "id": "hood",
+      "name": "Sculpted hood",
+      "category": "Front"
+    },
+    {
+      "id": "interior-trim",
+      "name": "Interior trim",
+      "category": "Interior"
+    },
+    {
+      "id": "left-door",
+      "name": "Left door",
+      "category": "Body"
+    },
+    {
+      "id": "left-front-caliper",
+      "name": "Left front brake caliper",
+      "category": "Brakes"
+    },
+    {
+      "id": "left-front-disc",
+      "name": "Left front brake disc",
+      "category": "Brakes"
+    },
+    {
+      "id": "left-front-fender",
+      "name": "Left front fender",
+      "category": "Body"
+    },
+    {
+      "id": "left-front-suspension",
+      "name": "Left front suspension",
+      "category": "Mechanical"
     },
     {
       "id": "left-front-tire",
@@ -121,23 +111,13 @@
       "category": "Wheels"
     },
     {
-      "id": "front-grille",
-      "name": "Front grille",
-      "category": "Front"
+      "id": "left-front-wheel",
+      "name": "Left front wheel",
+      "category": "Wheels"
     },
     {
-      "id": "left-side-window",
-      "name": "Left side window",
-      "category": "Body"
-    },
-    {
-      "id": "right-side-window",
-      "name": "Right side window",
-      "category": "Body"
-    },
-    {
-      "id": "hood",
-      "name": "Sculpted hood",
+      "id": "left-headlight",
+      "name": "Left headlight",
       "category": "Front"
     },
     {
@@ -146,74 +126,9 @@
       "category": "Body"
     },
     {
-      "id": "right-mirror",
-      "name": "Right mirror",
+      "id": "left-quarter-window",
+      "name": "Left quarter window",
       "category": "Body"
-    },
-    {
-      "id": "left-headlight",
-      "name": "Left headlight",
-      "category": "Front"
-    },
-    {
-      "id": "right-headlight",
-      "name": "Right headlight",
-      "category": "Front"
-    },
-    {
-      "id": "rear-window",
-      "name": "Rear window",
-      "category": "Body"
-    },
-    {
-      "id": "rear-deck",
-      "name": "Rear deck",
-      "category": "Rear"
-    },
-    {
-      "id": "exhaust",
-      "name": "Quad exhaust system",
-      "category": "Rear"
-    },
-    {
-      "id": "left-door",
-      "name": "Left door",
-      "category": "Body"
-    },
-    {
-      "id": "right-door",
-      "name": "Right door",
-      "category": "Body"
-    },
-    {
-      "id": "dashboard",
-      "name": "Dashboard",
-      "category": "Interior"
-    },
-    {
-      "id": "taillights",
-      "name": "Quad taillights",
-      "category": "Rear"
-    },
-    {
-      "id": "center-console",
-      "name": "Center console",
-      "category": "Interior"
-    },
-    {
-      "id": "interior-trim",
-      "name": "Interior trim",
-      "category": "Interior"
-    },
-    {
-      "id": "right-rear-caliper",
-      "name": "Right rear brake caliper",
-      "category": "Brakes"
-    },
-    {
-      "id": "right-rear-disc",
-      "name": "Right rear brake disc",
-      "category": "Brakes"
     },
     {
       "id": "left-rear-caliper",
@@ -226,13 +141,63 @@
       "category": "Brakes"
     },
     {
-      "id": "right-front-caliper",
-      "name": "Right front brake caliper",
-      "category": "Brakes"
+      "id": "left-rear-suspension",
+      "name": "Left rear suspension",
+      "category": "Mechanical"
     },
     {
-      "id": "left-front-caliper",
-      "name": "Left front brake caliper",
+      "id": "left-rear-tire",
+      "name": "Left rear tire",
+      "category": "Wheels"
+    },
+    {
+      "id": "left-rear-wheel",
+      "name": "Left rear wheel",
+      "category": "Wheels"
+    },
+    {
+      "id": "left-side-window",
+      "name": "Left side window",
+      "category": "Body"
+    },
+    {
+      "id": "main-body",
+      "name": "Body shell",
+      "category": "Body"
+    },
+    {
+      "id": "passenger-seat",
+      "name": "Passenger seat",
+      "category": "Interior"
+    },
+    {
+      "id": "rear-bumper",
+      "name": "Rear bumper",
+      "category": "Rear"
+    },
+    {
+      "id": "rear-deck",
+      "name": "Rear deck",
+      "category": "Rear"
+    },
+    {
+      "id": "rear-diffuser",
+      "name": "Rear diffuser",
+      "category": "Exterior"
+    },
+    {
+      "id": "rear-window",
+      "name": "Rear window",
+      "category": "Body"
+    },
+    {
+      "id": "right-door",
+      "name": "Right door",
+      "category": "Body"
+    },
+    {
+      "id": "right-front-caliper",
+      "name": "Right front brake caliper",
       "category": "Brakes"
     },
     {
@@ -241,19 +206,9 @@
       "category": "Brakes"
     },
     {
-      "id": "left-front-disc",
-      "name": "Left front brake disc",
-      "category": "Brakes"
-    },
-    {
-      "id": "chassis",
-      "name": "Underbody",
-      "category": "Mechanical"
-    },
-    {
-      "id": "rear-diffuser",
-      "name": "Rear diffuser",
-      "category": "Exterior"
+      "id": "right-front-fender",
+      "name": "Right front fender",
+      "category": "Body"
     },
     {
       "id": "right-front-suspension",
@@ -261,9 +216,39 @@
       "category": "Mechanical"
     },
     {
-      "id": "left-front-suspension",
-      "name": "Left front suspension",
-      "category": "Mechanical"
+      "id": "right-front-tire",
+      "name": "Right front tire",
+      "category": "Wheels"
+    },
+    {
+      "id": "right-front-wheel",
+      "name": "Right front wheel",
+      "category": "Wheels"
+    },
+    {
+      "id": "right-headlight",
+      "name": "Right headlight",
+      "category": "Front"
+    },
+    {
+      "id": "right-mirror",
+      "name": "Right mirror",
+      "category": "Body"
+    },
+    {
+      "id": "right-quarter-window",
+      "name": "Right quarter window",
+      "category": "Body"
+    },
+    {
+      "id": "right-rear-caliper",
+      "name": "Right rear brake caliper",
+      "category": "Brakes"
+    },
+    {
+      "id": "right-rear-disc",
+      "name": "Right rear brake disc",
+      "category": "Brakes"
     },
     {
       "id": "right-rear-suspension",
@@ -271,19 +256,34 @@
       "category": "Mechanical"
     },
     {
-      "id": "left-rear-suspension",
-      "name": "Left rear suspension",
-      "category": "Mechanical"
+      "id": "right-rear-tire",
+      "name": "Right rear tire",
+      "category": "Wheels"
     },
     {
-      "id": "engine",
-      "name": "V12 engine assembly",
-      "category": "Engine"
+      "id": "right-rear-wheel",
+      "name": "Right rear wheel",
+      "category": "Wheels"
     },
     {
-      "id": "engine-covers",
-      "name": "V12 engine covers",
-      "category": "Engine"
+      "id": "right-side-window",
+      "name": "Right side window",
+      "category": "Body"
+    },
+    {
+      "id": "steering-wheel",
+      "name": "Steering wheel",
+      "category": "Interior"
+    },
+    {
+      "id": "taillights",
+      "name": "Quad taillights",
+      "category": "Rear"
+    },
+    {
+      "id": "windscreen",
+      "name": "Windscreen and wipers",
+      "category": "Body"
     }
   ],
   "note": "Artist-authored CC0 body by Jayrenn Reeve, with reference-style wheels and illustrative procedural internals. Not official Ferrari CAD."

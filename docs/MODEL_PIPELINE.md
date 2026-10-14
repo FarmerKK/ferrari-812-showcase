@@ -9,7 +9,7 @@ The previous procedural exterior was replaced because its flattened surfaces did
 5. Assign 47 source semantic groups. Rebuild shared PBR slots, retain badge images, export self-contained Draco GLB (~3.7 MB).
 6. Load with local decoders. Register original transforms, selection, explode offsets, bonnet/door pivots and configurable materials.
 7. Replace rims/tires with smoother reference-style double spokes and selectable forged-star geometry. Add six illustrative internal groups (engine, covers, four suspension groups), giving 53 selectable groups.
-8. Export assembled runtime configuration as 812-superfast-atelier.glb. Hidden original wheels/unused styles are excluded. Inspect with Blender.
+8. Export assembled runtime configuration as 812-superfast-atelier.glb. Hidden original wheels/unused styles are excluded. Compress the downloadable static copy with tools/compress_export.py to stay within the hosting file limit, then inspect with Blender. Browser exports remain uncompressed.
 
 tools/prepare_detailed_model.py reproduces conversion from assets/source/ferrari-812-cc0.blend, requiring Blender with its glTF/Draco exporter. docs/detailed-model-processing.json records conversion counts. Raw source is local and gitignored; optimized assets and metadata are distributed with source.
 
