@@ -8,7 +8,7 @@ The previous procedural exterior was replaced because its flattened surfaces did
 4. Preserve connected body, roof and rear quarters. Separate bilateral objects only along existing whole-face boundaries. Split rear carbon trim using artist material boundaries.
 5. Assign 47 source semantic groups. Rebuild shared PBR slots, retain badge images, export self-contained Draco GLB (~3.7 MB).
 6. Load with local decoders. Register original transforms, selection, explode offsets, bonnet/door pivots and configurable materials.
-7. Replace rims/tires with smoother reference-style double spokes and selectable forged-star geometry. Add six illustrative internal groups (engine, covers, four suspension groups), giving 53 selectable groups.
+7. Replace rims/tires with smoother reference-style double spokes and selectable forged-star geometry. Add six illustrative internal groups (engine, covers, four suspension groups), giving 53 selectable groups before the cockpit revision.
 8. Export assembled runtime configuration as 812-superfast-atelier.glb. Hidden original wheels/unused styles are excluded. Compress the downloadable static copy with tools/compress_export.py to stay within the hosting file limit, then inspect with Blender. Browser exports remain uncompressed.
 
 tools/prepare_detailed_model.py reproduces conversion from assets/source/ferrari-812-cc0.blend, requiring Blender with its glTF/Draco exporter. docs/detailed-model-processing.json records conversion counts. Raw source is local and gitignored; optimized assets and metadata are distributed with source.
@@ -16,3 +16,5 @@ tools/prepare_detailed_model.py reproduces conversion from assets/source/ferrari
 This is an artist representation, not official Ferrari CAD. Supporting mechanics are illustrative; no engineering interfaces or suspension kinematics are claimed. A continuous shell remains intact instead of cutting it into invented panels.
 
 The optional arbitrary GLB importer uses explicit part IDs or recognized names. Unknown connected meshes are preserved; every configurator/animation option requires asset-specific material/pivot mapping.
+
+The 15 October cockpit revision replaces seven source cockpit/underbody groups and adds nine detail groups, keeping 62 selectable components. See COCKPIT.md for the current PBR, batching, camera, visibility and export pipeline.

@@ -1,8 +1,8 @@
 # 812 Superfast · Interactive Atelier
 
-เว็บไซต์ Three.js สำหรับหมุน/ซูม Ferrari 812 ใน 3D ปรับแต่งวัสดุ สำรวจ 53 กลุ่มชิ้นส่วน และเปลี่ยนฉากสนามแข่ง
+เว็บไซต์ Three.js สำหรับหมุน/ซูม Ferrari 812 ใน 3D ปรับแต่งวัสดุ สำรวจ 62 กลุ่มชิ้นส่วน และเปลี่ยนฉากสนามแข่ง
 
-ตัวถังใช้โมเดลที่สร้างโดย **Jayrenn Reeve** เผยแพร่เป็น **CC0** บน [BlenderKit](https://www.blenderkit.com/asset-gallery-detail/22191abd-fa78-43e9-81fe-6cded0d53483/). ทรงฝากระโปรง ซุ้มล้อ หลังคา และร่องเว้าประตูมาจากโมเดลนี้ ล้อปรับตามภาพอ้างอิง ส่วนเครื่องยนต์และช่วงล่างเพิ่มเติมเป็นภาพจำลอง ไม่มีข้อมูล CAD ของ Ferrari
+ตัวถังใช้โมเดลที่สร้างโดย **Jayrenn Reeve** เผยแพร่เป็น **CC0** บน [BlenderKit](https://www.blenderkit.com/asset-gallery-detail/22191abd-fa78-43e9-81fe-6cded0d53483/). ทรงฝากระโปรง ซุ้มล้อ หลังคา และร่องเว้าประตูมาจากโมเดลนี้ ล้อปรับตามภาพอ้างอิง ห้องโดยสารสร้างเพิ่มตามภาพอ้างอิง มีหนังสแกนจาก ambientCG (CC0) รอยเย็บ 3D และมุมภายใน 6 มุม ส่วนเครื่องยนต์และช่วงล่างเพิ่มเติมเป็นภาพจำลอง ไม่มีข้อมูล CAD ของ Ferrari
 
 ## เปิดใช้งาน
 
@@ -24,10 +24,10 @@ npm run preview -- --port 5173
 ## การใช้งาน
 
 - ลากเพื่อ orbit; scroll/pinch เพื่อ zoom; คลิกรถหรือค้นใน Parts explorer เพื่อเลือกชิ้นส่วน
-- Detach/Reassemble และ Exploded view/Assemble คืนตำแหน่งและการหมุนเดิมของ 53 กลุ่ม
+- Detach/Reassemble และ Exploded view/Assemble คืนตำแหน่งและการหมุนเดิมของ 62 กลุ่ม
 - Paint, Wheels, Brakes, Exterior, Interior และ Lights เปลี่ยนวัสดุ/geometry จริง
 - Mechanics เปิดประตูพร้อมกระจกและกระจกข้าง เปิดฝากระโปรง หมุนล้อ และปรับพวงมาลัย
-- กล้องมี 10 มุม รวม cockpit, engine และ cinematic; แสงมี daylight, sunset, night และ studio
+- กล้องมี 15 มุม รวมภายใน 6 มุม, engine และ cinematic; แสงมี daylight, sunset, night และ studio
 - Save/Load/Reset เก็บ configuration ใน LocalStorage; Capture PNG บันทึก render
 - About this reconstruction → Export model ส่งออก GLB ของ configuration ปัจจุบันในสภาพประกอบ
 - เมื่อ canvas มี keyboard focus: ลูกศรหมุน/ซูม, +/- ซูม, R reset camera, E explode, A assemble
@@ -36,7 +36,7 @@ npm run preview -- --port 5173
 
 | ไฟล์ | หน้าที่ |
 | --- | --- |
-| `src/detailed-car.js` | โหลดตัวถัง CC0, จัด 53 กลุ่ม, ผูกวัสดุและชุดล้อ |
+| `src/detailed-car.js` | โหลดตัวถัง CC0, จัด 62 กลุ่ม, ผูกวัสดุและชุดล้อ |
 | `src/car.js` | วัสดุ ล้อ และเครื่องยนต์/ช่วงล่างจำลองที่ใช้ประกอบ |
 | `src/main.js` | Interaction, animation, cameras, presets และ export/import |
 | `src/environment.js` | สนามสมมุติ แสง PMREM sky และ contact shadows |
@@ -59,13 +59,15 @@ npx --yes --package @playwright/cli playwright-cli -s=atelier open http://127.0.
 npx --yes --package @playwright/cli playwright-cli -s=atelier run-code --filename qa/detailed-acceptance.cjs
 ```
 
-รุ่นปัจจุบันผ่าน 50 assertions และไม่มี JavaScript runtime errors ภาพและไฟล์อยู่ใน `output/playwright/`. Scripts `qa/acceptance.cjs` และ `qa/final-smoke.cjs` เป็นการทดสอบรุ่น procedural เก่า ใช้ detailed-acceptance สำหรับรุ่นปัจจุบัน
+รุ่นปัจจุบันผ่าน regression 50 รายการ, cockpit 33 รายการ และ navigation smoke 5 รายการ โดยไม่มี JavaScript runtime errors ภาพและไฟล์อยู่ใน `output/playwright/`. Scripts `qa/acceptance.cjs` และ `qa/final-smoke.cjs` เป็นการทดสอบรุ่น procedural เก่า ใช้ detailed-acceptance สำหรับรุ่นปัจจุบัน
 
 ## ข้อจำกัด
 
 ตัวถังเป็นงานของศิลปิน มีความโค้งและรายละเอียดจริง แต่ไม่มีการรับรองมิติทางวิศวกรรม หลังคาและแก้มหลังต่อเนื่องเก็บเป็นกลุ่มเดียวเพื่อรักษาผิว เครื่องยนต์ ช่วงล่าง และ aero packages เป็น visualization สนามสมมุติ ไม่มี CFD หรือ suspension solver
 
-Rendering ใช้ ACES, clearcoat, PMREM, shadow maps, bloom และ adaptive DPR. Performance ขึ้นกับ GPU/browser; mobile ตรวจใน Chromium viewport 390 × 844 ยังไม่ได้ทดสอบ physical phone
+Rendering ใช้ ACES, clearcoat, PMREM, shadow maps, bloom และ adaptive DPR. ภายในใช้ RectAreaLight, scanned leather normal/roughness maps และ SSAO ในโหมดคุณภาพสูง. Performance ขึ้นกับ GPU/browser; mobile ตรวจใน Chromium viewport 390 × 844 ยังไม่ได้ทดสอบ physical phone
+
+เปิดภายในได้จากปุ่ม Cockpit หรือ URL ?view=interior; รายละเอียดอยู่ใน docs/COCKPIT.md
 
 Import GLB เป็นตัวเลือกสำหรับ asset ภายนอกที่มีสิทธิ์ใช้งาน ความสามารถขึ้นกับ semantic groups และ material mapping ของไฟล์ ไม่รับประกัน arbitrary GLB ทุกไฟล์ ไม่มี provider credentials ในเว็บ
 

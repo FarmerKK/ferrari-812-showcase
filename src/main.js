@@ -5,21 +5,26 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { SSAOPass } from 'three/addons/postprocessing/SSAOPass.js';
+import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
 import gsap from 'gsap';
 import { createIcons, Bookmark, Paintbrush, CircleDot, Disc3, CarFront, Armchair, Lightbulb, FolderOpen, RotateCcw, ArrowUpRight, Scan, ArrowRight, X, Mouse, Video, ChevronDown, Orbit, Focus, Layers3, Combine, Settings2, Sunset, Camera, Maximize } from 'lucide';
 import { createCar, applyConfig, disposeCar } from './car.js';
 import { loadDetailedCar } from './detailed-car.js';
+import { configureInterior } from './interior.js';
 import { createEnvironment, environmentPresets } from './environment.js';
 
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const iconsUpdate=()=>createIcons({icons:{Bookmark,Paintbrush,CircleDot,Disc3,CarFront,Armchair,Lightbulb,FolderOpen,RotateCcw,ArrowUpRight,Scan,ArrowRight,X,Mouse,Video,ChevronDown,Orbit,Focus,Layers3,Combine,Settings2,Sunset,Camera,Maximize},attrs:{'stroke-width':1.5}});
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const duration=reducedMotion?.01:1.15;
-const DEFAULTS={paint:'#d20b16',paintName:'Rosso Corsa',finish:'gloss',roughness:.20,metalness:.25,clearcoat:1,wheelColor:'#4b5054',wheelMaterial:'polished',wheelStyle:'split',caliperColor:'#edb422',tireRoughness:.91,seatColor:'#73201b',dashColor:'#171b1b',interiorMaterial:'leather',carbonTrim:true,mirrorFinish:'paint',aero:'standard',headlights:false,taillights:true,brakeLights:false,indicators:false,environment:'sunset',quality:'adaptive'};
-let config={...DEFAULTS},car,renderer,scene,camera,controls,composer,bloom,environment;
+const DEFAULTS={paint:'#d20b16',paintName:'Rosso Corsa',finish:'gloss',roughness:.20,metalness:.25,clearcoat:1,wheelColor:'#4b5054',wheelMaterial:'polished',wheelStyle:'split',caliperColor:'#edb422',tireRoughness:.91,seatColor:'#232528',dashColor:'#17191c',stitchColor:'#c82436',beltColor:'#bf1930',interiorMaterial:'leather',carbonTrim:true,mirrorFinish:'paint',aero:'standard',headlights:false,taillights:true,brakeLights:false,indicators:false,environment:'sunset',quality:'adaptive'};
+let config={...DEFAULTS},car,renderer,scene,camera,controls,composer,bloom,environment,ssao,scenePass;
 let selected=null,selectionMaterials=new Map(),currentCategory='paint',currentPage='showcase',cameraMode='orbit';
 let animationId,alive=true,frameCount=0,lastPerf=performance.now(),fps=60,lowQuality=false,qualityCooldown=0;
 let cameraFit=1,hasViewport=false;
+const cabinModes=new Set(['interior','driver','console','seats','cabin-top','door']);
+let cabinLighting=[],cabinCutaway=false,cabinPreviousEnvironment=null;
 let doorsOpen=false,hoodOpen=false,wheelSpin=false,steer=0,cinematic=false,modelBusy=false,cameraTransition=false;
 const doorMotion={angle:0},hoodMotion={angle:0};
 const pointerStart=new THREE.Vector2(),raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();
@@ -31,7 +36,7 @@ function safeColor(v){return typeof v==='string'&&/^#[a-f\d]{6}$/i.test(v);}
 function validateConfig(raw){
   if(!raw||typeof raw!=='object'||Array.isArray(raw))throw new Error('Invalid configuration');
   const out={...DEFAULTS};
-  for(const key of ['paint','wheelColor','caliperColor','seatColor','dashColor'])if(safeColor(raw[key]))out[key]=raw[key];
+  for(const key of ['paint','wheelColor','caliperColor','seatColor','dashColor','stitchColor','beltColor'])if(safeColor(raw[key]))out[key]=raw[key];
   const enums={finish:['gloss','matte','metallic','pearl','carbon'],wheelMaterial:['polished','satin'],wheelStyle:['split','star'],interiorMaterial:['leather','suede'],mirrorFinish:['paint','carbon'],aero:['standard','extended'],environment:Object.keys(environmentPresets),quality:['adaptive','high','low']};
   for(const [key,values] of Object.entries(enums))if(values.includes(raw[key]))out[key]=raw[key];
   for(const key of ['roughness','metalness','clearcoat','tireRoughness'])if(typeof raw[key]==='number'&&Number.isFinite(raw[key]))out[key]=THREE.MathUtils.clamp(raw[key],0,1);
@@ -49,13 +54,13 @@ function drawCategory(){
   if(currentCategory==='wheels')html=`<div class="field-eyebrow">20-INCH ALLOY WHEELS</div><div class="field-title">A signature in motion</div>${segmented('wheelStyle',[['split','Split spoke'],['star','Forged star']])}${swatches([['Graphite','#4b5054'],['Silver','#b8bec3'],['Gold','#9a7e42'],['Black','#101413']],'wheelColor')}${colorInput('wheelColor','Wheel color')}${segmented('wheelMaterial',[['polished','Polished alloy'],['satin','Satin alloy']])}${slider('tireRoughness','Rubber roughness')}`;
   if(currentCategory==='brakes')html=`<div class="field-eyebrow">CARBON-CERAMIC INSPIRED</div><div class="field-title">The finishing accent</div>${swatches([['Yellow','#edb422'],['Red','#c32f22'],['Silver','#a7aca6'],['Black','#242c27'],['Blue','#255c93']],'caliperColor')}${colorInput('caliperColor','Caliper color')}<p class="subtle">Four individually inspectable calipers and perforated discs. Select a wheel to explore the assembly.</p><button class="secondary-button" data-view="wheel">Inspect front wheel <i data-lucide="arrow-right"></i></button>`;
   if(currentCategory==='exterior')html=`<div class="field-eyebrow">AERODYNAMIC DETAILS</div><div class="field-title">Form follows feeling</div>${segmented('aero',[['standard','Standard aero'],['extended','Extended aero']])}<div class="field-eyebrow">MIRROR FINISH</div>${segmented('mirrorFinish',[['paint','Body color'],['carbon','Carbon fibre']])}<p class="subtle">Extended aero adjusts the carbon splitter, diffuser and trailing lip. An illustrative styling package.</p>`;
-  if(currentCategory==='interior')html=`<div class="field-eyebrow">COCKPIT COLLECTION</div><div class="field-title">Your personal space</div>${swatches([['Bordeaux','#73201b'],['Cuoio','#996a3e'],['Nero','#202824'],['Crema','#c9baa0']],'seatColor')}${colorInput('seatColor','Seat color')}${colorInput('dashColor','Dashboard color')}${segmented('interiorMaterial',[['leather','Leather'],['suede','Suede']])}${toggle('carbonTrim','Carbon interior trim')}<button class="secondary-button" data-view="interior">Enter the cockpit <i data-lucide="arrow-right"></i></button>`;
+  if(currentCategory==='interior')html=`<div class="field-eyebrow">COCKPIT COLLECTION</div><div class="field-title">Leather. Carbon. Craft.</div>${swatches([['Nero','#232528'],['Bordeaux','#73201b'],['Cuoio','#996a3e'],['Crema','#c9baa0']],'seatColor')}${colorInput('seatColor','Seat color')}${colorInput('dashColor','Dashboard color')}${colorInput('stitchColor','Stitching color')}${colorInput('beltColor','Seatbelt color')}${segmented('interiorMaterial',[['leather','Leather'],['suede','Suede']])}${toggle('carbonTrim','Carbon interior trim')}<button class="secondary-button" data-view="interior">Enter the cockpit <i data-lucide="arrow-right"></i></button>`;
   if(currentCategory==='lights')html=`<div class="field-eyebrow">LIGHT SIGNATURE</div><div class="field-title">Designed to illuminate</div>${toggle('headlights','LED headlights')}${toggle('taillights','Quad rear lamps')}${toggle('brakeLights','Brake lights')}${toggle('indicators','Turn indicators')}<p class="subtle">Headlights illuminate the asphalt; light intensity and lens materials update in real time.</p>`;
   panel.innerHTML=html;iconsUpdate();
 }
 function clearHighlight(){for(const [mesh,material] of selectionMaterials){const highlighted=mesh.material;mesh.material=material;highlighted.dispose();}selectionMaterials.clear();}
 function highlight(){if(!selected)return;selected.traverse(o=>{if(o.isMesh&&o.material?.clone){selectionMaterials.set(o,o.material);o.material=o.material.clone();if(o.material.emissive){o.material.emissive.set('#d56830');o.material.emissiveIntensity=.45;}}});}
-function updateCar(){clearHighlight();applyConfig(car,config);highlight();environment.headlamps.forEach(l=>l.intensity=config.headlights?7:0);}
+function updateCar(){clearHighlight();applyConfig(car,config);configureInterior(car,config);highlight();environment.headlamps.forEach(l=>l.intensity=config.headlights?7:0);}
 function setConfig(key,value){config[key]=value;if(key==='paint')config.paintName=paintColors.find(p=>p[1]===value)?.[0]||'Bespoke color';
   if(key==='finish'){const finishes={gloss:[.20,.25,1],matte:[.82,.12,0],metallic:[.28,.91,.85],pearl:[.24,.57,1],carbon:[.34,.55,.7]};[config.roughness,config.metalness,config.clearcoat]=finishes[value];}
   updateCar();
@@ -74,18 +79,50 @@ function setDetached(part,detached){
 }
 function updateAssembly(){const n=[...car.parts.values()].filter(p=>p.userData.detached).length;$('#part-counter').textContent=n?`${n} / ${car.parts.size} COMPONENTS DETACHED`:'ASSEMBLED';$('#explode').classList.toggle('active',n>0);renderPartsList();}
 function explodeAll(detached){gsap.killTweensOf(doorMotion);gsap.killTweensOf(hoodMotion);doorMotion.angle=0;hoodMotion.angle=0;doorsOpen=false;hoodOpen=false;wheelSpin=false;setSteering(0);drawMechanics();for(const p of car.parts.values()){gsap.killTweensOf(p.rotation);p.quaternion.copy(p.userData.originalQuaternion);setDetached(p,detached);}$('#explode').setAttribute('aria-pressed',String(detached));if(detached)goCamera('exploded');else goCamera('orbit');toast(detached?'Every component, revealed. Click a part to inspect.':'All components reassembled.');}
-function focusPart(part){const box=new THREE.Box3().setFromObject(part),target=box.getCenter(new THREE.Vector3()),size=box.getSize(new THREE.Vector3()).length();const direction=camera.position.clone().sub(controls.target).normalize();transitionCamera(target.clone().addScaledVector(direction,Math.max(1.15,size*1.35)),target);cameraMode='inspect';$('#camera-label').textContent=part.userData.name.toUpperCase();}
+function focusPart(part){if($('main').classList.contains('cockpit-mode')&&part.userData.category!=='Interior')setCabinView('inspect');const box=new THREE.Box3().setFromObject(part),target=box.getCenter(new THREE.Vector3()),size=box.getSize(new THREE.Vector3()).length();const direction=camera.position.clone().sub(controls.target).normalize();transitionCamera(target.clone().addScaledVector(direction,Math.max(1.15,size*1.35)),target);cameraMode='inspect';$('#camera-label').textContent=part.userData.name.toUpperCase();}
 function transitionCamera(position,target){
   cinematic=false;controls.autoRotate=false;$('#auto-rotate').setAttribute('aria-pressed','false');cameraTransition=true;controls.enabled=false;
   gsap.to(camera.position,{...position,duration,ease:'power2.inOut',overwrite:true});
-  gsap.to(controls.target,{...target,duration,ease:'power2.inOut',overwrite:true,onUpdate:()=>{camera.lookAt(controls.target);},onComplete:()=>{controls.enabled=true;cameraTransition=false;controls.update();}});
+  gsap.to(controls.target,{...target,duration,ease:'power2.inOut',overwrite:true,onUpdate:()=>{camera.lookAt(controls.target);},onComplete:()=>{controls.enabled=true;cameraTransition=false;controls.update();render();lastPerf=performance.now();frameCount=0;qualityCooldown=performance.now()+3500;}});
 }
-const cameraViews={orbit:{label:'Three-quarter view',pos:[-5.5,2.35,5.0],target:[0,.62,0]},front:{label:'Front view',pos:[-6.7,1.22,0],target:[-.15,.66,0]},rear:{label:'Rear view',pos:[6.7,1.24,0],target:[.2,.66,0]},left:{label:'Left view',pos:[0,1.65,7.7],target:[0,.65,0]},right:{label:'Right view',pos:[0,1.65,-7.7],target:[0,.65,0]},top:{label:'Top view',pos:[0,8,.001],target:[0,.3,0]},interior:{label:'Interior view',pos:[.93,1.015,.11],target:[-.18,.815,.27]},wheel:{label:'Wheel inspection',pos:[-2.18,.79,2.13],target:[-1.37,.354,.89]},engine:{label:'Engine inspection',pos:[-2.31,2.55,1.69],target:[-.91,.65,0]},cinematic:{label:'Cinematic camera',pos:[-5.8,1.8,5.2],target:[0,.6,0]},exploded:{label:'Exploded overview',pos:[-7.5,4.3,7.3],target:[0,.85,0]}};
-function goCamera(mode){const view=cameraViews[mode];if(!view)return;cameraMode=mode;$('#camera-label').textContent=view.label.toUpperCase();if(mode==='engine')setHood(true);if(mode==='interior')setDoors(true);
-  let pos=new THREE.Vector3(...view.pos),target=new THREE.Vector3(...view.target);if(!['interior','wheel','engine'].includes(mode)){pos.multiplyScalar(cameraFit);if(innerWidth<640)target.y=-.38;}
+const cameraViews={orbit:{label:'Three-quarter view',pos:[-5.5,2.35,5.0],target:[0,.62,0]},front:{label:'Front view',pos:[-6.7,1.22,0],target:[-.15,.66,0]},rear:{label:'Rear view',pos:[6.7,1.24,0],target:[.2,.66,0]},left:{label:'Left view',pos:[0,1.65,7.7],target:[0,.65,0]},right:{label:'Right view',pos:[0,1.65,-7.7],target:[0,.65,0]},top:{label:'Top view',pos:[0,8,.001],target:[0,.3,0]},interior:{label:'Interior view',pos:[.62,1.075,.01],target:[-.25,.77,0]},driver:{label:'Driver cockpit',pos:[.50,1.03,.425],target:[-.18,.85,.38]},console:{label:'Center console',pos:[.60,1.14,.02],target:[.12,.58,0]},seats:{label:'Sport seats',pos:[-.83,1.42,1.38],target:[.35,.66,0]},'cabin-top':{label:'Interior top view',pos:[.03,3.35,.001],target:[.03,.43,0]},door:{label:'Door panel',pos:[.28,.86,0],target:[.36,.60,.73]},wheel:{label:'Wheel inspection',pos:[-2.18,.79,2.13],target:[-1.37,.354,.89]},engine:{label:'Engine inspection',pos:[-2.31,2.55,1.69],target:[-.91,.65,0]},cinematic:{label:'Cinematic camera',pos:[-5.8,1.8,5.2],target:[0,.6,0]},exploded:{label:'Exploded overview',pos:[-7.5,4.3,7.3],target:[0,.85,0]}};
+function createCabinLighting(){
+  RectAreaLightUniformsLib.init();
+  for(const [position,intensity,width,height,target] of [[[.55,1.62,.70],3.2,1.4,.8,[-.30,.72,0]],[[.46,1.40,-.78],2.4,1.1,.7,[.35,.65,0]],[[1.07,1.25,.18],1.7,.75,.6,[.30,.65,0]]]){
+    const light=new THREE.RectAreaLight('#f2f1ed',.12,width,height);light.position.set(...position);light.lookAt(...target);light.userData.inspectionIntensity=intensity;scene.add(light);cabinLighting.push(light);
+  }
+}
+function revealCabin(value){
+  cabinCutaway=value;
+  for(const id of ['main-body','windscreen','rear-window','left-side-window','right-side-window','left-quarter-window','right-quarter-window']){const p=car.parts.get(id);if(p)p.visible=!value;}
+  $('#cabin-cutaway').setAttribute('aria-pressed',String(value));
+}
+function setCabinView(mode){
+  const active=cabinModes.has(mode);$('main').classList.toggle('cockpit-mode',active);$('#interior-toolbar').hidden=!active;
+  if(active)setPage('showcase');
+  $$('nav .nav-item').forEach(b=>b.classList.toggle('active',active?b.dataset.view==='interior':b.dataset.page===currentPage));
+  if(active&&!cabinModes.has(cameraMode)){cabinPreviousEnvironment=config.environment;setEnvironment('studio');}
+  if(!active&&cabinPreviousEnvironment){setEnvironment(cabinPreviousEnvironment);cabinPreviousEnvironment=null;}
+  for(const p of car.parts.values())p.visible=true;
+  if(active){currentCategory='interior';$$('.category').forEach(b=>{b.classList.toggle('active',b.dataset.category==='interior');b.setAttribute('aria-selected',String(b.dataset.category==='interior'));});drawCategory();}
+  else{$('main').classList.remove('interior-finishes-open');}
+  revealCabin(active&&['seats','cabin-top'].includes(mode));
+  if(active)for(const [id,p] of car.parts)if(/^(left|right)-(front|rear)-(wheel|tire|disc|caliper|suspension)$/.test(id)||['engine','engine-covers','exhaust'].includes(id))p.visible=false;
+  if(mode==='seats'){
+    const visible=new Set(['driver-seat','passenger-seat','interior-trim','center-console']);
+    for(const [id,p] of car.parts)p.visible=visible.has(id);
+  }
+  camera.fov=active?(mode==='driver'?62:mode==='interior'?66:mode==='console'?49:44):(innerWidth<640?43:35);camera.updateProjectionMatrix();ssao.setSize(ssao.width,ssao.height);
+  controls.minDistance=active?.055:.12;controls.maxPolarAngle=active?Math.PI*.96:Math.PI*.49;
+  cabinLighting.forEach(l=>l.intensity=active?l.userData.inspectionIntensity:.12);
+  ssao.enabled=active&&!lowQuality;scenePass.enabled=true;
+  $$('[data-cabin-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.cabinView===mode)));
+}
+function goCamera(mode){const view=cameraViews[mode];if(!view)return;setCabinView(mode);cameraMode=mode;$('#camera-label').textContent=view.label.toUpperCase();if(mode==='engine')setHood(true);if(cabinModes.has(mode))setDoors(false);
+  let pos=new THREE.Vector3(...view.pos),target=new THREE.Vector3(...view.target);if(!cabinModes.has(mode)&&!['wheel','engine'].includes(mode)){pos.multiplyScalar(cameraFit);if(innerWidth<640)target.y=-.38;}
   transitionCamera(pos,target);if(mode==='cinematic')gsap.delayedCall(duration,()=>{if(cameraMode==='cinematic'){cinematic=true;controls.autoRotate=true;controls.autoRotateSpeed=.55;$('#auto-rotate').setAttribute('aria-pressed','true');}});$('#camera-menu').hidden=true;
 }
-function setDoors(open){doorsOpen=open;gsap.to(doorMotion,{angle:open?.78:0,duration,ease:'power2.inOut',overwrite:true,onUpdate:()=>{for(const s of [-1,1]){const side=s===1?'left':'right',door=car.parts.get(`${side}-door`);if(!door)continue;const pivot=door.userData.originalPosition,q=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),-s*doorMotion.angle);for(const id of [`${side}-door`,`${side}-side-window`,`${side}-mirror`]){const p=car.parts.get(id);if(!p||p.userData.detached)continue;p.position.copy(p.userData.originalPosition).sub(pivot).applyQuaternion(q).add(pivot);p.quaternion.copy(p.userData.originalQuaternion).premultiply(q);}}}});drawMechanics();}
+function setDoors(open){doorsOpen=open;gsap.to(doorMotion,{angle:open?.78:0,duration,ease:'power2.inOut',overwrite:true,onUpdate:()=>{for(const s of [-1,1]){const side=s===1?'left':'right',door=car.parts.get(`${side}-door`);if(!door)continue;const pivot=door.userData.originalPosition,q=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),-s*doorMotion.angle);for(const id of [`${side}-door`,`${side}-side-window`,`${side}-mirror`,`${side}-door-panel`]){const p=car.parts.get(id);if(!p||p.userData.detached)continue;p.position.copy(p.userData.originalPosition).sub(pivot).applyQuaternion(q).add(pivot);p.quaternion.copy(p.userData.originalQuaternion).premultiply(q);}}}});drawMechanics();}
 function setHood(open){hoodOpen=open;const p=car.parts.get('hood');gsap.to(hoodMotion,{angle:open?-.88:0,duration,ease:'power2.inOut',overwrite:true,onUpdate:()=>{if(p&&!p.userData.detached)p.rotation.z=hoodMotion.angle;}});drawMechanics();}
 function setSteering(value){steer=value;for(const g of car.steerable||car.wheels)if(g.userData.axle==='front')g.rotation.y=value*.45;for(const g of car.steering)g.rotation.x=value*1.2;}
 function drawMechanics(){$('#mechanics-menu').innerHTML=`<label class="setting-row">Open doors<input type="checkbox" id="doors-control" ${doorsOpen?'checked':''}/></label><label class="setting-row">Open hood<input type="checkbox" id="hood-control" ${hoodOpen?'checked':''}/></label><label class="setting-row">Spin wheels<input type="checkbox" id="spin-control" ${wheelSpin?'checked':''}/></label><label class="range-label" for="steer-control">Steering</label><input id="steer-control" type="range" min="-1" max="1" step=".01" value="${steer}"/>`;}
@@ -93,10 +130,14 @@ function renderPartsList(){const q=$('#part-search').value.toLowerCase();$('#par
 function setPage(page){currentPage=page;$$('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.page===page));$('main').classList.remove('parts-mode','environment-mode','configure-mode');if(page==='parts')$('main').classList.add('parts-mode');if(page==='environment')$('main').classList.add('environment-mode');if(page==='customize')$('main').classList.add('configure-mode');$('#parts-drawer').hidden=page!=='parts';$('#environment-drawer').hidden=page!=='environment';if(page==='parts')renderPartsList();if(page==='environment')renderEnvironments();}
 function renderEnvironments(){$('#environment-options').innerHTML=Object.entries(environmentPresets).map(([id,p])=>`<button class="env-option ${config.environment===id?'active':''}" data-environment="${id}"><span class="env-sample" style="--env-color:${p.color}"></span><span>${p.label}<small>${p.description}</small></span></button>`).join('');$('#quality').value=config.quality;}
 function setEnvironment(mode){environment.setMode(mode);config.environment=mode;$('#environment-label').textContent=environmentPresets[mode].tag;$('#light-label').textContent=environmentPresets[mode].label;renderEnvironments();}
-function setQuality(value){config.quality=value;const low=value==='low'||(value==='adaptive'&&(innerWidth<640||fps<28));lowQuality=low;renderer.setPixelRatio(low?Math.min(devicePixelRatio,1):Math.min(devicePixelRatio,1.75));environment.setQuality(!low);bloom.enabled=!low;resize();}
-function resize(){if(!renderer)return;const {width,height}=$('#viewport').getBoundingClientRect();const nextFit=width<640?1.57:Math.max(1,1.6/(width/height));if(hasViewport&&!['interior','wheel','engine','inspect'].includes(cameraMode))camera.position.sub(controls.target).multiplyScalar(nextFit/cameraFit).add(controls.target);cameraFit=nextFit;hasViewport=true;camera.aspect=width/height;camera.fov=width<640?43:35;camera.updateProjectionMatrix();renderer.setSize(width,height);composer.setPixelRatio(renderer.getPixelRatio());composer.setSize(width,height);}
+function setQuality(value){config.quality=value;const low=value==='low'||(value==='adaptive'&&(innerWidth<640||fps<28));lowQuality=low;renderer.setPixelRatio(low?Math.min(devicePixelRatio,1):Math.min(devicePixelRatio,1.75));environment.setQuality(!low);bloom.enabled=!low;ssao.enabled=!low&&$('main').classList.contains('cockpit-mode');scenePass.enabled=true;resize();}
+function resize(){if(!renderer)return;const {width,height}=$('#viewport').getBoundingClientRect();const nextFit=width<640?1.57:Math.max(1,1.6/(width/height));if(hasViewport&&!cabinModes.has(cameraMode)&&!['wheel','engine','inspect'].includes(cameraMode))camera.position.sub(controls.target).multiplyScalar(nextFit/cameraFit).add(controls.target);cameraFit=nextFit;hasViewport=true;camera.aspect=width/height;camera.fov=cabinModes.has(cameraMode)?(cameraMode==='driver'?62:cameraMode==='interior'?66:cameraMode==='console'?49:44):(width<640?43:35);camera.updateProjectionMatrix();renderer.setSize(width,height);composer.setPixelRatio(renderer.getPixelRatio());composer.setSize(width,height);}
 function setupEvents(){
+  $('#interior-finishes').onclick=()=>{$('main').classList.toggle('interior-finishes-open');$('#interior-finishes').setAttribute('aria-expanded',String($('main').classList.contains('interior-finishes-open')));};
+  $('#cabin-cutaway').onclick=()=>revealCabin(!cabinCutaway);
+  $('#exit-cockpit').onclick=()=>{selectPart(null);goCamera('orbit');};
   document.addEventListener('click',e=>{
+    const cabinView=e.target.closest('[data-cabin-view]');if(cabinView)goCamera(cabinView.dataset.cabinView);
     const category=e.target.closest('[data-category]');if(category){currentCategory=category.dataset.category;$$('.category').forEach(b=>{const active=b===category;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active));});drawCategory();}
     const color=e.target.closest('[data-color]');if(color){setConfig(color.dataset.colorKey,color.dataset.color);drawCategory();}
     const setting=e.target.closest('[data-setting]');if(setting){setConfig(setting.dataset.setting,setting.dataset.value);drawCategory();}
@@ -134,10 +175,10 @@ function visibleInHierarchy(o){while(o){if(!o.visible)return false;o=o.parent;}r
 async function exportModel(){
   if(modelBusy)return;modelBusy=true;$('#export-model').disabled=true;clearHighlight();
   const snapshots=[];
-  for(const p of car.parts.values()){gsap.killTweensOf(p.position);gsap.killTweensOf(p.rotation);snapshots.push([p,p.position.clone(),p.quaternion.clone()]);p.position.copy(p.userData.originalPosition);p.quaternion.copy(p.userData.originalQuaternion);}
+  for(const p of car.parts.values()){gsap.killTweensOf(p.position);gsap.killTweensOf(p.rotation);snapshots.push([p,p.position.clone(),p.quaternion.clone(),p.visible]);p.position.copy(p.userData.originalPosition);p.quaternion.copy(p.userData.originalQuaternion);p.visible=true;}
   car.root.traverse(o=>{const n=o.geometry?.getAttribute('normal');if(n){const v=new THREE.Vector3();for(let i=0;i<n.count;i++){v.fromBufferAttribute(n,i);if(v.lengthSq()<1e-10)v.set(0,1,0);else v.normalize();n.setXYZ(i,v.x,v.y,v.z);}n.needsUpdate=true;}});
   try{const {GLTFExporter}=await import('three/addons/exporters/GLTFExporter.js');const exporter=new GLTFExporter();const result=await exporter.parseAsync(car.root,{binary:true,onlyVisible:true,trs:true});download(result,'812-superfast-atelier.glb','model/gltf-binary');toast('Assembled model exported as GLB.');}catch(error){console.error('Model export failed',error);toast('Model export failed. Please try again.');}
-  finally{for(const [p,pos,q]of snapshots){p.position.copy(pos);p.quaternion.copy(q);}highlight();modelBusy=false;$('#export-model').disabled=false;}
+  finally{for(const [p,pos,q,visible]of snapshots){p.position.copy(pos);p.quaternion.copy(q);p.visible=visible;}highlight();modelBusy=false;$('#export-model').disabled=false;}
 }
 async function importModel(file){
   if(!file||modelBusy)return;if(file.size>100*1024*1024){toast('Use a GLB smaller than 100 MB.');return;}
@@ -176,13 +217,14 @@ async function boot(){
   try{
     scene=new THREE.Scene();renderer=new THREE.WebGLRenderer({antialias:true,alpha:false,preserveDrawingBuffer:true,powerPreference:'high-performance'});renderer.info.autoReset=false;renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.outputColorSpace=THREE.SRGBColorSpace;$('#viewport').appendChild(renderer.domElement);
     camera=new THREE.PerspectiveCamera(35,1,.02,600);controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.065;controls.minDistance=.12;controls.maxDistance=21;controls.maxPolarAngle=Math.PI*.49;controls.enablePan=true;controls.screenSpacePanning=true;controls.target.set(0,.62,0);
-    const rt=new THREE.WebGLRenderTarget(1,1,{type:THREE.HalfFloatType});rt.samples=4;composer=new EffectComposer(renderer,rt);composer.addPass(new RenderPass(scene,camera));bloom=new UnrealBloomPass(new THREE.Vector2(1,1),.13,.28,1.45);composer.addPass(bloom);composer.addPass(new OutputPass());
-    $('#load-status').textContent='Loading the detailed 812';environment=createEnvironment(scene,renderer);car=await loadDetailedCar((loaded,total)=>{$('#load-status').textContent=total?`Loading the detailed 812 · ${Math.round(loaded/total*100)}%`:'Loading the detailed 812';});scene.add(car.root);updateCar();setupEvents();drawCategory();drawMechanics();renderPartsList();setEnvironment('sunset');resize();setQuality('adaptive');
+    const rt=new THREE.WebGLRenderTarget(1,1,{type:THREE.HalfFloatType});rt.samples=4;composer=new EffectComposer(renderer,rt);scenePass=new RenderPass(scene,camera);composer.addPass(scenePass);ssao=new SSAOPass(scene,camera,1,1,16);ssao.enabled=false;ssao.kernelRadius=.09;ssao.minDistance=.000001;ssao.maxDistance=.00025;composer.addPass(ssao);bloom=new UnrealBloomPass(new THREE.Vector2(1,1),.13,.28,1.45);composer.addPass(bloom);composer.addPass(new OutputPass());
+    $('#load-status').textContent='Loading the detailed 812';environment=createEnvironment(scene,renderer);car=await loadDetailedCar((loaded,total)=>{$('#load-status').textContent=total?`Loading the detailed 812 · ${Math.round(loaded/total*100)}%`:'Loading the detailed 812';});scene.add(car.root);createCabinLighting();updateCar();setupEvents();drawCategory();drawMechanics();renderPartsList();setEnvironment('sunset');resize();setQuality('adaptive');
     const initial=new THREE.Vector3(...cameraViews.orbit.pos).multiplyScalar(cameraFit);if(innerWidth<640)controls.target.y=-.38;camera.position.copy(initial);controls.update();render();iconsUpdate();lastPerf=performance.now();
     $('#loading').style.opacity='0';setTimeout(()=>$('#loading').remove(),650);animationId=requestAnimationFrame(tick);
     // Read-only diagnostics for manual QA; actions remain exposed through the UI.
     window.atelier={get car(){return car;},get config(){return {...config};},get camera(){return camera;},get controls(){return controls;},get renderer(){return renderer;},get scene(){return scene;},get environment(){return environment;},get selected(){return selected;},get diagnostics(){return {partCount:car.parts.size,meshCount:(()=>{let n=0;car.root.traverse(o=>{if(o.isMesh)n++;});return n;})(),drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,fps,quality:lowQuality?'low':'high',source:car.source};}};
+    const requestedView=new URLSearchParams(location.search).get('view');if(cabinModes.has(requestedView))goCamera(requestedView);
   }catch(error){console.error('Atelier initialization failed',error);$('#loading').innerHTML='<div class="loader-mark">812</div><p>3D initialization failed. Enable WebGL and reload this page.</p>';}
 }
-window.addEventListener('pagehide',event=>{if(event.persisted)return;alive=false;cancelAnimationFrame(animationId);gsap.globalTimeline.clear();clearHighlight();controls?.dispose();if(car)disposeCar(car);environment?.dispose();if(scene){const geometries=new Set(),materials=new Set(),textures=new Set();scene.traverse(o=>{if(o.geometry)geometries.add(o.geometry);if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>materials.add(m));});for(const m of materials)for(const v of Object.values(m))if(v?.isTexture)textures.add(v);geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());}composer?.dispose();renderer?.dispose();});
+window.addEventListener('pagehide',event=>{if(event.persisted)return;alive=false;cancelAnimationFrame(animationId);gsap.globalTimeline.clear();clearHighlight();controls?.dispose();if(car)disposeCar(car);environment?.dispose();if(scene){const geometries=new Set(),materials=new Set(),textures=new Set();scene.traverse(o=>{if(o.geometry)geometries.add(o.geometry);if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>materials.add(m));});for(const m of materials)for(const v of Object.values(m))if(v?.isTexture)textures.add(v);geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());}ssao?.dispose();composer?.dispose();renderer?.dispose();});
 boot();

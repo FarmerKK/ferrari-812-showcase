@@ -1,11 +1,11 @@
 {
   "file": "812-superfast-atelier.glb",
   "blender_version": "4.5.3 LTS",
-  "mesh_objects": 535,
-  "component_groups": 53,
-  "nested_geometry_groups_with_inherited_metadata": 9,
-  "materials": 21,
-  "images": 3,
+  "mesh_objects": 1169,
+  "component_groups": 62,
+  "nested_geometry_groups_with_inherited_metadata": 8,
+  "materials": 67,
+  "images": 34,
   "missing_images": [],
   "bounds_in_blender_z_up_meters": {
     "min": [
@@ -21,23 +21,33 @@
   },
   "parts": [
     {
+      "id": "air-vents",
+      "name": "Four turbine air vents",
+      "category": "Interior"
+    },
+    {
       "id": "center-console",
-      "name": "Center console",
+      "name": "Carbon transmission bridge",
       "category": "Interior"
     },
     {
       "id": "chassis",
-      "name": "Underbody",
+      "name": "Underbody & cabin floor",
       "category": "Mechanical"
     },
     {
+      "id": "climate-controls",
+      "name": "Dual-zone climate controls",
+      "category": "Interior"
+    },
+    {
       "id": "dashboard",
-      "name": "Dashboard",
+      "name": "Sculpted dashboard",
       "category": "Interior"
     },
     {
       "id": "driver-seat",
-      "name": "Driver seat",
+      "name": "Driver sport seat",
       "category": "Interior"
     },
     {
@@ -76,14 +86,24 @@
       "category": "Front"
     },
     {
+      "id": "instrument-cluster",
+      "name": "Yellow tachometer & digital cluster",
+      "category": "Interior"
+    },
+    {
       "id": "interior-trim",
-      "name": "Interior trim",
+      "name": "Carpeted cabin & sill trim",
       "category": "Interior"
     },
     {
       "id": "left-door",
       "name": "Left door",
       "category": "Body"
+    },
+    {
+      "id": "left-door-panel",
+      "name": "Driver door panel",
+      "category": "Interior"
     },
     {
       "id": "left-front-caliper",
@@ -156,6 +176,11 @@
       "category": "Wheels"
     },
     {
+      "id": "left-seatbelt",
+      "name": "Driver red seatbelt",
+      "category": "Interior"
+    },
+    {
       "id": "left-side-window",
       "name": "Left side window",
       "category": "Body"
@@ -166,8 +191,18 @@
       "category": "Body"
     },
     {
+      "id": "passenger-display",
+      "name": "Passenger information display",
+      "category": "Interior"
+    },
+    {
       "id": "passenger-seat",
-      "name": "Passenger seat",
+      "name": "Passenger sport seat",
+      "category": "Interior"
+    },
+    {
+      "id": "pedal-box",
+      "name": "Perforated aluminium pedals",
       "category": "Interior"
     },
     {
@@ -194,6 +229,11 @@
       "id": "right-door",
       "name": "Right door",
       "category": "Body"
+    },
+    {
+      "id": "right-door-panel",
+      "name": "Passenger door panel",
+      "category": "Interior"
     },
     {
       "id": "right-front-caliper",
@@ -266,13 +306,18 @@
       "category": "Wheels"
     },
     {
+      "id": "right-seatbelt",
+      "name": "Passenger red seatbelt",
+      "category": "Interior"
+    },
+    {
       "id": "right-side-window",
       "name": "Right side window",
       "category": "Body"
     },
     {
       "id": "steering-wheel",
-      "name": "Steering wheel",
+      "name": "Carbon steering wheel",
       "category": "Interior"
     },
     {

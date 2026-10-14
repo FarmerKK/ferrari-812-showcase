@@ -17,3 +17,7 @@ The user's attachment is not redistributed. Ferrari naming and badges are used d
 | Barlow Condensed / DM Sans | Google Fonts delivery | SIL Open Font License; local sans-serif fallback |
 
 Default-model Draco files are bundled locally from Three.js. The optional generic importer retains its versioned decoder fallback. No paid image-to-3D service was used and no provider secrets are bundled.
+
+The cabin uses normal/roughness maps from [ambientCG Leather037](https://ambientcg.com/a/Leather037), captured by photometric stereo and distributed under [CC0](https://docs.ambientcg.com/license/). Original 1K JPG maps are bundled locally; color remains configurable. Provenance is recorded in assets/source/leather037-metadata.json. Other inspected royalty-free seat models were not incorporated.
+
+The rebuilt cockpit geometry, stitched seams, belts, buttons and display artwork were authored for the user's supplied interior reference. Horse silhouettes are derived from the original CC0 body asset's embedded Ferrari badge texture.

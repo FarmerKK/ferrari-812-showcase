@@ -1,0 +1,335 @@
+{
+  "file": "812-superfast-cockpit-export.glb",
+  "blender_version": "4.5.3 LTS",
+  "mesh_objects": 1169,
+  "component_groups": 62,
+  "nested_geometry_groups_with_inherited_metadata": 8,
+  "materials": 67,
+  "images": 34,
+  "missing_images": [],
+  "bounds_in_blender_z_up_meters": {
+    "min": [
+      -2.32852840423584,
+      -1.0590089559555054,
+      -0.0077832043170928955
+    ],
+    "max": [
+      2.3285083770751953,
+      1.0590102672576904,
+      1.275909662246704
+    ]
+  },
+  "parts": [
+    {
+      "id": "left-front-fender",
+      "name": "Left front fender",
+      "category": "Body"
+    },
+    {
+      "id": "right-front-fender",
+      "name": "Right front fender",
+      "category": "Body"
+    },
+    {
+      "id": "windscreen",
+      "name": "Windscreen and wipers",
+      "category": "Body"
+    },
+    {
+      "id": "main-body",
+      "name": "Body shell",
+      "category": "Body"
+    },
+    {
+      "id": "right-rear-wheel",
+      "name": "Right rear wheel",
+      "category": "Wheels"
+    },
+    {
+      "id": "left-front-wheel",
+      "name": "Left front wheel",
+      "category": "Wheels"
+    },
+    {
+      "id": "left-rear-wheel",
+      "name": "Left rear wheel",
+      "category": "Wheels"
+    },
+    {
+      "id": "right-front-wheel",
+      "name": "Right front wheel",
+      "category": "Wheels"
+    },
+    {
+      "id": "front-splitter",
+      "name": "Front splitter",
+      "category": "Exterior"
+    },
+    {
+      "id": "left-quarter-window",
+      "name": "Left quarter window",
+      "category": "Body"
+    },
+    {
+      "id": "right-quarter-window",
+      "name": "Right quarter window",
+      "category": "Body"
+    },
+    {
+      "id": "rear-bumper",
+      "name": "Rear bumper",
+      "category": "Rear"
+    },
+    {
+      "id": "front-bumper",
+      "name": "Front bumper",
+      "category": "Front"
+    },
+    {
+      "id": "right-rear-tire",
+      "name": "Right rear tire",
+      "category": "Wheels"
+    },
+    {
+      "id": "left-rear-tire",
+      "name": "Left rear tire",
+      "category": "Wheels"
+    },
+    {
+      "id": "right-front-tire",
+      "name": "Right front tire",
+      "category": "Wheels"
+    },
+    {
+      "id": "left-front-tire",
+      "name": "Left front tire",
+      "category": "Wheels"
+    },
+    {
+      "id": "front-grille",
+      "name": "Front grille",
+      "category": "Front"
+    },
+    {
+      "id": "left-side-window",
+      "name": "Left side window",
+      "category": "Body"
+    },
+    {
+      "id": "right-side-window",
+      "name": "Right side window",
+      "category": "Body"
+    },
+    {
+      "id": "hood",
+      "name": "Sculpted hood",
+      "category": "Front"
+    },
+    {
+      "id": "left-mirror",
+      "name": "Left mirror",
+      "category": "Body"
+    },
+    {
+      "id": "right-mirror",
+      "name": "Right mirror",
+      "category": "Body"
+    },
+    {
+      "id": "left-headlight",
+      "name": "Left headlight",
+      "category": "Front"
+    },
+    {
+      "id": "right-headlight",
+      "name": "Right headlight",
+      "category": "Front"
+    },
+    {
+      "id": "rear-window",
+      "name": "Rear window",
+      "category": "Body"
+    },
+    {
+      "id": "rear-deck",
+      "name": "Rear deck",
+      "category": "Rear"
+    },
+    {
+      "id": "exhaust",
+      "name": "Quad exhaust system",
+      "category": "Rear"
+    },
+    {
+      "id": "left-door",
+      "name": "Left door",
+      "category": "Body"
+    },
+    {
+      "id": "right-door",
+      "name": "Right door",
+      "category": "Body"
+    },
+    {
+      "id": "taillights",
+      "name": "Quad taillights",
+      "category": "Rear"
+    },
+    {
+      "id": "right-rear-caliper",
+      "name": "Right rear brake caliper",
+      "category": "Brakes"
+    },
+    {
+      "id": "right-rear-disc",
+      "name": "Right rear brake disc",
+      "category": "Brakes"
+    },
+    {
+      "id": "left-rear-caliper",
+      "name": "Left rear brake caliper",
+      "category": "Brakes"
+    },
+    {
+      "id": "left-rear-disc",
+      "name": "Left rear brake disc",
+      "category": "Brakes"
+    },
+    {
+      "id": "right-front-caliper",
+      "name": "Right front brake caliper",
+      "category": "Brakes"
+    },
+    {
+      "id": "left-front-caliper",
+      "name": "Left front brake caliper",
+      "category": "Brakes"
+    },
+    {
+      "id": "right-front-disc",
+      "name": "Right front brake disc",
+      "category": "Brakes"
+    },
+    {
+      "id": "left-front-disc",
+      "name": "Left front brake disc",
+      "category": "Brakes"
+    },
+    {
+      "id": "rear-diffuser",
+      "name": "Rear diffuser",
+      "category": "Exterior"
+    },
+    {
+      "id": "right-front-suspension",
+      "name": "Right front suspension",
+      "category": "Mechanical"
+    },
+    {
+      "id": "left-front-suspension",
+      "name": "Left front suspension",
+      "category": "Mechanical"
+    },
+    {
+      "id": "right-rear-suspension",
+      "name": "Right rear suspension",
+      "category": "Mechanical"
+    },
+    {
+      "id": "left-rear-suspension",
+      "name": "Left rear suspension",
+      "category": "Mechanical"
+    },
+    {
+      "id": "engine",
+      "name": "V12 engine assembly",
+      "category": "Engine"
+    },
+    {
+      "id": "engine-covers",
+      "name": "V12 engine covers",
+      "category": "Engine"
+    },
+    {
+      "id": "chassis",
+      "name": "Underbody & cabin floor",
+      "category": "Mechanical"
+    },
+    {
+      "id": "dashboard",
+      "name": "Sculpted dashboard",
+      "category": "Interior"
+    },
+    {
+      "id": "air-vents",
+      "name": "Four turbine air vents",
+      "category": "Interior"
+    },
+    {
+      "id": "instrument-cluster",
+      "name": "Yellow tachometer & digital cluster",
+      "category": "Interior"
+    },
+    {
+      "id": "steering-wheel",
+      "name": "Carbon steering wheel",
+      "category": "Interior"
+    },
+    {
+      "id": "center-console",
+      "name": "Carbon transmission bridge",
+      "category": "Interior"
+    },
+    {
+      "id": "climate-controls",
+      "name": "Dual-zone climate controls",
+      "category": "Interior"
+    },
+    {
+      "id": "passenger-display",
+      "name": "Passenger information display",
+      "category": "Interior"
+    },
+    {
+      "id": "driver-seat",
+      "name": "Driver sport seat",
+      "category": "Interior"
+    },
+    {
+      "id": "passenger-seat",
+      "name": "Passenger sport seat",
+      "category": "Interior"
+    },
+    {
+      "id": "interior-trim",
+      "name": "Carpeted cabin & sill trim",
+      "category": "Interior"
+    },
+    {
+      "id": "pedal-box",
+      "name": "Perforated aluminium pedals",
+      "category": "Interior"
+    },
+    {
+      "id": "left-door-panel",
+      "name": "Driver door panel",
+      "category": "Interior"
+    },
+    {
+      "id": "left-seatbelt",
+      "name": "Driver red seatbelt",
+      "category": "Interior"
+    },
+    {
+      "id": "right-door-panel",
+      "name": "Passenger door panel",
+      "category": "Interior"
+    },
+    {
+      "id": "right-seatbelt",
+      "name": "Passenger red seatbelt",
+      "category": "Interior"
+    }
+  ],
+  "note": "Artist-authored CC0 body by Jayrenn Reeve, with reference-style wheels and illustrative procedural internals. Not official Ferrari CAD."
+}

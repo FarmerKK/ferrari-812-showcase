@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { createCar } from './car.js';
+import { buildDetailedInterior } from './interior.js';
 
 const labels={
   'main-body':['Body shell','Body','Artist-authored continuous roof, rear quarters and body shell. Kept intact to preserve its surface continuity.'],
@@ -43,7 +44,11 @@ export async function loadDetailedCar(onProgress=()=>{}){
   m.headlight.color.set('#9bafb9');m.headlight.roughness=.19;
   m.taillight.emissive.set('#c00008');
   root.name='812 Superfast · Jayrenn Reeve · CC0';root.updateMatrixWorld(true);
-  const nodes=[];root.traverse(o=>{if(!o.isMesh&&o.userData.partId)nodes.push(o);});
+  const nodes=[];root.traverse(o=>{
+    if(o.isMesh||!o.userData.partId)return;
+    let parent=o.parent;while(parent&&parent!==root){if(parent.userData.partId)return;parent=parent.parent;}
+    nodes.push(o);
+  });
   for(const g of nodes){
     const id=g.userData.partId,[name,category,description]=describe(id);
     const box=new THREE.Box3().setFromObject(g),center=box.getCenter(new THREE.Vector3());
@@ -81,5 +86,7 @@ export async function loadDetailedCar(onProgress=()=>{}){
   }
   const keepGeometry=new Set();root.traverse(o=>{if(o.geometry)keepGeometry.add(o.geometry);});base.root.traverse(o=>{if(o.geometry&&!keepGeometry.has(o.geometry))o.geometry.dispose();});
   root.updateMatrixWorld(true);
-  return {root,parts,materials:m,wheels,steerable,steering:[parts.get('steering-wheel')].filter(Boolean),source:'licensed-cc0',author:'Jayrenn Reeve',assetUrl:'https://www.blenderkit.com/asset-gallery-detail/22191abd-fa78-43e9-81fe-6cded0d53483/',dimensions:{length:4.657}};
+  const car={root,parts,materials:m,wheels,steerable,steering:[parts.get('steering-wheel')].filter(Boolean),source:'licensed-cc0',author:'Jayrenn Reeve',assetUrl:'https://www.blenderkit.com/asset-gallery-detail/22191abd-fa78-43e9-81fe-6cded0d53483/',dimensions:{length:4.657}};
+  await buildDetailedInterior(car);
+  return car;
 }

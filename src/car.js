@@ -309,7 +309,7 @@ export function applyConfig(car,config) {
   m.paint.map=config.finish==='carbon'?m.carbon.map:null;
   m.paint.iridescence=config.finish==='pearl'?.4:0;m.paint.iridescenceIOR=1.32;m.paint.iridescenceThicknessRange=[150,300];m.paint.needsUpdate=true;
   m.rim.color.set(config.wheelColor);m.rim.roughness=config.wheelMaterial==='satin'?.5:.2;m.rim.metalness=config.wheelMaterial==='satin'?.65:.94;
-  m.rubber.roughness=config.tireRoughness;m.caliper.color.set(config.caliperColor);m.seat.color.set(config.seatColor);m.seat.roughness=config.interiorMaterial==='suede'?.98:.74;m.dash.color.set(config.dashColor);
+  m.rubber.roughness=config.tireRoughness;m.caliper.color.set(config.caliperColor);m.seat.color.set(config.seatColor);m.seat.roughness=config.interiorMaterial==='suede'?.98:(car.interior?.84:.74);m.dash.color.set(config.dashColor);
   m.headlight.emissiveIntensity=config.headlights?3.4:.15;m.taillight.emissiveIntensity=config.brakeLights?4:config.taillights?1.8:.1;
   for(const [id,g] of car.parts){
     if(id.endsWith('-wheel')){const split=g.getObjectByName('split-spoke'),star=g.getObjectByName('forged-star');if(split)split.visible=config.wheelStyle==='split';if(star)star.visible=config.wheelStyle==='star';}

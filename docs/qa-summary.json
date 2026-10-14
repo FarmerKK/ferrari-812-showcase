@@ -1,35 +1,59 @@
 {
-  "date": "2026-10-14",
+  "date": "2026-10-15",
   "timezone": "Asia/Bangkok",
-  "suite": "qa/detailed-acceptance.cjs",
-  "acceptance": {
-    "passed": 50,
-    "runtimeErrors": [],
-    "desktopViewport": [
-      1440,
-      900
+  "productionBuild": true,
+  "suites": {
+    "exterior": {
+      "script": "qa/detailed-acceptance.cjs",
+      "passed": 50,
+      "runtimeErrors": []
+    },
+    "cockpit": {
+      "script": "qa/cabin-acceptance.cjs",
+      "passed": 33,
+      "runtimeErrors": []
+    },
+    "finalNavigation": {
+      "script": "qa/cabin-smoke.cjs",
+      "passed": 5,
+      "runtimeErrors": []
+    }
+  },
+  "viewports": {
+    "desktop": [
+      [
+        1440,
+        900
+      ],
+      [
+        1600,
+        1000
+      ]
     ],
-    "mobileViewport": [
+    "mobile": [
       390,
       844
     ]
   },
   "finalScene": {
-    "partGroups": 53,
-    "liveCarMeshesIncludingHiddenVariants": 415,
-    "renderCallsIncludingShadowAndPostprocessing": 701,
-    "trianglesAcrossPasses": 1411638,
-    "sampleFps": 148,
+    "partGroups": 62,
+    "liveMeshesIncludingHiddenVariants": 519,
+    "renderCallsIncludingShadowAndPostprocessing": 897,
+    "trianglesAcrossPasses": 1679412,
+    "sampleFps": 143,
     "quality": "high"
   },
-  "modelSource": {
-    "author": "Jayrenn Reeve",
-    "license": "CC0",
-    "assetBaseId": "22191abd-fa78-43e9-81fe-6cded0d53483",
-    "sourceGroups": 47,
-    "supplementalGroups": 6
+  "export": {
+    "groups": 62,
+    "embeddedImages": 34,
+    "missingImages": [],
+    "compressedBytes": 13534560,
+    "completeFromCutawayView": true
   },
-  "modelFidelity": "Artist-authored 812 body with reference-style wheels and illustrative internals; not official Ferrari CAD",
+  "materialSources": {
+    "body": "Jayrenn Reeve / BlenderKit / CC0",
+    "leather": "ambientCG Leather037 / CC0"
+  },
   "physicalMobileDeviceTested": false,
   "arbitraryThirdPartyGLBCompatibilityCertified": false
 }
