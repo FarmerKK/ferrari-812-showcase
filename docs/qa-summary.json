@@ -17,6 +17,11 @@
       "script": "qa/cabin-smoke.cjs",
       "passed": 5,
       "runtimeErrors": []
+    },
+    "refinementAndAudio": {
+      "script": "qa/cabin-refinement.cjs",
+      "passed": 18,
+      "runtimeErrors": []
     }
   },
   "viewports": {
@@ -37,23 +42,31 @@
   },
   "finalScene": {
     "partGroups": 62,
-    "liveMeshesIncludingHiddenVariants": 519,
-    "renderCallsIncludingShadowAndPostprocessing": 897,
-    "trianglesAcrossPasses": 1679412,
-    "sampleFps": 143,
+    "liveMeshesIncludingHiddenVariants": 517,
+    "renderCallsIncludingShadowAndPostprocessing": 893,
+    "trianglesAcrossPasses": 1983116,
+    "sampleFps": 84,
     "quality": "high"
   },
   "export": {
     "groups": 62,
-    "embeddedImages": 34,
+    "embeddedImages": 33,
     "missingImages": [],
-    "compressedBytes": 13534560,
+    "compressedBytes": 14504584,
     "completeFromCutawayView": true
   },
   "materialSources": {
     "body": "Jayrenn Reeve / BlenderKit / CC0",
-    "leather": "ambientCG Leather037 / CC0"
+    "leather": "ambientCG Leather037 / CC0",
+    "sound": "jtvdb and biholao / Freesound / CC0; Ferrari model unspecified"
   },
   "physicalMobileDeviceTested": false,
-  "arbitraryThirdPartyGLBCompatibilityCertified": false
+  "arbitraryThirdPartyGLBCompatibilityCertified": false,
+  "measuredCabinMeters": {
+    "clusterTop": 0.928,
+    "clusterWidth": 0.396,
+    "dashboardTop": 0.85,
+    "wheelCrown": 1.021
+  },
+  "humanAudioListeningReview": false
 }

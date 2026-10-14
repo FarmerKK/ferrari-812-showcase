@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+import { buildSeatPadding, seatFront, cushionTop, embroidery, buildDashboard } from './upholstery.js';
 
 const V=(x,y,z)=>new THREE.Vector3(x,y,z);
 const smooth=(a,b,t)=>THREE.MathUtils.lerp(a,b,t*t*(3-2*t));
@@ -29,8 +30,8 @@ function add(g,geo,mat,x=0,y=0,z=0){const o=new THREE.Mesh(geo,mat);o.position.s
 function box(g,mat,x,y,z,w,h,d,r=.02){return add(g,new RoundedBoxGeometry(w,h,d,4,Math.min(r,w/2,h/2,d/2)),mat,x,y,z);}
 function tube(g,mat,pts,r=.002,closed=false){return add(g,new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts,false,'centripetal'),Math.max(32,pts.length*10),r,6,closed),mat);}
 function stitches(g,mat,pts){
-  const curve=new THREE.CatmullRomCurve3(pts,false,'centripetal'),len=curve.getLength(),count=Math.ceil(len/.009),geos=[];
-  for(let i=0;i<count;i++){const a=curve.getPoint(i/count),b=curve.getPoint(Math.min(1,(i+.52)/count)),d=b.clone().sub(a);if(d.length()<1e-5)continue;const geo=new THREE.CylinderGeometry(.00075,.00075,d.length(),4,1);geo.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(V(0,1,0),d.normalize()));geo.translate(...a.clone().add(b).multiplyScalar(.5).toArray());geos.push(geo);}
+  const curve=new THREE.CatmullRomCurve3(pts,false,'centripetal'),len=curve.getLength(),count=Math.ceil(len/.0035),geos=[];
+  for(let i=0;i<count;i++){const a=curve.getPoint(i/count),b=curve.getPoint(Math.min(1,(i+.52)/count)),d=b.clone().sub(a);if(d.length()<1e-5)continue;const geo=new THREE.CylinderGeometry(.00028,.00028,d.length(),5,1);geo.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(V(0,1,0),d.normalize()));geo.translate(...a.clone().add(b).multiplyScalar(.5).toArray());geos.push(geo);}
   if(geos.length){add(g,mergeGeometries(geos),mat);geos.forEach(x=>x.dispose());}
 }
 function ellipse(g,mat,x,y,z,sx,sy,sz){const o=add(g,new THREE.SphereGeometry(1,32,20),mat,x,y,z);o.scale.set(sx,sy,sz);return o;}
@@ -60,13 +61,14 @@ export async function buildDetailedInterior(car){
   const engineCenter=engineBox.getCenter(V(0,0,0)),engineSize=engineBox.getSize(V(0,0,0)),engineFit=V(1.12/engineSize.x,.52/engineSize.y,.91/engineSize.z);
   for(const p of engineParts){p.position.sub(engineCenter).multiply(engineFit).add(V(-1.27,.52,0));p.scale.multiply(engineFit);p.userData.originalPosition=p.position.clone();p.userData.originalScale=p.scale.clone();}
   const grain=grainTexture();
-  const [leatherNormal,leatherRoughness]=await Promise.all(['/textures/leather-normal.jpg','/textures/leather-roughness.jpg'].map(url=>new THREE.TextureLoader().loadAsync(url)));
+  const [leatherNormal,scannedRoughness]=await Promise.all(['/textures/leather-normal.jpg','/textures/leather-roughness.jpg'].map(url=>new THREE.TextureLoader().loadAsync(url)));
+  const rc=document.createElement('canvas');rc.width=rc.height=1024;const rctx=rc.getContext('2d');rctx.drawImage(scannedRoughness.image,0,0,1024,1024);const pixels=rctx.getImageData(0,0,1024,1024);for(let i=0;i<pixels.data.length;i+=4){const rough=150+pixels.data[i]*.34;pixels.data[i]=pixels.data[i+1]=pixels.data[i+2]=rough;}rctx.putImageData(pixels,0,0);const leatherRoughness=new THREE.CanvasTexture(rc);scannedRoughness.dispose();
   for(const t of [leatherNormal,leatherRoughness]){t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(3,3);t.anisotropy=8;}
-  m.seat=new THREE.MeshPhysicalMaterial({color:'#232528',roughness:.84,metalness:0,normalMap:leatherNormal,normalScale:new THREE.Vector2(.38,.38),roughnessMap:leatherRoughness,clearcoat:.07,clearcoatRoughness:.42,sheen:.12,sheenColor:'#72787d',sheenRoughness:.65});
+  m.seat=new THREE.MeshPhysicalMaterial({color:'#232528',roughness:.84,metalness:0,normalMap:leatherNormal,normalScale:new THREE.Vector2(.15,.15),roughnessMap:leatherRoughness,clearcoat:.04,clearcoatRoughness:.55,sheen:.12,sheenColor:'#72787d',sheenRoughness:.65});
   m.dash=new THREE.MeshPhysicalMaterial({color:'#17191c',roughness:.60,metalness:0,bumpMap:grain,bumpScale:.0012,clearcoat:.05,clearcoatRoughness:.6,sheen:.10,sheenColor:'#4a4f52',sheenRoughness:.8});
-  m.dash.normalMap=leatherNormal;m.dash.normalScale.set(.23,.23);m.dash.bumpMap=null;
+  m.dash.normalMap=leatherNormal;m.dash.normalScale.set(.10,.10);m.dash.bumpMap=null;
   m.stitch=new THREE.MeshStandardMaterial({color:'#c82436',roughness:.88});m.belt=new THREE.MeshStandardMaterial({color:'#bf1930',roughness:.9,bumpMap:grain,bumpScale:.001});
-  m.cabinCarbon=m.carbon.clone();m.cabinCarbon.map=m.carbon.map.clone();m.cabinCarbon.map.repeat.set(12,12);m.cabinCarbon.color.set('#62656a');m.cabinCarbon.roughness=.28;m.cabinCarbon.metalness=.12;m.cabinCarbon.clearcoat=.62;m.cabinCarbon.clearcoatRoughness=.23;
+  m.cabinCarbon=m.carbon.clone();m.cabinCarbon.map=m.carbon.map.clone();m.cabinCarbon.map.repeat.set(12,12);m.cabinCarbon.color.set('#303438');m.cabinCarbon.roughness=.38;m.cabinCarbon.metalness=.08;m.cabinCarbon.clearcoat=.25;m.cabinCarbon.clearcoatRoughness=.35;
   m.cabinMetal=new THREE.MeshStandardMaterial({color:'#a6abb0',metalness:.92,roughness:.28});m.cabinRubber=new THREE.MeshStandardMaterial({color:'#111317',roughness:.92});m.cabinInsert=new THREE.MeshStandardMaterial({color:'#25282c',roughness:.95,bumpMap:grain,bumpScale:.002});m.cabinRed=new THREE.MeshPhysicalMaterial({color:'#b91830',roughness:.35,clearcoat:.5});
   m.ventSlat=new THREE.MeshStandardMaterial({color:'#25292e',roughness:.48,metalness:.45});
   const image=(await new THREE.TextureLoader().loadAsync('/textures/source-ferrari-badge.png')).image;
@@ -83,33 +85,32 @@ export async function buildDetailedInterior(car){
   },V(0,.177,0),V(0,-.12,0));underbody.userData.category='Mechanical';
 
   register('dashboard','Sculpted dashboard','Curved leather dashboard, contrasting hand-stitched seams, carbon fascia and passenger-side model script.',g=>{
-    // Continuous padded volumes: nose forward (-X), cockpit faces rear (+X).
-    ellipse(g,m.dash,-.49,.79,0,.32,.16,.76);box(g,m.dash,-.29,.69,0,.24,.19,1.51,.075);
-    carbonBox(g,-.153,.747,0,.045,.097,1.46,.022);box(g,m.dash,-.25,.58,-.41,.23,.20,.66,.05);
-    tube(g,m.stitch,[V(-.31,.911,.75),V(-.25,.924,.48),V(-.33,.944,.3),V(-.34,.932,0),V(-.28,.91,-.45),V(-.31,.875,-.76)],.0017);
-    stitches(g,m.stitch,[V(-.293,.914,.73),V(-.24,.931,.49),V(-.318,.95,.29),V(-.32,.938,0),V(-.267,.916,-.45),V(-.30,.882,-.73)]);
-    face(g,textTexture('812 SUPERFAST','#dedee1'),-.119,.70,-.53,.26,.043,.05);
+    buildDashboard(g,m.dash);
+    carbonBox(g,-.137,.735,0,.025,.074,1.45,.012);box(g,m.dash,-.25,.58,-.41,.23,.20,.66,.05);
+    const seam=[];for(let i=0;i<=96;i++){const z=-.73+i/96*1.46;seam.push(V(-.28,.841-.016*(Math.abs(z)/.77)**3+.00035,z));}stitches(g,m.stitch,seam);
+    face(g,textTexture('812 SUPERFAST','#dedee1'),-.119,.687,-.53,.20,.025,.015);
     box(g,m.cabinRubber,-.40,.575,.35,.21,.075,.49,.025);
   },V(-.36,.76,0),V(-.3,.85,0));
 
   register('air-vents','Four turbine air vents','Four deeply recessed circular vents with metallic rings, red rims, internal vanes and rotary hubs.',g=>{
-    for(const z of [.73,.14,-.19,-.73]){const y=Math.abs(z)>.5?.79:.807;
-      roundFace(g,m.cabinRubber,-.16,y,z,.075);ring(g,m.cabinCarbon,-.143,y,z,.073,.011);ring(g,m.cabinMetal,-.13,y,z,.064,.0035);ring(g,m.cabinRed,-.126,y,z,.068,.004);
-      for(let i=-3;i<=3;i++){const dy=i*.015,length=2*Math.sqrt(.056**2-dy**2);box(g,m.ventSlat,-.15,y+dy,z,.024,.003,length,.001);}
-      for(let i=0;i<3;i++){const a=i/3*Math.PI*2,o=box(g,m.ventSlat,-.127,y+Math.cos(a)*.031,z+Math.sin(a)*.031,.009,.061,.0025,.001);o.rotation.x=-a;}
-      roundFace(g,m.cabinMetal,-.108,y,z,.012);roundFace(g,m.cabinRubber,-.105,y,z,.007);
+    for(const z of [.69,.12,-.19,-.69]){const y=.766;
+      const sleeve=add(g,new THREE.CylinderGeometry(.052,.052,.025,64,1,true),m.cabinRubber,-.12,y,z);sleeve.rotation.z=Math.PI/2;
+      roundFace(g,m.cabinRubber,-.118,y,z,.052);ring(g,m.cabinCarbon,-.106,y,z,.052,.005);ring(g,m.cabinMetal,-.099,y,z,.047,.0018);ring(g,m.cabinRed,-.098,y,z,.050,.0016);
+      for(let i=-3;i<=3;i++){const dy=i*.011,length=2*Math.sqrt(.044**2-dy**2);box(g,m.ventSlat,-.11,y+dy,z,.006,.002,length,.0008);}
+      for(let i=0;i<3;i++){const a=i/3*Math.PI*2,o=box(g,m.ventSlat,-.101,y+Math.cos(a)*.022,z+Math.sin(a)*.022,.004,.045,.002,.0008);o.rotation.x=-a;}
+      roundFace(g,m.cabinMetal,-.096,y,z,.008);roundFace(g,m.cabinRubber,-.094,y,z,.005);
     }
   },V(-.13,.8,0),V(-.3,.4,0));
 
   register('instrument-cluster','Yellow tachometer & digital cluster','Yellow central analog tachometer with graduated markings, needle, neutral indicator and two illuminated digital displays.',g=>{
-    const hood=new THREE.Shape();hood.moveTo(-.25,-.03);hood.bezierCurveTo(-.252,.11,-.14,.151,0,.151);hood.bezierCurveTo(.14,.151,.252,.11,.25,-.03);hood.lineTo(.229,-.03);hood.bezierCurveTo(.229,.087,.13,.132,0,.132);hood.bezierCurveTo(-.13,.132,-.229,.087,-.229,-.03);hood.closePath();
-    const shell=add(g,new THREE.ExtrudeGeometry(hood,{depth:.22,bevelEnabled:true,bevelSize:.003,bevelThickness:.003,bevelSegments:3,steps:1,curveSegments:24}),m.dash,-.355,.901,.426);shell.rotation.y=Math.PI/2;
-    const backing=new THREE.Shape();backing.moveTo(-.242,-.065);backing.bezierCurveTo(-.247,.10,-.14,.145,0,.145);backing.bezierCurveTo(.14,.145,.247,.10,.242,-.065);backing.closePath();const cap=add(g,new THREE.ExtrudeGeometry(backing,{depth:.02,bevelEnabled:true,bevelSize:.002,bevelThickness:.002,bevelSegments:3,curveSegments:24}),m.dash,-.35,.901,.426);cap.rotation.y=Math.PI/2;
-    box(g,m.cabinRubber,-.104,.898,.426,.045,.177,.435,.03);
-    ring(g,m.cabinMetal,-.064,.905,.426,.090,.004);roundFace(g,new THREE.MeshStandardMaterial({map:dialTexture(),emissiveMap:dialTexture(),emissive:'#ffffff',emissiveIntensity:.38,roughness:.4}),-.06,.905,.426,.086);
-    face(g,displayTexture('driver'),-.068,.892,.589,.117,.109,.36);face(g,horse('#e6e9ee','#060b12'),-.066,.892,.262,.121,.115,.4);
-    tube(g,m.stitch,[V(-.12,.965,.652),V(-.14,1.037,.536),V(-.155,1.059,.426),V(-.14,1.037,.32),V(-.12,.96,.21)],.0013);
-  },V(-.15,.92,.426),V(0,.6,.3));
+    // Rounded low binnacle is buried in the pad; no extruded tunnel above the glass.
+    ellipse(g,m.dash,-.306,.812,.426,.219,.116,.198);
+    box(g,m.dash,-.113,.832,.426,.026,.160,.366,.027);
+    box(g,m.cabinRubber,-.096,.834,.426,.013,.135,.344,.025);
+    ring(g,m.cabinMetal,-.086,.838,.426,.063,.0021);
+    const dial=dialTexture();roundFace(g,new THREE.MeshStandardMaterial({map:dial,emissiveMap:dial,emissive:'#ffffff',emissiveIntensity:.24,roughness:.58}),-.083,.838,.426,.0595);
+    face(g,displayTexture('driver'),-.087,.829,.548,.086,.091,.24);face(g,horse('#e6e9ee','#060b12'),-.087,.829,.304,.086,.091,.24);
+  },V(-.25,.837,.426),V(0,.6,.3));
 
   const wheel=register('steering-wheel','Carbon steering wheel','Flat-bottom wheel with leather grips, carbon spokes, Ferrari center badge, start button, rotary manettino, shift LEDs and metal paddles.',g=>{
     // Wheel uses a local plane so its controls rotate together about the column.
@@ -142,7 +143,7 @@ export async function buildDetailedInterior(car){
     box(g,m.cabinMetal,.354,.602,0,.10,.022,.145,.012);box(g,m.cabinRubber,.357,.616,0,.069,.018,.115,.009);box(g,m.cabinMetal,.357,.63,0,.048,.013,.101,.008);
     for(const z of [-.075,.075])box(g,m.cabinRubber,.305,.628,z,.038,.018,.018,.004);
     box(g,m.seat,.585,.574,0,.26,.11,.19,.045);
-    for(const s of [-1,1]){tube(g,m.stitch,[V(-.18,.579,s*.107),V(.06,.61,s*.112),V(.30,.59,s*.11),V(.69,.54,s*.105)],.0015);stitches(g,m.stitch,[V(.46,.62,s*.079),V(.57,.635,s*.083),V(.70,.62,s*.077)]);}
+    for(const s of [-1,1]){stitches(g,m.stitch,[V(-.15,.577,s*.11),V(.05,.58,s*.11),V(.27,.58,s*.11),V(.60,.57,s*.11)]);stitches(g,m.stitch,[V(.50,.628,s*.066),V(.58,.629,s*.066),V(.67,.622,s*.066)]);}
   },V(.23,.53,0),V(.35,.6,0));
 
   register('climate-controls','Dual-zone climate controls','Rotary temperature dials, etched control legends, central switches and metallic bezels.',g=>{
@@ -156,15 +157,14 @@ export async function buildDetailedInterior(car){
   for(const [side,z] of [['driver',.419],['passenger',-.419]]){
     register(`${side}-seat`,`${side==='driver'?'Driver':'Passenger'} sport seat`,'Sculpted leather sport seat with curved bolsters, suede center inserts, red piping, double stitching, embroidered headrest and seat rails.',g=>{
       box(g,m.cabinRubber,.33,.292,z,.67,.065,.45,.02);for(const dz of [-.17,.17])box(g,m.cabinMetal,.33,.255,z+dz,.68,.025,.024,.007);
-      ellipse(g,m.seat,.22,.407,z,.303,.10,.235);ellipse(g,m.cabinInsert,.15,.442,z,.225,.037,.135);
-      for(const s of [-1,1]){ellipse(g,m.seat,.18,.463,z+s*.19,.28,.071,.053);tube(g,m.stitch,[V(-.09,.446,z+s*.15),V(.0,.505,z+s*.17),V(.22,.521,z+s*.178),V(.42,.479,z+s*.16)],.0015);stitches(g,m.stitch,[V(-.09,.446,z+s*.158),V(0,.505,z+s*.18),V(.22,.52,z+s*.188),V(.42,.475,z+s*.17)]);}
-      loftSeat(g,m.seat,[[.42,.45,.18,.065],[.58,.49,.225,.073],[.79,.555,.226,.078],[.93,.609,.182,.075],[1.07,.645,.122,.054],[1.13,.653,.09,.026],[1.151,.653,.055,.014],[1.16,.653,.001,.001]],z);
-      loftSeat(g,m.cabinInsert,[[.47,.38,.11,.01],[.60,.411,.13,.018],[.80,.469,.125,.021],[.94,.524,.095,.02]],z);
-      for(const s of [-1,1])loftSeat(g,m.seat,[[.49,.41,.004,.004],[.61,.45,.047,.045],[.78,.51,.05,.049],[.90,.555,.038,.04],[.98,.591,.004,.004]],z+s*.172);
-      for(const s of [-1,1]){const line=[V(.389,.47,z+s*.126),V(.411,.61,z+s*.15),V(.474,.82,z+s*.149),V(.540,.959,z+s*.104),V(.587,1.094,z+s*.095)];tube(g,m.stitch,line,.0018);stitches(g,m.stitch,line.map(p=>p.clone().add(V(-.004,0,s*.008))));}
-      tube(g,m.stitch,[V(-.09,.48,z),V(.08,.481,z),V(.27,.483,z),V(.377,.49,z),V(.419,.65,z),V(.485,.85,z),V(.535,.95,z)],.0017);
-      face(g,horseRed,.589,1.052,z,.065,.078,.04).rotation.y=-Math.PI/2;
-      for(let i=0;i<4;i++)tube(g,m.dash,[V(.14-i*.053,.471,z-.116),V(.14-i*.053,.478,z),V(.14-i*.053,.471,z+.116)],.001);
+      buildSeatPadding(g,m,z);
+      for(const s of [-1,1]){
+        const back=[],cushion=[];
+        for(let i=0;i<=80;i++){back.push(seatFront(.48+i/80*.49,s*.585,z).add(V(-.00045,0,0)));cushion.push(cushionTop(-.05+i/80*.53,s*.595,z).add(V(0,.00045,0)));}
+        stitches(g,m.stitch,back);stitches(g,m.stitch,cushion);
+        const head=[];for(let i=0;i<=50;i++)head.push(seatFront(.97+i/50*.13,s*.84,z).add(V(-.00045,0,0)));stitches(g,m.stitch,head);
+      }
+      embroidery(g,horseRed,z);
       box(g,m.cabinMetal,.43,.325,z+.24,.071,.03,.025,.008);
     },V(.32,.61,z),V(.25,.65,z>0?.65:-.65));
   }
@@ -178,6 +178,7 @@ export async function buildDetailedInterior(car){
   register('pedal-box','Perforated aluminium pedals','Three brushed-metal sport pedal faces with recessed perforations and a left footrest.',g=>{
     for(const [z,y,w,h] of [[.36,.365,.07,.125],[.48,.365,.078,.112],[.58,.365,.054,.145],[.66,.365,.071,.17]]){
       const p=new THREE.Group();p.position.set(-.475,y,z);p.rotation.z=-.22;g.add(p);box(p,m.cabinMetal,0,0,0,.018,h,w,.008);
+      tube(p,m.cabinRubber,[V(-.013,.012,0),V(-.052,.05,0),V(-.14,.092,0)],.006);
       const geo=new THREE.CircleGeometry(.003,8),holes=new THREE.InstancedMesh(geo,m.cabinRubber,Math.floor(h/.016)*Math.floor(w/.013)),mat=new THREE.Matrix4();let n=0;
       for(let a=-h/2+.013;a<h/2-.004;a+=.016)for(let b=-w/2+.009;b<w/2-.004;b+=.013){mat.makeRotationY(Math.PI/2);mat.setPosition(.01,a,b);if(n<holes.count)holes.setMatrixAt(n++,mat);}holes.count=n;p.add(holes);
     }
@@ -187,12 +188,14 @@ export async function buildDetailedInterior(car){
     register(`${side}-door-panel`,`${side==='left'?'Driver':'Passenger'} door panel`,'Sculpted leather door card with red stitching, carbon inlay, brushed-metal handle, window switch and perforated speaker grille.',g=>{
       box(g,m.dash,.27,.595,s*.738,1.12,.34,.058,.065);ellipse(g,m.seat,.25,.79,s*.754,.585,.079,.032);
       const inlay=box(g,m.cabinCarbon,.21,.59,s*.699,.79,.095,.013,.025);trimMeshes.push(inlay);
-      tube(g,m.stitch,[V(-.25,.805,s*.717),V(.01,.82,s*.719),V(.43,.81,s*.724),V(.81,.758,s*.727)],.0015);stitches(g,m.stitch,[V(-.25,.795,s*.715),V(.01,.811,s*.717),V(.43,.801,s*.722),V(.81,.749,s*.725)]);
+      // Seam follows the inner padded edge instead of standing above the door.
+      const seam=[];for(let i=0;i<=70;i++){const x=-.25+i/70*1.0,u=(x-.25)/.585;seam.push(V(x,.79+.079*Math.sqrt(Math.max(0,1-u*u-.36)),s*(.754-.032*.6)));}stitches(g,m.stitch,seam);
       box(g,m.seat,.25,.576,s*.68,.58,.061,.12,.025);tube(g,m.cabinMetal,[V(.01,.636,s*.686),V(.11,.678,s*.684),V(.28,.671,s*.684),V(.37,.624,s*.684)],.01);
+      for(const [x,y] of [[.01,.636],[.37,.624]])box(g,m.cabinRubber,x,y,s*.698,.032,.032,.035,.008);
       box(g,m.cabinRubber,.25,.62,s*.639,.07,.019,.026,.005);
       const speaker=add(g,new THREE.CircleGeometry(.072,48),m.cabinRubber,-.14,.483,s*.702);speaker.rotation.y=s>0?Math.PI:0;
       const dots=new THREE.InstancedMesh(new THREE.CircleGeometry(.0015,5),m.cabinMetal,220),matrix=new THREE.Matrix4();let n=0;for(let x=-.064;x<=.064;x+=.008)for(let y=-.064;y<=.064;y+=.008)if(x*x+y*y<.0040&&n<220){matrix.makeRotationY(s>0?Math.PI:0);matrix.setPosition(-.14+x,.483+y,s*.697);dots.setMatrixAt(n++,matrix);}dots.count=n;g.add(dots);
-      tube(g,m.stitch,[V(-.22,.438,s*.699),V(.2,.421,s*.699),V(.68,.447,s*.699)],.0012);
+      stitches(g,m.stitch,[V(-.16,.46,s*.708),V(.2,.45,s*.708),V(.68,.46,s*.708)]);
     },V(-.997,.622,s*.4975),V(0,.1,s*.85));
     register(`${side}-seatbelt`,`${side==='left'?'Driver':'Passenger'} red seatbelt`,'Woven red shoulder belt, metallic guide and buckle with contrasting red release button.',g=>{
       const z=s*.67;webbing(g,m.belt,[V(.76,1.071,z),V(.60,.934,z),V(.38,.64,z),V(.29,.38,z)]);
@@ -210,7 +213,7 @@ export async function buildDetailedInterior(car){
     const oldGeometries=new Set();objects.forEach(o=>{oldGeometries.add(o.geometry);o.removeFromParent();});oldGeometries.forEach(x=>x.dispose());
   }
   root.updateMatrixWorld(true);
-  car.interior={trimMeshes,detailVersion:'812-reference-cockpit-v2',leatherGrain:grain,leatherNormal,leatherRoughness};
+  car.interior={trimMeshes,detailVersion:'812-reference-cockpit-v3',leatherGrain:grain,leatherNormal,leatherRoughness};
   return car;
 }
 

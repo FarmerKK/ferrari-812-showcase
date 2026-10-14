@@ -1,0 +1,33 @@
+{
+  "license": "CC0 1.0",
+  "note": "Ferrari recordings; the recordists do not identify an 812 Superfast. Edited excerpts for an illustrative showroom sound study.",
+  "sources": [
+    {
+      "author": "biholao",
+      "title": "Acceleration 1.wav",
+      "url": "https://freesound.org/people/biholao/sounds/370278/",
+      "cuts_seconds": [
+        [
+          1,
+          9
+        ],
+        [
+          15,
+          24
+        ]
+      ]
+    },
+    {
+      "author": "jtvdb",
+      "title": "Ferrari_motor_idle",
+      "url": "https://freesound.org/people/jtvdb/sounds/857147/",
+      "cuts_seconds": [
+        [
+          8,
+          20
+        ]
+      ]
+    }
+  ],
+  "edits": "55 Hz high-pass, 8.5 kHz low-pass, peak normalization, fades and idle loop join"
+}

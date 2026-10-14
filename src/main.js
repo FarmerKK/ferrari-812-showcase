@@ -13,6 +13,7 @@ import { createCar, applyConfig, disposeCar } from './car.js';
 import { loadDetailedCar } from './detailed-car.js';
 import { configureInterior } from './interior.js';
 import { createEnvironment, environmentPresets } from './environment.js';
+import { ExhaustAudio } from './exhaust-audio.js';
 
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const iconsUpdate=()=>createIcons({icons:{Bookmark,Paintbrush,CircleDot,Disc3,CarFront,Armchair,Lightbulb,FolderOpen,RotateCcw,ArrowUpRight,Scan,ArrowRight,X,Mouse,Video,ChevronDown,Orbit,Focus,Layers3,Combine,Settings2,Sunset,Camera,Maximize},attrs:{'stroke-width':1.5}});
@@ -21,7 +22,7 @@ const duration=reducedMotion?.01:1.15;
 const DEFAULTS={paint:'#d20b16',paintName:'Rosso Corsa',finish:'gloss',roughness:.20,metalness:.25,clearcoat:1,wheelColor:'#4b5054',wheelMaterial:'polished',wheelStyle:'split',caliperColor:'#edb422',tireRoughness:.91,seatColor:'#232528',dashColor:'#17191c',stitchColor:'#c82436',beltColor:'#bf1930',interiorMaterial:'leather',carbonTrim:true,mirrorFinish:'paint',aero:'standard',headlights:false,taillights:true,brakeLights:false,indicators:false,environment:'sunset',quality:'adaptive'};
 let config={...DEFAULTS},car,renderer,scene,camera,controls,composer,bloom,environment,ssao,scenePass;
 let selected=null,selectionMaterials=new Map(),currentCategory='paint',currentPage='showcase',cameraMode='orbit';
-let animationId,alive=true,frameCount=0,lastPerf=performance.now(),fps=60,lowQuality=false,qualityCooldown=0;
+let animationId,alive=true,frameCount=0,lastPerf=performance.now(),fps=60,lowQuality=false,qualityCooldown=0,cameraTween,slowSamples=0,fastSamples=0;
 let cameraFit=1,hasViewport=false;
 const cabinModes=new Set(['interior','driver','console','seats','cabin-top','door']);
 let cabinLighting=[],cabinCutaway=false,cabinPreviousEnvironment=null;
@@ -30,6 +31,13 @@ const doorMotion={angle:0},hoodMotion={angle:0};
 const pointerStart=new THREE.Vector2(),raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();
 const paintColors=[['Rosso Corsa','#d20b16'],['Giallo Modena','#d5ae35'],['Nero Daytona','#151c1a'],['Bianco Avus','#e5e2d7'],['Grigio Silverstone','#777d78'],['Blu Pozzi','#15394e']];
 let toastTimer;
+const exhaust=new ExhaustAudio(state=>{
+  const start=$('#engine-start');if(!start)return;
+  start.textContent=state.loading?'Cancel loading':state.running?'Stop engine':'Start engine';start.setAttribute('aria-pressed',String(state.running||state.loading));
+  $('#engine-rev').disabled=!state.running||state.revving;$('#engine-rev').textContent=state.revving?'Revving…':'Rev exhaust';$('#sound-status').textContent=state.loading?'LOADING RECORDINGS':state.revving?'EXHAUST · REV':state.running?'ENGINE · IDLE':'ENGINE · OFF';$('#sound-toggle').setAttribute('aria-pressed',String(state.running));$('#sound-mute').setAttribute('aria-pressed',String(state.muted));$('#sound-mute').textContent=state.muted?'Unmute':'Mute';
+});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)exhaust.stop();});
+window.addEventListener('pagehide',e=>{if(e.persisted)exhaust.stop();else exhaust.dispose();});
 function toast(message){$('#toast').textContent=message;$('#toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('visible'),3500);}
 function download(data,name,type){const blob=data instanceof Blob?data:new Blob([data],{type});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);}
 function safeColor(v){return typeof v==='string'&&/^#[a-f\d]{6}$/i.test(v);}
@@ -81,9 +89,10 @@ function updateAssembly(){const n=[...car.parts.values()].filter(p=>p.userData.d
 function explodeAll(detached){gsap.killTweensOf(doorMotion);gsap.killTweensOf(hoodMotion);doorMotion.angle=0;hoodMotion.angle=0;doorsOpen=false;hoodOpen=false;wheelSpin=false;setSteering(0);drawMechanics();for(const p of car.parts.values()){gsap.killTweensOf(p.rotation);p.quaternion.copy(p.userData.originalQuaternion);setDetached(p,detached);}$('#explode').setAttribute('aria-pressed',String(detached));if(detached)goCamera('exploded');else goCamera('orbit');toast(detached?'Every component, revealed. Click a part to inspect.':'All components reassembled.');}
 function focusPart(part){if($('main').classList.contains('cockpit-mode')&&part.userData.category!=='Interior')setCabinView('inspect');const box=new THREE.Box3().setFromObject(part),target=box.getCenter(new THREE.Vector3()),size=box.getSize(new THREE.Vector3()).length();const direction=camera.position.clone().sub(controls.target).normalize();transitionCamera(target.clone().addScaledVector(direction,Math.max(1.15,size*1.35)),target);cameraMode='inspect';$('#camera-label').textContent=part.userData.name.toUpperCase();}
 function transitionCamera(position,target){
-  cinematic=false;controls.autoRotate=false;$('#auto-rotate').setAttribute('aria-pressed','false');cameraTransition=true;controls.enabled=false;
-  gsap.to(camera.position,{...position,duration,ease:'power2.inOut',overwrite:true});
-  gsap.to(controls.target,{...target,duration,ease:'power2.inOut',overwrite:true,onUpdate:()=>{camera.lookAt(controls.target);},onComplete:()=>{controls.enabled=true;cameraTransition=false;controls.update();render();lastPerf=performance.now();frameCount=0;qualityCooldown=performance.now()+3500;}});
+  cameraTween?.kill();cinematic=false;controls.autoRotate=false;$('#auto-rotate').setAttribute('aria-pressed','false');cameraTransition=true;controls.enabled=false;
+  const damping=controls.enableDamping;controls.enableDamping=false;controls.update();controls.enableDamping=damping;
+  const startPosition=camera.position.clone(),startTarget=controls.target.clone(),motion={t:0};
+  cameraTween=gsap.to(motion,{t:1,duration,ease:'power2.inOut',onUpdate:()=>{camera.position.lerpVectors(startPosition,position,motion.t);controls.target.lerpVectors(startTarget,target,motion.t);camera.lookAt(controls.target);},onComplete:()=>{camera.position.copy(position);controls.target.copy(target);controls.enabled=true;cameraTransition=false;controls.update();render();lastPerf=performance.now();frameCount=0;qualityCooldown=performance.now()+10000;}});
 }
 const cameraViews={orbit:{label:'Three-quarter view',pos:[-5.5,2.35,5.0],target:[0,.62,0]},front:{label:'Front view',pos:[-6.7,1.22,0],target:[-.15,.66,0]},rear:{label:'Rear view',pos:[6.7,1.24,0],target:[.2,.66,0]},left:{label:'Left view',pos:[0,1.65,7.7],target:[0,.65,0]},right:{label:'Right view',pos:[0,1.65,-7.7],target:[0,.65,0]},top:{label:'Top view',pos:[0,8,.001],target:[0,.3,0]},interior:{label:'Interior view',pos:[.62,1.075,.01],target:[-.25,.77,0]},driver:{label:'Driver cockpit',pos:[.50,1.03,.425],target:[-.18,.85,.38]},console:{label:'Center console',pos:[.60,1.14,.02],target:[.12,.58,0]},seats:{label:'Sport seats',pos:[-.83,1.42,1.38],target:[.35,.66,0]},'cabin-top':{label:'Interior top view',pos:[.03,3.35,.001],target:[.03,.43,0]},door:{label:'Door panel',pos:[.28,.86,0],target:[.36,.60,.73]},wheel:{label:'Wheel inspection',pos:[-2.18,.79,2.13],target:[-1.37,.354,.89]},engine:{label:'Engine inspection',pos:[-2.31,2.55,1.69],target:[-.91,.65,0]},cinematic:{label:'Cinematic camera',pos:[-5.8,1.8,5.2],target:[0,.6,0]},exploded:{label:'Exploded overview',pos:[-7.5,4.3,7.3],target:[0,.85,0]}};
 function createCabinLighting(){
@@ -109,7 +118,7 @@ function setCabinView(mode){
   revealCabin(active&&['seats','cabin-top'].includes(mode));
   if(active)for(const [id,p] of car.parts)if(/^(left|right)-(front|rear)-(wheel|tire|disc|caliper|suspension)$/.test(id)||['engine','engine-covers','exhaust'].includes(id))p.visible=false;
   if(mode==='seats'){
-    const visible=new Set(['driver-seat','passenger-seat','interior-trim','center-console']);
+    const visible=new Set(['driver-seat','passenger-seat','center-console','left-seatbelt','right-seatbelt']);
     for(const [id,p] of car.parts)p.visible=visible.has(id);
   }
   camera.fov=active?(mode==='driver'?62:mode==='interior'?66:mode==='console'?49:44):(innerWidth<640?43:35);camera.updateProjectionMatrix();ssao.setSize(ssao.width,ssao.height);
@@ -130,9 +139,13 @@ function renderPartsList(){const q=$('#part-search').value.toLowerCase();$('#par
 function setPage(page){currentPage=page;$$('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.page===page));$('main').classList.remove('parts-mode','environment-mode','configure-mode');if(page==='parts')$('main').classList.add('parts-mode');if(page==='environment')$('main').classList.add('environment-mode');if(page==='customize')$('main').classList.add('configure-mode');$('#parts-drawer').hidden=page!=='parts';$('#environment-drawer').hidden=page!=='environment';if(page==='parts')renderPartsList();if(page==='environment')renderEnvironments();}
 function renderEnvironments(){$('#environment-options').innerHTML=Object.entries(environmentPresets).map(([id,p])=>`<button class="env-option ${config.environment===id?'active':''}" data-environment="${id}"><span class="env-sample" style="--env-color:${p.color}"></span><span>${p.label}<small>${p.description}</small></span></button>`).join('');$('#quality').value=config.quality;}
 function setEnvironment(mode){environment.setMode(mode);config.environment=mode;$('#environment-label').textContent=environmentPresets[mode].tag;$('#light-label').textContent=environmentPresets[mode].label;renderEnvironments();}
-function setQuality(value){config.quality=value;const low=value==='low'||(value==='adaptive'&&(innerWidth<640||fps<28));lowQuality=low;renderer.setPixelRatio(low?Math.min(devicePixelRatio,1):Math.min(devicePixelRatio,1.75));environment.setQuality(!low);bloom.enabled=!low;ssao.enabled=!low&&$('main').classList.contains('cockpit-mode');scenePass.enabled=true;resize();}
+function setQuality(value){config.quality=value;slowSamples=fastSamples=0;const low=value==='low'||(value==='adaptive'&&innerWidth<640);lowQuality=low;renderer.setPixelRatio(low?Math.min(devicePixelRatio,1):Math.min(devicePixelRatio,1.75));environment.setQuality(!low);bloom.enabled=!low;ssao.enabled=!low&&$('main').classList.contains('cockpit-mode');scenePass.enabled=true;resize();}
 function resize(){if(!renderer)return;const {width,height}=$('#viewport').getBoundingClientRect();const nextFit=width<640?1.57:Math.max(1,1.6/(width/height));if(hasViewport&&!cabinModes.has(cameraMode)&&!['wheel','engine','inspect'].includes(cameraMode))camera.position.sub(controls.target).multiplyScalar(nextFit/cameraFit).add(controls.target);cameraFit=nextFit;hasViewport=true;camera.aspect=width/height;camera.fov=cabinModes.has(cameraMode)?(cameraMode==='driver'?62:cameraMode==='interior'?66:cameraMode==='console'?49:44):(width<640?43:35);camera.updateProjectionMatrix();renderer.setSize(width,height);composer.setPixelRatio(renderer.getPixelRatio());composer.setSize(width,height);}
 function setupEvents(){
+  $('#sound-toggle').onclick=()=>{const panel=$('#sound-panel');panel.hidden=!panel.hidden;$('#sound-toggle').setAttribute('aria-expanded',String(!panel.hidden));};
+  $('#sound-close').onclick=()=>{$('#sound-panel').hidden=true;$('#sound-toggle').setAttribute('aria-expanded','false');};
+  $('#engine-start').onclick=async()=>{if(exhaust.running||exhaust.loading)exhaust.stop();else try{await exhaust.start();}catch(e){toast(e.message);}};
+  $('#engine-rev').onclick=()=>exhaust.rev();$('#sound-volume').oninput=e=>exhaust.setVolume(e.target.value);$('#sound-mute').onclick=()=>exhaust.setMuted(!exhaust.muted);
   $('#interior-finishes').onclick=()=>{$('main').classList.toggle('interior-finishes-open');$('#interior-finishes').setAttribute('aria-expanded',String($('main').classList.contains('interior-finishes-open')));};
   $('#cabin-cutaway').onclick=()=>revealCabin(!cabinCutaway);
   $('#exit-cockpit').onclick=()=>{selectPart(null);goCamera('orbit');};
@@ -205,13 +218,19 @@ function render(){renderer.info.reset();if(lowQuality)renderer.render(scene,came
 function tick(now){
   if(!alive)return;animationId=requestAnimationFrame(tick);if(document.hidden)return;
   const elapsed=THREE.MathUtils.clamp((now-(tick.last||now))/1000,0,.05);tick.last=now;
+  if(!$('#sound-panel').hidden){const levels=exhaust.levels();$$('.sound-meter i').forEach((bar,i)=>bar.style.transform=`scaleY(${.12+levels[i]*.88})`);}
   if(!cameraTransition)controls.update(elapsed);
   if(wheelSpin)for(const g of car.wheels){g.rotation.z+=elapsed*.65;}
   car.materials.indicator.emissiveIntensity=config.indicators&&Math.floor(now/470)%2===0?3:0;
   if(car.source==='licensed-cc0'){const flash=config.indicators&&Math.floor(now/470)%2===0;car.materials.headlight.emissive.set(flash?'#ff7900':'#e5f3ff');car.materials.headlight.emissiveIntensity=flash?2.3:config.headlights?3.4:.15;}
   if(cinematic){camera.position.y=1.8+Math.sin(now*.0002)*.28;controls.target.y=.64;}
   render();frameCount++;
-  if(now-lastPerf>2500){fps=Math.round(frameCount*1000/(now-lastPerf));$('#performance').textContent=`${fps} FPS · ${lowQuality?'PERFORMANCE':'HIGH'} QUALITY`;frameCount=0;lastPerf=now;if(config.quality==='adaptive'&&now>qualityCooldown&&fps<25&&!lowQuality){setQuality('low');config.quality='adaptive';qualityCooldown=now+15000;}}
+  if(now-lastPerf>2500){fps=Math.round(frameCount*1000/(now-lastPerf));$('#performance').textContent=`${fps} FPS · ${lowQuality?'PERFORMANCE':'HIGH'} QUALITY`;frameCount=0;lastPerf=now;
+    if(config.quality==='adaptive'&&now>qualityCooldown){slowSamples=fps<25?slowSamples+1:0;fastSamples=fps>60?fastSamples+1:0;
+      if(slowSamples>=3&&!lowQuality){setQuality('low');config.quality='adaptive';qualityCooldown=now+60000;}
+      else if(fastSamples>=3&&lowQuality&&innerWidth>=640){setQuality('adaptive');qualityCooldown=now+60000;}
+    }
+  }
 }
 async function boot(){
   try{
@@ -220,9 +239,9 @@ async function boot(){
     const rt=new THREE.WebGLRenderTarget(1,1,{type:THREE.HalfFloatType});rt.samples=4;composer=new EffectComposer(renderer,rt);scenePass=new RenderPass(scene,camera);composer.addPass(scenePass);ssao=new SSAOPass(scene,camera,1,1,16);ssao.enabled=false;ssao.kernelRadius=.09;ssao.minDistance=.000001;ssao.maxDistance=.00025;composer.addPass(ssao);bloom=new UnrealBloomPass(new THREE.Vector2(1,1),.13,.28,1.45);composer.addPass(bloom);composer.addPass(new OutputPass());
     $('#load-status').textContent='Loading the detailed 812';environment=createEnvironment(scene,renderer);car=await loadDetailedCar((loaded,total)=>{$('#load-status').textContent=total?`Loading the detailed 812 · ${Math.round(loaded/total*100)}%`:'Loading the detailed 812';});scene.add(car.root);createCabinLighting();updateCar();setupEvents();drawCategory();drawMechanics();renderPartsList();setEnvironment('sunset');resize();setQuality('adaptive');
     const initial=new THREE.Vector3(...cameraViews.orbit.pos).multiplyScalar(cameraFit);if(innerWidth<640)controls.target.y=-.38;camera.position.copy(initial);controls.update();render();iconsUpdate();lastPerf=performance.now();
-    $('#loading').style.opacity='0';setTimeout(()=>$('#loading').remove(),650);animationId=requestAnimationFrame(tick);
+    qualityCooldown=performance.now()+15000;$('#loading').style.opacity='0';setTimeout(()=>$('#loading').remove(),650);animationId=requestAnimationFrame(tick);
     // Read-only diagnostics for manual QA; actions remain exposed through the UI.
-    window.atelier={get car(){return car;},get config(){return {...config};},get camera(){return camera;},get controls(){return controls;},get renderer(){return renderer;},get scene(){return scene;},get environment(){return environment;},get selected(){return selected;},get diagnostics(){return {partCount:car.parts.size,meshCount:(()=>{let n=0;car.root.traverse(o=>{if(o.isMesh)n++;});return n;})(),drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,fps,quality:lowQuality?'low':'high',source:car.source};}};
+    window.atelier={get sound(){return exhaust.status;},get soundLevels(){return exhaust.levels();},get car(){return car;},get config(){return {...config};},get camera(){return camera;},get controls(){return controls;},get renderer(){return renderer;},get scene(){return scene;},get environment(){return environment;},get selected(){return selected;},get diagnostics(){return {partCount:car.parts.size,meshCount:(()=>{let n=0;car.root.traverse(o=>{if(o.isMesh)n++;});return n;})(),drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,fps,quality:lowQuality?'low':'high',source:car.source};}};
     const requestedView=new URLSearchParams(location.search).get('view');if(cabinModes.has(requestedView))goCamera(requestedView);
   }catch(error){console.error('Atelier initialization failed',error);$('#loading').innerHTML='<div class="loader-mark">812</div><p>3D initialization failed. Enable WebGL and reload this page.</p>';}
 }

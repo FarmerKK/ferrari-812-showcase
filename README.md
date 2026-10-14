@@ -29,6 +29,7 @@ npm run preview -- --port 5173
 - Mechanics เปิดประตูพร้อมกระจกและกระจกข้าง เปิดฝากระโปรง หมุนล้อ และปรับพวงมาลัย
 - กล้องมี 15 มุม รวมภายใน 6 มุม, engine และ cinematic; แสงมี daylight, sunset, night และ studio
 - Save/Load/Reset เก็บ configuration ใน LocalStorage; Capture PNG บันทึก render
+- Sound → Start engine เปิดเสียงเดินเบา; Rev exhaust เล่นเสียงเร่ง; Stop engine หยุดทั้งสอง มี Volume/Mute และหยุดเมื่อซ่อนแท็บ ใช้เสียงบันทึก Ferrari แบบ CC0 ซึ่งผู้บันทึกไม่ยืนยันรุ่น 812
 - About this reconstruction → Export model ส่งออก GLB ของ configuration ปัจจุบันในสภาพประกอบ
 - เมื่อ canvas มี keyboard focus: ลูกศรหมุน/ซูม, +/- ซูม, R reset camera, E explode, A assemble
 
@@ -59,7 +60,7 @@ npx --yes --package @playwright/cli playwright-cli -s=atelier open http://127.0.
 npx --yes --package @playwright/cli playwright-cli -s=atelier run-code --filename qa/detailed-acceptance.cjs
 ```
 
-รุ่นปัจจุบันผ่าน regression 50 รายการ, cockpit 33 รายการ และ navigation smoke 5 รายการ โดยไม่มี JavaScript runtime errors ภาพและไฟล์อยู่ใน `output/playwright/`. Scripts `qa/acceptance.cjs` และ `qa/final-smoke.cjs` เป็นการทดสอบรุ่น procedural เก่า ใช้ detailed-acceptance สำหรับรุ่นปัจจุบัน
+รุ่นปัจจุบันผ่าน regression 50 รายการ, cockpit 33 รายการ, navigation smoke 5 รายการ และการแก้หน้าปัด/กล้อง/เสียง 18 รายการ รวม 106 โดยไม่มี JavaScript runtime errors ภาพและไฟล์อยู่ใน `output/playwright/`. ผลทดสอบฟังก์ชันไม่ได้รับรองความเหมือน CAD ต้นฉบับ Scripts `qa/acceptance.cjs` และ `qa/final-smoke.cjs` เป็นการทดสอบรุ่น procedural เก่า ใช้ detailed-acceptance สำหรับรุ่นปัจจุบัน
 
 ## ข้อจำกัด
 
