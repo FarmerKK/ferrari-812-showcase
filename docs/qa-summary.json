@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-14",
+  "timezone": "Asia/Bangkok",
+  "acceptance": {"passed": 50, "runtimeErrors": [], "desktopViewport": [1440,900], "mobileViewport": [390,844]},
+  "finalRegression": {"passed": 12, "runtimeErrors": [], "tallDesktopViewport": [1348,1244]},
+  "finalScene": {"partGroups":57, "liveCarMeshes":436, "renderCallsIncludingShadowAndPostprocessing":953, "trianglesAcrossPasses":774404},
+  "modelFidelity": "Procedural approximation from the user reference; not CAD or photorealistic",
+  "physicalMobileDeviceTested": false,
+  "arbitraryThirdPartyGLBCompatibilityCertified": false
+}
