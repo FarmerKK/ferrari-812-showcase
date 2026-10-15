@@ -1,6 +1,6 @@
 # Cockpit reconstruction — 15 October 2026
 
-Current runtime: `812-passenger-layout-v6`.
+Current runtime: `812-sloping-dashboard-v7`.
 
 The cockpit follows the supplied 812 blueprint and the later real-car photographs. The vehicle remains left-hand drive, following the left-hand-drive reference; the right-hand-drive photo supplies construction and surface details. This is a photographic reconstruction, not official Ferrari CAD.
 
@@ -8,7 +8,7 @@ The cockpit follows the supplied 812 blueprint and the later real-car photograph
 
 src/cockpit-geometry.js builds closed padded dashboard volumes with a broad upper passenger airbag face, a continuous straight black fascia band, and a separate Cuoio lower leather glovebox roll. The passenger LCD is planar: it is not bowed around the cabin. An extruded bezel has an actual open aperture, and the LCD sits behind that lip. The default values are neutral, zero road speed and zero RPM, consistent with the static driver dial.
 
-The 812 superfast badge is actual beveled metal lettering above the passenger screen. Its backing follows the padded leather surface; it is not placed on the display. Upper passenger padding and the lower glovebox have restrained depth in vertical section, while the display remains straight across its width. A more directional window key light and weaker fill reveal these volumes and their seams.
+The 812 superfast badge is actual beveled metal lettering above the passenger screen. Its backing follows the padded leather surface; it is not placed on the display. The upper passenger leather now has a shallow ramp in its front-to-back section, descending toward the fascia. The stronger recessed shape was reduced following the user’s feedback. The display remains straight across its width. Lettering and the front seam are fitted to the revised surface. A more directional window key light and weaker fill reveal these volumes and their seams.
 
 The central vent carrier is dark anodized metal rather than a bright silver shelf. Vent pods have real openings and darker throats, with recessed vanes and thin red/metal lip rings. Both outer vent centers move inboard to ±0.645 m to clear the door trim. The glovebox divider and panel splits follow the actual padded surface. Center service and climate controls are smaller and separate from the passenger screen.
 
@@ -41,3 +41,5 @@ Gauge values, switch labels, engine/suspension details and opening mechanics are
 Finishing includes an enclosed rear instrument shell with outward-facing roof normals, a recessed hex grille constrained below the leather eyebrow, and glovebox clearance for the right climate knob. The photo structure suite checks these clearances and the actual open passage under the console. The browser host forces page visibility; the audio suite exercises the production visibility handler with a temporary document.hidden fixture and restores the property.
 
 The geometric surface audit welds coincident triangle positions for the padded dashboard material and checks for unclosed boundaries. The final count is recorded in qa-summary.json; the padded upper and lower materials are both inspected for unclosed boundaries. This audit covers the padded dashboard volumes; it is not a claim that every mesh in the vehicle is manifold.
+
+The slope check casts downward rays at three longitudinal positions on the actual leather mesh and records their heights. It verifies a shallow descending section while retaining the separate LCD planarity and visibility checks. The current results are in qa-summary.json.

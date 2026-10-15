@@ -61,7 +61,7 @@ npx --yes --package @playwright/cli playwright-cli -s=atelier open http://127.0.
 npx --yes --package @playwright/cli playwright-cli -s=atelier run-code --filename qa/detailed-acceptance.cjs
 ```
 
-รุ่น v6 ตรวจกล้องภายใน 7 มุม สีหนังล่างแบบแยก แผ่นจอผู้โดยสารที่เป็นแนวตรง ระยะพ้นแผงประตู และการทำงานเดิมของ cockpit/เสียง รวม 82 รายการ ส่วน regression ภายนอก 50 รายการผ่านในรุ่น v4 ก่อนหน้า โดยไม่มี JavaScript runtime errors ภาพและไฟล์อยู่ใน `output/playwright/`. ผลทดสอบฟังก์ชันไม่ได้รับรองความเหมือน CAD ต้นฉบับ Scripts `qa/acceptance.cjs` และ `qa/final-smoke.cjs` เป็นการทดสอบรุ่น procedural เก่า ใช้ detailed-acceptance สำหรับรุ่นปัจจุบัน
+รุ่น v7 ปรับหนังด้านบนให้ลาดลงแบบตื้น และตรวจ slope/จอ/ระยะพ้น/ผิวปิด 32 รายการ ส่วนรุ่น v6 ตรวจกล้องภายใน 7 มุม สีหนังล่างแบบแยก แผ่นจอผู้โดยสารที่เป็นแนวตรง ระยะพ้นแผงประตู และการทำงานเดิมของ cockpit/เสียง รวม 82 รายการ ส่วน regression ภายนอก 50 รายการผ่านในรุ่น v4 ก่อนหน้า โดยไม่มี JavaScript runtime errors ภาพและไฟล์อยู่ใน `output/playwright/`. ผลทดสอบฟังก์ชันไม่ได้รับรองความเหมือน CAD ต้นฉบับ Scripts `qa/acceptance.cjs` และ `qa/final-smoke.cjs` เป็นการทดสอบรุ่น procedural เก่า ใช้ detailed-acceptance สำหรับรุ่นปัจจุบัน
 
 ## ข้อจำกัด
 

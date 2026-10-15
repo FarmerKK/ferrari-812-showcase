@@ -61,11 +61,17 @@ const brow=z=>.821+.018*passengerBlend(z)+centers.reduce((n,c)=>n+(.036-.018*pas
 
 function upperProfile(z){
   const x=frontX(z),y=brow(z),blend=passengerBlend(z),bottom=THREE.MathUtils.lerp(y-.025,passengerEdge(z),blend),faceX=x+THREE.MathUtils.lerp(-.027,.014,blend),h=y-bottom;
-  return contour([[-.76,.815],[-.55,.830],[x-.093,y+.004],[x-.045,y+.001],[faceX+.014*blend,bottom+h*.64],[faceX+.004*blend,bottom+.006],[faceX-.006,bottom],[x-.060,bottom-.005],[x-.13,bottom+.015],[-.56,.787],[-.76,.785]]);
+  // The passenger leather is a ramp down from the windshield deck to the fascia.
+  // Keep its longitudinal stations aligned across the pad; only the lower edge
+  // rises around the vent apertures, avoiding pinched side folds.
+  const ramp=blend*.35;
+  const base=[[-.76,.850],[-.55,.848],[x-.093,y+.004],[x-.045,y+.001],[faceX+.014*blend,bottom+h*.64],[faceX+.004*blend,bottom+.006],[faceX-.006,bottom],[x-.060,bottom-.005],[x-.13,bottom+.015],[-.56,.787],[-.76,.785]];
+  const slope=[[-.76,.863],[-.55,.861],[x-.230,.862],[x-.125,bottom+h*.76],[x-.025,bottom+h*.24],[x+.012,bottom+.006],[x+.004,bottom],[x-.055,bottom-.008],[x-.195,bottom+.044],[-.56,.813],[-.76,.816]];
+  return contour(base.map(([a,b],i)=>[THREE.MathUtils.lerp(a,slope[i][0],ramp),THREE.MathUtils.lerp(b,slope[i][1],ramp)]));
 }
 const badgeSurfaceCache=new Map();
 function upperSurfaceX(y,z){
-  const key=Math.round(y*2000)+':'+Math.round(z*2000);if(badgeSurfaceCache.has(key))return badgeSurfaceCache.get(key);
+  const key=Math.round(y*1e6)+':'+Math.round(z*1e6);if(badgeSurfaceCache.has(key))return badgeSurfaceCache.get(key);
   const points=upperProfile(z).getPoints(192);let x=-Infinity;
   for(let i=0;i<points.length-1;i++){const a=points[i],b=points[i+1];if((a.y<=y&&b.y>=y)||(b.y<=y&&a.y>=y)){const f=(y-a.y)/(b.y-a.y||1);x=Math.max(x,THREE.MathUtils.lerp(a.x,b.x,f));}}
   badgeSurfaceCache.set(key,x);return x;
@@ -105,7 +111,7 @@ export function referenceDashboard(g,{m,trimMeshes}){
     const p=contour([[x-.095,top],[x-.064,top],[x-.058,.709],[x-.102,.701]]).getPoint(v);return V(p.x,p.y,z);
   },128,32);
   const redEdge=[];for(let i=0;i<=96;i++){const z=-.328+i/96*.460,outer=Math.max(0,-.27-z,z-.075),base=outer>0?.766-Math.sqrt(Math.max(.0001,.071**2-outer**2)):.695;redEdge.push(V(frontX(z)+.005,.701+(base-.699),z));}tube(g,m.cabinRed,redEdge,.0016);
-  const seam=[];for(let i=0;i<=192;i++){const z=-.700+i/192*1.45,b=passengerBlend(z);seam.push(V(frontX(z)+THREE.MathUtils.lerp(-.024,.020,b),THREE.MathUtils.lerp(brow(z)-.018,passengerEdge(z)+.005,b),z));}stitched(g,m.stitch,seam);
+  const seam=[];for(let i=0;i<=192;i++){const z=-.700+i/192*1.45,b=passengerBlend(z),y=THREE.MathUtils.lerp(brow(z)-.018,passengerEdge(z)+.005,b);seam.push(V(upperSurfaceX(y,z)+.0006,y,z));}stitched(g,m.stitch,seam);
   // The column socket grows out of the padded knee bolster below the gauges.
   closedSweep(g,m.dash,(t,v)=>{
     const z=.221+t*.410,edge=Math.sin(t*Math.PI)**.5;
@@ -118,7 +124,7 @@ export function referenceDashboard(g,{m,trimMeshes}){
 
 export function referenceVents(g,{m}){
   centers.forEach(z=>{const pack=new THREE.Group();pack.position.set(frontX(z)-.005,.766+(Math.abs(z)>.5?.017:0),z);pack.rotation.y=Math.sign(z)*(Math.abs(z)>.5?.21:.025);g.add(pack);
-    const outline=contour([[-.081,.032],[-.051,.067],[.023,.076],[.067,.040],[.079,-.016],[.043,-.065],[-.045,-.068],[-.084,-.021]]),shape=new THREE.Shape();
+    const outline=contour([[-.081,.032],[-.051,.055],[.023,.060],[.067,.040],[.079,-.016],[.043,-.065],[-.045,-.068],[-.084,-.021]]),shape=new THREE.Shape();
     for(let i=0;i<96;i++){const p=outline.getPoint(i/96);if(i)shape.lineTo(p.x,p.y);else shape.moveTo(p.x,p.y);}shape.closePath();const aperture=new THREE.Path();aperture.absarc(0,0,.055,0,TAU,true);shape.holes.push(aperture);
     const pod=mesh(pack,new THREE.ExtrudeGeometry(shape,{depth:.010,bevelEnabled:true,bevelSize:.002,bevelThickness:.002,bevelSegments:3,curveSegments:64}),m.ventMetal,-.036);pod.rotation.y=Math.PI/2;pod.userData.cockpitFeature='open-vent-side-pod';
     // Bell-shaped aluminium nozzle with a thick rolled mouth and an open throat.

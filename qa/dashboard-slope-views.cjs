@@ -1,0 +1,5 @@
+async(page)=>{
+await page.goto('http://127.0.0.1:5173/?view=passenger');await page.bringToFront();await page.setViewportSize({width:1600,height:1000});await page.waitForFunction(()=>window.atelier?.car?.interior);await page.locator('#loading').waitFor({state:'detached',timeout:120000});await page.waitForFunction(()=>atelier.controls.enabled,null,{timeout:120000});await page.waitForTimeout(700);await page.screenshot({path:'output/playwright/sloped-passenger.png'});
+await page.evaluate(()=>{atelier.camera.position.set(.05,1.01,-.16);atelier.controls.target.set(-.36,.81,-.50);atelier.camera.fov=56;atelier.camera.updateProjectionMatrix();atelier.controls.update();});await page.waitForTimeout(700);await page.screenshot({path:'output/playwright/sloped-section.png'});
+await page.getByRole('button',{name:'Dashboard',exact:true}).click();await page.waitForFunction(()=>atelier.controls.enabled);await page.getByRole('button',{name:'Passenger',exact:true}).click();await page.waitForFunction(()=>atelier.controls.enabled);return {version:await page.evaluate(()=>atelier.car.interior.detailVersion)};
+}

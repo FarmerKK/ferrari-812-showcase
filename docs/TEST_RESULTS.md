@@ -1,33 +1,31 @@
 # Test results — 15 October 2026
 
-Runtime: `812-passenger-layout-v6`. The final combined production-preview run passed 82 checks:
+Runtime: `812-sloping-dashboard-v7`. The final combined production-preview run passed 32 targeted checks:
 
-- `qa/cabin-acceptance.cjs`: 34 passed, including the new Passenger view.
+- `qa/passenger-layout.cjs`: 12 passed, including actual leather slope measurements.
 - `qa/photo-cockpit-structure.cjs`: 17 passed.
 - `qa/formed-surface-audit.cjs`: 3 passed.
-- `qa/cabin-refinement.cjs`: 18 passed, including measured audio output.
-- `qa/passenger-layout.cjs`: 10 passed.
 
-No JavaScript runtime errors were recorded. The prior v4 exterior suite passed 50 checks; it was not rerun for this dashboard revision. Functional/geometry checks do not certify photographic identity. Final desktop viewport: 1600 × 1000; mobile: 390 × 844 in Chromium. The combined run allows up to 120 seconds for initial overlay removal.
+No JavaScript runtime errors were recorded. Desktop viewport: 1600 × 1000; mobile: 390 × 844 in Chromium. Initial overlay removal allows up to 120 seconds. Functional and geometry checks do not certify photographic identity.
 
-## Passenger layout and shape
+## Revised leather section
 
-The supplied additional real-car photos guide the broad padded upper passenger panel, raised 812 superfast badge, straight black fascia band and contrasting lower glovebox. The user's correction is incorporated: the LCD is a plane rather than a curved strip. Its world depth range is 0.000000000 m. All nine sampled screen positions are visible ahead of surrounding geometry. All five sampled points through the outer passenger vent hit the vent rather than dashboard/door trim. The outer vent centers are ±0.645 m, moved inboard to provide clearance.
+The upper passenger leather descends toward the front fascia while the LCD remains planar. After the user rejected the first, excessively steep revision, the final ramp was reduced to a shallow section. Downward rays at three longitudinal positions on the actual leather mesh hit heights of 0.853878, 0.848135 and 0.809671 m. The endpoint inclination is 11.62 degrees in this model; this is a measured reconstruction value, not a claimed Ferrari specification.
 
-The screen sits behind a physically open bezel. Its RPM scale, neutral gear and zero speed describe an engine-off showroom state matching the driver dial. The upper leather pad and lower glovebox retain vertical padding depth and rounded return edges while the screen remains straight. A directional window key with weaker fill reveals the section depth. The badge backing and glovebox divider follow the surfaces rather than floating above them. Center service/climate controls are smaller and separate from the passenger display.
+The 812 metal badge and front stitching sample the revised surface. Higher-precision surface sampling avoids stepped lettering on the inclined leather. The vent-pod upper edges are reduced so they no longer protrude as fins through the leather. Final images are `output/playwright/sloped-passenger.png` and `sloped-section.png`, captured by `qa/dashboard-slope-views.cjs` from the actual runtime geometry.
 
-Lower dashboard leather defaults to #835b40 and has an independent color control. Color changes leave upper leather unchanged, persist through save/reset/load, and receive the default when older saved configurations lack the new field. The Passenger toolbar camera and direct ?view=passenger entry work on desktop and mobile without horizontal page overflow.
+The passenger LCD world-depth range remains 0.000000000 m. All nine sampled screen positions and all five sampled positions through the outer passenger vent remain visible. Outer vent centers remain ±0.645 m. The lower leather color remains independent of the upper leather, persists through save/reset/load and defaults correctly for older configurations. Passenger toolbar and direct ?view=passenger entry pass on desktop and mobile without horizontal overflow.
 
-`qa/passenger-reference-views.cjs` captures front, passenger, door and screen close-up angles from unmodified runtime geometry. Current images: `passenger-front.png`, `passenger-passenger.png`, `passenger-door-angle.png`, `passenger-screen-close.png`, and `passenger-mobile.png` under output/playwright.
+The structure suite verifies steering mount/hood clearance, the actual open passage under the transmission bridge, and formed dashboard features. The padded upper/lower dashboard material audit covers 51,584 triangles with 0 open boundaries. This audit covers those padded volumes, not every vehicle mesh.
 
-## Preserved cockpit behavior
+## Export and build
 
-Seven interior views, physical leather maps, colors, carbon inlays, persistence, cutaway, door-card mechanics, full assembled export from isolated Seats view, return to exterior and previous environment restoration pass. Padded upper/lower dashboard material inspection covers 51,584 triangles with 0 open edges. This checks those padded volumes, not every vehicle mesh. Steering rotor/paddles, column clearance, instrument roof normals and an actual open passage under the transmission bridge remain verified.
+The final combined run exports the full assembled vehicle from the isolated Seats view. Both this raw export and the compressed downloadable model import in Blender 4.5.3 LTS with 62 top-level semantic groups, 1181 mesh objects, 74 materials and 41 embedded images. No images are missing. The compressed model is 25,833,544 bytes, below the 26,214,400-byte hosting asset limit. Browser exports remain uncompressed.
 
-Idle and acceleration recordings decode and produce measured output. Start/rev/stop/mute/volume, keyboard operation, return to idle and mobile start/stop pass. The host forces real tab visibility, so the visibility handler uses a temporary document.hidden fixture which is restored afterward. No actual background-tab transition, human listening review or physical-phone test is claimed. The CC0 recordings are not identified as an 812 by their recordists.
+`npm run build` succeeds with the existing Three.js/application bundle-size advisories. No new hardware performance benchmark is claimed. Gauges/mechanics are illustrative; the model is reconstructed from supplied photographs rather than official Ferrari CAD.
 
-## Model and build
+## Earlier regression results
 
-Both the raw assembled export and the compressed static model import in Blender 4.5.3 LTS with 62 top-level semantic groups, 1181 mesh objects, 74 materials and 41 embedded images. No images are missing. Compressed model: 25,840,656 bytes, below the 26,214,400-byte hosting asset limit. Browser exports remain uncompressed.
+Revision v6 passed 82 checks: cockpit 34, photographic structure 17, formed surfaces 3, refinement/audio 18 and passenger layout 10. The current v7 run repeats the directly affected structure, surface and passenger checks above; it does not repeat the full audio/cockpit suite. The prior v4 exterior suite passed 50 checks and was not rerun for this dashboard revision.
 
-`npm run build` succeeds with Three.js/application bundle-size advisories. No new hardware performance benchmark is claimed. Gauges/mechanics are illustrative; the model is a reconstruction based on supplied photographs rather than official Ferrari CAD.
+The earlier audio suite measured decoded idle/acceleration output, start/rev/stop/mute/volume and mobile start/stop. The automation host forces page visibility, so that suite exercised the production visibility handler with a temporary document.hidden fixture. No actual background-tab transition, human listening review or physical-phone test is claimed. The CC0 Ferrari recordings are not identified as an 812 by their recordists.

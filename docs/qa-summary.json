@@ -2,11 +2,11 @@
   "date": "2026-10-15",
   "timezone": "Asia/Bangkok",
   "productionBuild": true,
-  "detailVersion": "812-passenger-layout-v6",
+  "detailVersion": "812-sloping-dashboard-v7",
   "suites": {
-    "cockpit": {
-      "script": "qa/cabin-acceptance.cjs",
-      "passed": 34,
+    "passengerLayout": {
+      "script": "qa/passenger-layout.cjs",
+      "passed": 12,
       "runtimeErrors": []
     },
     "photoStructure": {
@@ -14,19 +14,9 @@
       "passed": 17,
       "runtimeErrors": []
     },
-    "refinementAndAudio": {
-      "script": "qa/cabin-refinement.cjs",
-      "passed": 18,
-      "runtimeErrors": []
-    },
     "formedSurface": {
       "script": "qa/formed-surface-audit.cjs",
       "passed": 3
-    },
-    "passengerLayout": {
-      "script": "qa/passenger-layout.cjs",
-      "passed": 10,
-      "runtimeErrors": []
     }
   },
   "viewports": {
@@ -83,18 +73,16 @@
     "materials": 74,
     "embeddedImages": 41,
     "missingImages": [],
-    "compressedBytes": 25840656,
+    "compressedBytes": 25833544,
     "completeFromCutawayView": true
   },
   "measuredCabinMeters": {
-    "clusterTop": 0.931539612531662,
-    "clusterWidth": 0.41007369756698603,
-    "dashboardTop": 0.8613461276888847,
-    "wheelCrown": 1.0158559714606248,
-    "steeringFrameX": 0.026,
-    "steeringFrameForwardChange": 0.052,
-    "fairingAxisLength": 0.128,
     "passengerLcdDepthRange": 0,
+    "leatherSectionHeights": [
+      0.8538781345133656,
+      0.8481345508834339,
+      0.8096713700686595
+    ],
     "outerVentCentersZ": [
       -0.645,
       0.645
@@ -116,7 +104,7 @@
       10,
       34
     ],
-    "detailVersion": "812-passenger-layout-v6"
+    "detailVersion": "812-sloping-dashboard-v7"
   },
   "priorExteriorRegression": {
     "revision": "812-photo-cockpit-v4",
@@ -124,6 +112,12 @@
     "runtimeErrors": []
   },
   "passengerAudit": {
+    "slopeHeights": [
+      0.8538781345133656,
+      0.8481345508834339,
+      0.8096713700686595
+    ],
+    "slopeDegrees": 11.618820169707094,
     "screenNormalDepthRange": 0,
     "screenMinX": -0.16049999818205835,
     "screenMaxX": -0.16049999818205835,
@@ -131,5 +125,57 @@
     "visibleVentSamples": 5,
     "upperColor": "17191c"
   },
-  "initialOverlayWaitLimitSeconds": 120
+  "initialOverlayWaitLimitSeconds": 120,
+  "priorCockpitRegression": {
+    "detailVersion": "812-passenger-layout-v6",
+    "passed": 82,
+    "suites": {
+      "cockpit": {
+        "script": "qa/cabin-acceptance.cjs",
+        "passed": 34,
+        "runtimeErrors": []
+      },
+      "photoStructure": {
+        "script": "qa/photo-cockpit-structure.cjs",
+        "passed": 17,
+        "runtimeErrors": []
+      },
+      "refinementAndAudio": {
+        "script": "qa/cabin-refinement.cjs",
+        "passed": 18,
+        "runtimeErrors": []
+      },
+      "formedSurface": {
+        "script": "qa/formed-surface-audit.cjs",
+        "passed": 3
+      },
+      "passengerLayout": {
+        "script": "qa/passenger-layout.cjs",
+        "passed": 10,
+        "runtimeErrors": []
+      }
+    },
+    "measuredCabinMeters": {
+      "clusterTop": 0.931539612531662,
+      "clusterWidth": 0.41007369756698603,
+      "dashboardTop": 0.8613461276888847,
+      "wheelCrown": 1.0158559714606248,
+      "steeringFrameX": 0.026,
+      "steeringFrameForwardChange": 0.052,
+      "fairingAxisLength": 0.128,
+      "passengerLcdDepthRange": 0,
+      "outerVentCentersZ": [
+        -0.645,
+        0.645
+      ]
+    },
+    "runtimeErrors": []
+  },
+  "passed": 32,
+  "leatherSectionEndpointDegrees": 11.618820169707094,
+  "leatherSectionMeasurementIsFactorySpecification": false,
+  "currentScreenshots": [
+    "output/playwright/sloped-passenger.png",
+    "output/playwright/sloped-section.png"
+  ]
 }

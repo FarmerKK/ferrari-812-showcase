@@ -155,7 +155,7 @@ export async function buildDetailedInterior(car){
     const oldGeometries=new Set();objects.forEach(o=>{oldGeometries.add(o.geometry);o.removeFromParent();});oldGeometries.forEach(x=>x.dispose());
   }
   root.updateMatrixWorld(true);
-  car.interior={trimMeshes,detailVersion:'812-passenger-layout-v6',leatherGrain:grain,leatherNormal,leatherRoughness};
+  car.interior={trimMeshes,detailVersion:'812-sloping-dashboard-v7',leatherGrain:grain,leatherNormal,leatherRoughness};
   return car;
 }
 
