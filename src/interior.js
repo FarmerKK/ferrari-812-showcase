@@ -94,7 +94,7 @@ export async function buildDetailedInterior(car){
   car.steering=[steeringRotor];
   register('center-console','Carbon transmission bridge','Sloping carbon bridge with inset transmission buttons, curved side brackets, open undercut and stitched armrest.',g=>referenceConsole(g,reference),V(.23,.53,0),V(.35,.6,0));
   register('climate-controls','Dual-zone climate controls','Two slim control banks, digital temperature strip, knurled metallic dials and backlit switches.',g=>referenceClimate(g,reference),V(-.12,.63,-.075),V(.1,.4,0));
-  register('passenger-display','Passenger information display','A narrow passenger information strip recessed below the vent gallery.',g=>referencePassenger(g,reference),V(-.13,.704,-.49),V(0,.4,-.3));
+  register('passenger-display','Passenger information display','Planar passenger RPM, gear and speed display recessed between the broad leather upper panel and stitched glovebox.',g=>referencePassenger(g,reference),V(-.20,.698,-.50),V(0,.4,-.3));
 
   for(const [side,z] of [['driver',.419],['passenger',-.419]]){
     register(`${side}-seat`,`${side==='driver'?'Driver':'Passenger'} sport seat`,'Sculpted leather sport seat with curved bolsters, suede center inserts, red piping, double stitching, embroidered headrest and seat rails.',g=>{
@@ -155,13 +155,13 @@ export async function buildDetailedInterior(car){
     const oldGeometries=new Set();objects.forEach(o=>{oldGeometries.add(o.geometry);o.removeFromParent();});oldGeometries.forEach(x=>x.dispose());
   }
   root.updateMatrixWorld(true);
-  car.interior={trimMeshes,detailVersion:'812-formed-cockpit-v5',leatherGrain:grain,leatherNormal,leatherRoughness};
+  car.interior={trimMeshes,detailVersion:'812-passenger-layout-v6',leatherGrain:grain,leatherNormal,leatherRoughness};
   return car;
 }
 
 export function configureInterior(car,config){
   if(!car.interior)return;
-  const m=car.materials;m.stitch.color.set(config.stitchColor||'#c82436');m.belt.color.set(config.beltColor||'#bf1930');
+  const m=car.materials;m.lowerDash.color.set(config.lowerDashColor||'#835b40');m.stitch.color.set(config.stitchColor||'#c82436');m.belt.color.set(config.beltColor||'#bf1930');
   const suede=config.interiorMaterial==='suede';const normal=suede?null:car.interior.leatherNormal,roughness=suede?null:car.interior.leatherRoughness;
   if(m.seat.normalMap!==normal||m.seat.roughnessMap!==roughness){m.seat.normalMap=normal;m.seat.roughnessMap=roughness;m.seat.bumpMap=suede?car.interior.leatherGrain:null;m.seat.bumpScale=.0015;m.seat.clearcoat=suede?0:.07;m.seat.sheen=suede?.45:.12;m.seat.needsUpdate=true;}
   m.cabinInsert.color.copy(m.seat.color).multiplyScalar(1.5);m.cabinInsert.roughness=config.interiorMaterial==='suede'?.99:.85;

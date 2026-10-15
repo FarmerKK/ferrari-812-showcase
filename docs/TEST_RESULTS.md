@@ -1,34 +1,33 @@
 # Test results — 15 October 2026
 
-Current runtime source: `812-formed-cockpit-v5`.
+Runtime: `812-passenger-layout-v6`. The final combined production-preview run passed 82 checks:
 
-- `qa/cabin-acceptance.cjs`: 33 passed, zero runtime errors.
-- `qa/photo-cockpit-structure.cjs`: 17 passed, zero runtime errors.
+- `qa/cabin-acceptance.cjs`: 34 passed, including the new Passenger view.
+- `qa/photo-cockpit-structure.cjs`: 17 passed.
 - `qa/formed-surface-audit.cjs`: 3 passed.
-- `qa/cabin-refinement.cjs`: 18 passed, zero runtime errors.
+- `qa/cabin-refinement.cjs`: 18 passed, including measured audio output.
+- `qa/passenger-layout.cjs`: 10 passed.
 
-All 71 checks ran against the final v5 runtime. The previous v4 exterior regression passed 50 checks; it was not rerun for this interior-only revision. Passing checks does not certify visual fidelity or official CAD dimensions. Desktop viewports: 1600 × 1000; mobile: 390 × 844 in Chromium.
+No JavaScript runtime errors were recorded. The prior v4 exterior suite passed 50 checks; it was not rerun for this dashboard revision. Functional/geometry checks do not certify photographic identity. Final desktop viewport: 1600 × 1000; mobile: 390 × 844 in Chromium. The combined run allows up to 120 seconds for initial overlay removal.
 
-## Supplied defect angles
+## Passenger layout and shape
 
-Reviewed renderer captures of the front gallery, instrument back, driver-side column close-up, wheel front and console. Current image files are `formed-gallery-finish.png`, `formed-column-driver-side.png`, `formed-instrument-back.png` and `formed-wheel-detail.png` under `output/playwright/`. Screenshots show unmodified runtime geometry/materials, with the normal interactive camera moved to the supplied problem angles.
+The supplied additional real-car photos guide the broad padded upper passenger panel, raised 812 superfast badge, straight black fascia band and contrasting lower glovebox. The user's correction is incorporated: the LCD is a plane rather than a curved strip. Its world depth range is 0.000000000 m. All nine sampled screen positions are visible ahead of surrounding geometry. All five sampled points through the outer passenger vent hit the vent rather than dashboard/door trim. The outer vent centers are ±0.645 m, moved inboard to provide clearance.
 
-The padded upper dashboard and lower fascia are closed volumes with end caps and return surfaces. Quantized edge inspection of the padded dashboard material covers 46,892 triangles and finds 0 open edges. This does not certify manifold topology of every vehicle component.
+The screen sits behind a physically open bezel. Its RPM scale, neutral gear and zero speed describe an engine-off showroom state matching the driver dial. The upper leather pad and lower glovebox retain vertical padding depth and rounded return edges while the screen remains straight. A directional window key with weaker fill reveals the section depth. The badge backing and glovebox divider follow the surfaces rather than floating above them. Center service/climate controls are smaller and separate from the passenger display.
 
-The formed metal carrier rises around the vent barrels, with rounded returns, integrated collars and a fine red edge. The dashboard wordmark is actual beveled metal lettering. The temperature lens uses a 2048 × 128 drawing sized to its physical aspect ratio, rather than the previous stretched label. Honeycomb cells sit in their frame ahead of the backing. The glovebox clears the right climate dial.
+Lower dashboard leather defaults to #835b40 and has an independent color control. Color changes leave upper leather unchanged, persist through save/reset/load, and receive the default when older saved configurations lack the new field. The Passenger toolbar camera and direct ?view=passenger entry work on desktop and mobile without horizontal page overflow.
 
-The steering frame moves forward 52 mm, to X = 0.026 m. The closed fairing is 128 mm along its local axis and joins the padded knee socket and rear bearing. The airbag has an enclosed rear cover. At the inspected instrument plane, fairing top is 0.746 m, below the dial opening. Rim, airbag and switches rotate together; fairing and paddles stay fixed. The instrument hood uses its own finely tiled perforation material to reduce stretched slots. Raised needle, LCD depths, closed hood back and outward roof normals remain intact.
+`qa/passenger-reference-views.cjs` captures front, passenger, door and screen close-up angles from unmodified runtime geometry. Current images: `passenger-front.png`, `passenger-passenger.png`, `passenger-door-angle.png`, `passenger-screen-close.png`, and `passenger-mobile.png` under output/playwright.
 
-Cluster width: 0.410 m; cluster top: 0.932 m; dashboard top: 0.861 m. These are model measurements rather than certified vehicle dimensions.
+## Preserved cockpit behavior
 
-## Behavior and sound
+Seven interior views, physical leather maps, colors, carbon inlays, persistence, cutaway, door-card mechanics, full assembled export from isolated Seats view, return to exterior and previous environment restoration pass. Padded upper/lower dashboard material inspection covers 51,584 triangles with 0 open edges. This checks those padded volumes, not every vehicle mesh. Steering rotor/paddles, column clearance, instrument roof normals and an actual open passage under the transmission bridge remain verified.
 
-Final checks cover six interior views, direct/header entry, material/color controls, save/reset/load, cutaway restoration, door-card hinges, complete assembled export from isolated Seats view, return to exterior, previous lighting restoration and mobile layout. Side-passage ray tests confirm the transmission bridge remains open underneath.
+Idle and acceleration recordings decode and produce measured output. Start/rev/stop/mute/volume, keyboard operation, return to idle and mobile start/stop pass. The host forces real tab visibility, so the visibility handler uses a temporary document.hidden fixture which is restored afterward. No actual background-tab transition, human listening review or physical-phone test is claimed. The CC0 recordings are not identified as an 812 by their recordists.
 
-Idle/acceleration recordings decode and produce measured audio output. Start/rev/stop/mute/volume, keyboard operation, return to idle and mobile start/stop pass. The host forces actual tab visibility, so the production visibility-change handler is exercised with a temporary document.hidden fixture and the property restored. No actual background-tab transition, human listening review or physical-phone audio test is claimed. The CC0 Ferrari recordings are not identified as an 812 by their recordists.
+## Model and build
 
-## Files and build
+Both the raw assembled export and the compressed static model import in Blender 4.5.3 LTS with 62 top-level semantic groups, 1181 mesh objects, 74 materials and 41 embedded images. No images are missing. Compressed model: 25,840,656 bytes, below the 26,214,400-byte hosting asset limit. Browser exports remain uncompressed.
 
-The raw assembled export and compressed static model both import in Blender 4.5.3 LTS, each with 62 semantic groups, 1177 mesh objects, 71 materials and 41 embedded images. Neither has missing images. The static model is 24,048,544 bytes, below the 26,214,400-byte hosting asset limit. Browser exports remain uncompressed. Reports: `model-inspection.json`, `cutaway-export-inspection.json` and `qa-summary.json`.
-
-`npm run build` succeeds with existing Three.js/application bundle-size advisories. No new hardware performance benchmark is claimed. Displays and opening mechanics remain illustrative; mobile was tested in resized Chromium, not a physical phone. This reconstruction is based on the supplied photographs rather than official CAD.
+`npm run build` succeeds with Three.js/application bundle-size advisories. No new hardware performance benchmark is claimed. Gauges/mechanics are illustrative; the model is a reconstruction based on supplied photographs rather than official Ferrari CAD.

@@ -1,12 +1,18 @@
 # Cockpit reconstruction — 15 October 2026
 
-Current runtime: `812-formed-cockpit-v5`.
+Current runtime: `812-passenger-layout-v6`.
 
 The cockpit follows the supplied 812 blueprint and the later real-car photographs. The vehicle remains left-hand drive, following the left-hand-drive reference; the right-hand-drive photo supplies construction and surface details. This is a photographic reconstruction, not official Ferrari CAD.
 
 ## Dashboard and instruments
 
-src/cockpit-geometry.js builds the upper leather pad and lower fascia as closed sweeps with end caps and return surfaces. The central formed aluminium carrier has a curved lower edge that rises around both vent barrels, rounded return edges, integrated collars and a fine red accent. The grille is inset in a supporting frame, and the small dashboard wordmark is actual beveled metal geometry. A slim temperature lens uses a proportioned 2048 × 128 canvas rather than stretching a short label texture across the fascia. Four bell-mouth nozzles have open throats, recessed vanes, rotary hubs and rolled red/metal rims. The two central vents sit inside the gallery rather than on a uniform flat panel. The driver area has a separate padded knee housing; the bright gallery tray stops outside the instrument area.
+src/cockpit-geometry.js builds closed padded dashboard volumes with a broad upper passenger airbag face, a continuous straight black fascia band, and a separate Cuoio lower leather glovebox roll. The passenger LCD is planar: it is not bowed around the cabin. An extruded bezel has an actual open aperture, and the LCD sits behind that lip. The default values are neutral, zero road speed and zero RPM, consistent with the static driver dial.
+
+The 812 superfast badge is actual beveled metal lettering above the passenger screen. Its backing follows the padded leather surface; it is not placed on the display. Upper passenger padding and the lower glovebox have restrained depth in vertical section, while the display remains straight across its width. A more directional window key light and weaker fill reveal these volumes and their seams.
+
+The central vent carrier is dark anodized metal rather than a bright silver shelf. Vent pods have real openings and darker throats, with recessed vanes and thin red/metal lip rings. Both outer vent centers move inboard to ±0.645 m to clear the door trim. The glovebox divider and panel splits follow the actual padded surface. Center service and climate controls are smaller and separate from the passenger screen.
+
+Upper and lower dashboard leather use separate color controls; Lower dashboard color defaults to #835b40. This field is validated and survives save/load, with a default for configurations saved before it was introduced. The Passenger camera is accessible from the toolbar and directly via ?view=passenger. There are seven interior camera views.
 
 The instrument hood follows a scalloped contour and wraps over inset side LCDs and a central yellow tachometer. The analog face has a corrected clockwise scale from lower left to lower right, a raised narrow pointer and hub, an inset neutral indicator, stepped barrel and subtle lens. Face, needle, lens and hood occupy separate depths. The readouts are illustrative static showroom values.
 
@@ -18,13 +24,13 @@ The steering frame moves 52 mm toward the instruments, to X = 0.026 m. Its 128 m
 
 ## Console and supporting detail
 
-The transmission bridge slopes back toward the armrest. Paired curved carbon brackets return into the lower tunnel, leaving an actual open side passage; there are no straight table-like support walls. Three inset transmission controls, hazard button, window switches and rear handle sit on the deck. The climate system uses two slim banks, a smaller digital temperature strip, knurled dials and backlit legends. The optional passenger display is a narrow inset strip in the lower fascia.
+The transmission bridge slopes back toward the armrest. Paired curved carbon brackets return into the lower tunnel, leaving an actual open side passage; there are no straight table-like support walls. Three inset transmission controls, hazard button, window switches and rear handle sit on the deck. The climate system uses a compact upper service strip and a lower bank with small knurled dials and backlit controls. The passenger display occupies the straight black band below the upper airbag panel.
 
 src/upholstery.js retains shared padded seat surfaces with material-region center inserts/stripes, surface-sampled stitching and conforming alpha-cut embroidery. Door cards, carpet, perforated pedal faces, supports, sill trim and flat woven belts remain separate selectable parts. Leather maps derive from ambientCG Leather037 (CC0), with a softened runtime roughness response. Carbon/perforation artwork is project-authored canvas texture data.
 
 ## Interaction and delivery
 
-There are 62 semantic groups. Cockpit entry is available from the header or ?view=interior, with six views and editable materials. Studio lighting is selected on entry and previous exterior lighting restores on exit. The isolated-seat view and roof cutaway use reversible visibility. Exports temporarily restore all part visibility and assembled transforms, then restore the active view. The downloadable compressed model includes the same cockpit.
+There are 62 semantic groups. Cockpit entry is available from the header or ?view=interior, with seven views and editable materials. Studio lighting is selected on entry and previous exterior lighting restores on exit. The isolated-seat view and roof cutaway use reversible visibility. Exports temporarily restore all part visibility and assembled transforms, then restore the active view. The downloadable compressed model includes the same cockpit.
 
 The V12/manifold remains fitted ahead of the cabin firewall. Door cards follow the animated hinges. High quality uses area lighting and SSAO; adaptive quality waits for sustained slow samples and can recover on desktop.
 
@@ -34,4 +40,4 @@ Gauge values, switch labels, engine/suspension details and opening mechanics are
 
 Finishing includes an enclosed rear instrument shell with outward-facing roof normals, a recessed hex grille constrained below the leather eyebrow, and glovebox clearance for the right climate knob. The photo structure suite checks these clearances and the actual open passage under the console. The browser host forces page visibility; the audio suite exercises the production visibility handler with a temporary document.hidden fixture and restores the property.
 
-The geometric surface audit welds coincident triangle positions for the padded dashboard material and checks for unclosed boundaries. The final revision has 46,892 tested triangles and zero open edges. This audit covers the padded dashboard volumes; it is not a claim that every mesh in the vehicle is manifold.
+The geometric surface audit welds coincident triangle positions for the padded dashboard material and checks for unclosed boundaries. The final count is recorded in qa-summary.json; the padded upper and lower materials are both inspected for unclosed boundaries. This audit covers the padded dashboard volumes; it is not a claim that every mesh in the vehicle is manifold.

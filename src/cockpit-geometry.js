@@ -3,6 +3,7 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import optimer from 'three/examples/fonts/optimer_regular.typeface.json';
+import helvetiker from 'three/examples/fonts/helvetiker_bold.typeface.json';
 const V=(x,y,z)=>new THREE.Vector3(x,y,z),TAU=Math.PI*2;
 const mesh=(g,geo,mat,x=0,y=0,z=0)=>{const o=new THREE.Mesh(geo,mat);o.position.set(x,y,z);o.castShadow=o.receiveShadow=true;g.add(o);return o;};
 const box=(g,m,x,y,z,w,h,d,r=.006)=>mesh(g,new RoundedBoxGeometry(w,h,d,5,Math.min(r,w/2,h/2,d/2)),m,x,y,z);
@@ -31,6 +32,13 @@ function closedSweep(g,m,sample,rows=96,slices=64){
   }return body;
 }
 function raisedWordmark(g,m,x,y,z){const geo=new TextGeometry('Ferrari',{font:new FontLoader().parse(optimer),size:.0135,depth:.0008,curveSegments:8,bevelEnabled:true,bevelSize:.00012,bevelThickness:.00012,bevelSegments:2});geo.computeBoundingBox();const width=geo.boundingBox.max.x-geo.boundingBox.min.x;const o=mesh(g,geo,m,x,y,z+width/2);o.rotation.y=Math.PI/2;o.userData.cockpitFeature='raised-metal-wordmark';return o;}
+const passengerBlend=z=>THREE.MathUtils.smoothstep(-z,.26,.36);
+const passengerEdge=z=>.729+.116*Math.exp(-(((z+.645)/.065)**4))+.112*Math.exp(-(((z+.27)/.065)**4));
+function passengerBadge(g,m){
+  const geos=[new TextGeometry('812',{font:new FontLoader().parse(helvetiker),size:.012,depth:.00075,curveSegments:6,bevelEnabled:true,bevelSize:.00010,bevelThickness:.00010,bevelSegments:2}),new TextGeometry('superfast',{font:new FontLoader().parse(optimer),size:.011,depth:.00075,curveSegments:6,bevelEnabled:true,bevelSize:.00010,bevelThickness:.00010,bevelSegments:2})];
+  const widths=geos.map(geo=>{geo.computeBoundingBox();return geo.boundingBox.max.x-geo.boundingBox.min.x;}),total=widths[0]+widths[1]+.003;let offset=0;
+  for(const [i,geo]of geos.entries()){const p=geo.attributes.position;for(let j=0;j<p.count;j++){const u=p.getX(j)+offset+p.getY(j)*.22,z=-.486+total/2-u,y=.752+p.getY(j);p.setXYZ(j,upperSurfaceX(y,z)+.0008+p.getZ(j),y,z);}geo.computeVertexNormals();mesh(g,geo,m).userData.cockpitFeature='passenger-812-metal-badge';offset+=widths[i]+.003;}
+}
 
 export function prepareCockpitMaterials(m){
   const perf=texture(512,512,c=>{c.fillStyle='#e4e4e4';c.fillRect(0,0,512,512);for(let y=0;y<9;y++)for(let x=0;x<9;x++){const px=x*64+(y%2?32:0),py=y*64;const grad=c.createRadialGradient(px-2,py-2,1,px,py,8);grad.addColorStop(0,'#151515');grad.addColorStop(.55,'#555');grad.addColorStop(1,'#e4e4e4');c.fillStyle=grad;c.beginPath();c.arc(px,py,8,0,TAU);c.fill();}});perf.wrapS=perf.wrapT=THREE.RepeatWrapping;perf.repeat.set(40,4);
@@ -39,45 +47,65 @@ export function prepareCockpitMaterials(m){
   weave.repeat.set(10,10);m.cabinCarbon.color.set('#62686e');
   m.satin=new THREE.MeshPhysicalMaterial({color:'#8b9298',metalness:.88,roughness:.29,clearcoat:.12});m.darkMetal=new THREE.MeshStandardMaterial({color:'#363c44',metalness:.6,roughness:.34});m.gaugeGlass=new THREE.MeshPhysicalMaterial({color:'#b5c6d8',transparent:true,opacity:.075,roughness:.1,metalness:.15,depthWrite:false});
   m.columnRubber=m.cabinRubber.clone();m.columnRubber.roughness=.55;m.columnRubber.name='Steering column shroud';
+  m.lowerDash=m.seat.clone();m.lowerDash.name='Lower dashboard leather';m.lowerDash.color.set('#835b40');m.lowerDash.roughness=.66;m.lowerDash.normalScale.set(.10,.10);
+  m.gloveAccent=m.lowerDash.clone();m.gloveAccent.color.set('#281e1b');
+  m.ventMetal=new THREE.MeshPhysicalMaterial({name:'Anodized vent housing',color:'#454b52',metalness:.83,roughness:.29,clearcoat:.18});
+  m.fasciaGlass=new THREE.MeshPhysicalMaterial({color:'#05090c',roughness:.27,metalness:.12,clearcoat:.6,clearcoatRoughness:.22});
   m.wheelCarbon=m.cabinCarbon.clone();m.wheelCarbon.map=m.cabinCarbon.map.clone();m.wheelCarbon.map.repeat.set(28,28);m.wheelCarbon.color.set('#34393e');m.wheelCarbon.roughness=.36;m.wheelCarbon.clearcoat=.55;
 }
 
-const centers=[.705,.075,-.27,-.705];
-const frontX=z=>-.154-.17*(Math.abs(z)/.77)**4;
-const brow=z=>.821+centers.reduce((n,c)=>n+.036*Math.exp(-(((z-c)/.082)**2)),0);
+const centers=[.645,.075,-.27,-.645];
+const frontX=z=>z<-.25?THREE.MathUtils.lerp(-.154,-.180,THREE.MathUtils.smoothstep(-z,.25,.32)):-.154-.17*(Math.abs(z)/.77)**4;
+const lowerProfile=z=>{const x=frontX(z);return contour([[x-.14,.660],[x+.008,.665],[x+.015,.654],[x+.025,.609],[x-.003,.525],[x-.020,.507],[x-.055,.491],[x-.18,.498],[x-.18,.637]]);};
+const brow=z=>.821+.018*passengerBlend(z)+centers.reduce((n,c)=>n+(.036-.018*passengerBlend(z))*Math.exp(-(((z-c)/.082)**2)),0);
+
+function upperProfile(z){
+  const x=frontX(z),y=brow(z),blend=passengerBlend(z),bottom=THREE.MathUtils.lerp(y-.025,passengerEdge(z),blend),faceX=x+THREE.MathUtils.lerp(-.027,.014,blend),h=y-bottom;
+  return contour([[-.76,.815],[-.55,.830],[x-.093,y+.004],[x-.045,y+.001],[faceX+.014*blend,bottom+h*.64],[faceX+.004*blend,bottom+.006],[faceX-.006,bottom],[x-.060,bottom-.005],[x-.13,bottom+.015],[-.56,.787],[-.76,.785]]);
+}
+const badgeSurfaceCache=new Map();
+function upperSurfaceX(y,z){
+  const key=Math.round(y*2000)+':'+Math.round(z*2000);if(badgeSurfaceCache.has(key))return badgeSurfaceCache.get(key);
+  const points=upperProfile(z).getPoints(192);let x=-Infinity;
+  for(let i=0;i<points.length-1;i++){const a=points[i],b=points[i+1];if((a.y<=y&&b.y>=y)||(b.y<=y&&a.y>=y)){const f=(y-a.y)/(b.y-a.y||1);x=Math.max(x,THREE.MathUtils.lerp(a.x,b.x,f));}}
+  badgeSurfaceCache.set(key,x);return x;
+}
 
 export function referenceDashboard(g,{m,trimMeshes}){
+  // Broad passenger airbag pad: its lower perimeter arches around the vent apertures.
   const upper=closedSweep(g,m.dash,(t,v)=>{
-    const z=-.775+t*1.55,x=frontX(z),y=brow(z);
-    const profile=contour([[-.76,.815],[-.55,.830],[x-.093,y+.004],[x-.045,y-.001],[x-.027,y-.013],[x-.037,y-.025],[x-.098,y-.036],[-.56,.787],[-.76,.785]]);
-    const p=profile.getPoint(v);return V(p.x,p.y,z);
-  },160,64);upper.userData.cockpitFeature='closed-padded-dashboard';
-  // The lower padded fascia is one swept volume with a return edge and closed ends.
-  closedSweep(g,m.dash,(t,v)=>{
-    const z=-.766+t*.968,x=frontX(z)-.022;
-    const p=contour([[x-.14,.675],[x-.025,.685],[x+.025,.664],[x+.032,.623],[x+.008,.588],[x-.010,.497],[x-.050,.472],[x-.18,.493],[x-.18,.641]]).getPoint(v);
-    return V(p.x,p.y,z);
-  },112,64).userData.cockpitFeature='sculpted-lower-fascia';
-  // Recessed service/temperature controls clear the front face of the glovebox.
-  box(g,m.dash,-.238,.560,-.532,.19,.160,.407,.031);
-  const gloveSeam=[];for(let i=0;i<=64;i++){const z=-.735+i/64*.401;gloveSeam.push(V(frontX(z)-.002,.529+.007*Math.cos(i/64*Math.PI),z));}tube(g,m.cabinRubber,gloveSeam,.0011);
-  box(g,m.cabinRubber,-.163,.619,-.535,.008,.006,.067,.002);
+    const z=-.716+t*1.491,p=upperProfile(z).getPoint(v);return V(p.x,p.y,z);
+  },192,64);upper.userData.cockpitFeature='closed-padded-dashboard';
+  // Lower glovebox roll sits below the black fascia band, with room for the display.
+  closedSweep(g,m.lowerDash,(t,v)=>{
+    const z=-.710+t*.912,p=lowerProfile(z).getPoint(v);return V(p.x,p.y,z);
+  },128,64).userData.cockpitFeature='sculpted-lower-fascia';
+  // Continuous polished band connects the center service panel and passenger display.
+  closedSweep(g,m.fasciaGlass,(t,v)=>{
+    const z=-.708+t*.903,x=frontX(z);const p=contour([[x-.040,.720],[x+.008,.721],[x+.013,.708],[x+.012,.677],[x-.003,.671],[x-.055,.682]]).getPoint(v);return V(p.x,p.y,z);
+  },128,40).userData.cockpitFeature='continuous-passenger-fascia';
+  // Panel splits follow the curved glovebox face instead of a box laid over it.
+  for(const z of [-.716,-.328]){const line=[];for(let i=0;i<=40;i++){const t=i/40,p=lowerProfile(z).getPoint((2+t*3)/9);line.push(V(p.x+.0007,p.y,z));}tube(g,m.cabinRubber,line,.00105);}
+  const gloveSeam=[];for(let i=0;i<=64;i++){const z=-.710+i/64*.377;const p=lowerProfile(z).getPoint(5/9);gloveSeam.push(V(p.x+.0007,p.y,z));}tube(g,m.cabinRubber,gloveSeam,.0009);
+  const strap=patch(g,m.gloveAccent,36,8,(t,v)=>{const z=-.515+(.5-v)*.012,p=lowerProfile(z).getPoint((2+t*3)/9);return V(p.x+.0005,p.y,z);});strap.userData.cockpitFeature='glovebox-leather-divider';
+  for(const z of [-.521,-.509]){const line=[];for(let i=0;i<=40;i++){const t=i/40,p=lowerProfile(z).getPoint((2+t*3)/9);line.push(V(p.x+.0008,p.y,z));}stitched(g,m.stitch,line);}
+  passengerBadge(g,m.satin);
   // A closed formed carrier ties the two central vent barrels together.
-  const carrier=closedSweep(g,m.satin,(t,v)=>{
+  const carrier=closedSweep(g,m.ventMetal,(t,v)=>{
     const z=-.338+t*.480,x=frontX(z),end=Math.sin(Math.PI*t)**.25,outer=Math.max(0,-.27-z,z-.075),base=outer>0?.766-Math.sqrt(Math.max(.0001,.071**2-outer**2)):.695;
     const p=contour([[x-.083,.725],[x-.040,.733],[x+.002,.728],[x+.015,.716],[x+.009,.700],[x-.072,.699],[x-.089,.707]]).getPoint(v);
     return V((x-.043)+(p.x-(x-.043))*(.13+.87*end),p.y+(base-.699),z);
   },112,40);carrier.userData.cockpitFeature='formed-vent-gallery';
   for(const z of [-.27,.075]){
-    const collar=lathe(g,m.satin,[[.070,-.052],[.071,-.038],[.067,-.019],[.061,.003],[.057,.003],[.059,-.022],[.064,-.048]],frontX(z)-.027,.766,z);collar.userData.cockpitFeature='integrated-vent-cradle';
+    const collar=lathe(g,m.ventMetal,[[.070,-.052],[.071,-.038],[.067,-.019],[.061,.003],[.057,.003],[.059,-.022],[.064,-.048]],frontX(z)-.027,.766,z);collar.userData.cockpitFeature='integrated-vent-cradle';
   }
   // Curved dark gallery backing supports the mesh rather than leaving it floating.
   closedSweep(g,m.cabinRubber,(t,v)=>{
-    const z=-.77+t*1.54,x=frontX(z),top=brow(z)-.034;
+    const z=-.348+t*.520,x=frontX(z),top=brow(z)-.034;
     const p=contour([[x-.095,top],[x-.064,top],[x-.058,.709],[x-.102,.701]]).getPoint(v);return V(p.x,p.y,z);
   },128,32);
   const redEdge=[];for(let i=0;i<=96;i++){const z=-.328+i/96*.460,outer=Math.max(0,-.27-z,z-.075),base=outer>0?.766-Math.sqrt(Math.max(.0001,.071**2-outer**2)):.695;redEdge.push(V(frontX(z)+.005,.701+(base-.699),z));}tube(g,m.cabinRed,redEdge,.0016);
-  const seam=[];for(let i=0;i<=160;i++){const z=-.75+i/160*1.5;seam.push(V(frontX(z)-.024,brow(z)-.018,z));}stitched(g,m.stitch,seam);
+  const seam=[];for(let i=0;i<=192;i++){const z=-.700+i/192*1.45,b=passengerBlend(z);seam.push(V(frontX(z)+THREE.MathUtils.lerp(-.024,.020,b),THREE.MathUtils.lerp(brow(z)-.018,passengerEdge(z)+.005,b),z));}stitched(g,m.stitch,seam);
   // The column socket grows out of the padded knee bolster below the gauges.
   closedSweep(g,m.dash,(t,v)=>{
     const z=.221+t*.410,edge=Math.sin(t*Math.PI)**.5;
@@ -90,13 +118,16 @@ export function referenceDashboard(g,{m,trimMeshes}){
 
 export function referenceVents(g,{m}){
   centers.forEach(z=>{const pack=new THREE.Group();pack.position.set(frontX(z)-.005,.766+(Math.abs(z)>.5?.017:0),z);pack.rotation.y=Math.sign(z)*(Math.abs(z)>.5?.21:.025);g.add(pack);
+    const outline=contour([[-.081,.032],[-.051,.067],[.023,.076],[.067,.040],[.079,-.016],[.043,-.065],[-.045,-.068],[-.084,-.021]]),shape=new THREE.Shape();
+    for(let i=0;i<96;i++){const p=outline.getPoint(i/96);if(i)shape.lineTo(p.x,p.y);else shape.moveTo(p.x,p.y);}shape.closePath();const aperture=new THREE.Path();aperture.absarc(0,0,.055,0,TAU,true);shape.holes.push(aperture);
+    const pod=mesh(pack,new THREE.ExtrudeGeometry(shape,{depth:.010,bevelEnabled:true,bevelSize:.002,bevelThickness:.002,bevelSegments:3,curveSegments:64}),m.ventMetal,-.036);pod.rotation.y=Math.PI/2;pod.userData.cockpitFeature='open-vent-side-pod';
     // Bell-shaped aluminium nozzle with a thick rolled mouth and an open throat.
-    lathe(pack,m.satin,[[.067,-.085],[.065,-.062],[.058,-.031],[.053,.003],[.0535,.011],[.051,.015],[.0475,.014],[.046,.006],[.046,-.035],[.051,-.068]]);
+    lathe(pack,m.ventMetal,[[.067,-.085],[.065,-.062],[.058,-.031],[.053,.003],[.0535,.011],[.051,.015],[.0475,.014],[.046,.006],[.046,-.035],[.051,-.068]]);
     ring(pack,m.cabinRubber,.002,0,0,.0545,.0026);ring(pack,m.cabinRed,.014,0,0,.0517,.0013);ring(pack,m.satin,.017,0,0,.0484,.0011);
     disc(pack,m.cabinRubber,-.059,0,0,.048);
-    for(let i=-3;i<=3;i++){const y=i*.0112,len=2*Math.sqrt(.0445**2-y*y);const blade=box(pack,m.darkMetal,-.012,y,0,.009,.0018,len,.0006);blade.rotation.z=-.19;}
-    for(const a of [0,TAU/3,TAU*2/3]){const arm=box(pack,m.darkMetal,-.005,Math.cos(a)*.022,Math.sin(a)*.022,.004,.044,.0018,.0006);arm.rotation.x=-a;}
-    ring(pack,m.darkMetal,.001,0,0,.009,.002);disc(pack,m.satin,.003,0,0,.0064);disc(pack,m.cabinRubber,.004,0,0,.0043);
+    for(let i=-3;i<=3;i++){const y=i*.0112,len=2*Math.sqrt(.0445**2-y*y);const blade=box(pack,m.ventSlat,-.025,y,0,.008,.0016,len,.0006);blade.rotation.z=-.19;}
+    for(const a of [0,TAU/3,TAU*2/3]){const arm=box(pack,m.ventSlat,-.015,Math.cos(a)*.022,Math.sin(a)*.022,.004,.044,.0018,.0006);arm.rotation.x=-a;}
+    ring(pack,m.darkMetal,-.010,0,0,.009,.0015);disc(pack,m.darkMetal,-.008,0,0,.0064);disc(pack,m.cabinRubber,-.007,0,0,.0043);
     for(const s of [-1,1])box(pack,m.satin,-.014,s*.056,0,.016,.004,.007,.001);
   });
 }
@@ -199,21 +230,34 @@ function knob(g,m,x,y,z,r){
   for(let i=0;i<48;i++){const a=i/48*TAU;const mark=box(g,m.darkMetal,x+.0003,y+Math.sin(a)*r,z+Math.cos(a)*r,.006,.00065,.00065,.00015);mark.rotation.x=-a;}
   disc(g,m.cabinRed,x+.009,y+r*.57,z,.0007);
 }
-function temperatureStrip(){return texture(2048,128,(c,w,h)=>{
-  c.fillStyle='#050809';c.fillRect(0,0,w,h);c.fillStyle='#d7e6ec';c.textBaseline='middle';c.textAlign='center';c.font='500 55px Arial';c.fillText('21.0°',w*.18,h*.52);c.fillText('AUTO',w*.50,h*.52);c.fillText('21.0°',w*.82,h*.52);
-  c.fillStyle='#627279';c.font='22px Arial';c.fillText('DRIVER',w*.18,107);c.fillText('DUAL ZONE',w*.5,107);c.fillText('PASSENGER',w*.82,107);
+function serviceDisplay(){return texture(1280,128,(c,w,h)=>{
+  c.fillStyle='#071014';c.fillRect(0,0,w,h);c.textBaseline='middle';c.fillStyle='#c4d9df';c.font='500 62px Arial';c.fillText('21.0°C',65,66);c.font='35px Arial';c.fillText('AUTO',600,66);for(let i=0;i<5;i++){c.fillStyle=i<3?'#abc4ce':'#26383f';c.fillRect(965+i*38,66-i*5,23,20+i*5);}
 });}
 export function referenceClimate(g,{m}){
-  box(g,m.cabinRubber,-.130,.661,-.075,.030,.038,.49,.014);
-  box(g,m.darkMetal,-.112,.662,-.075,.009,.028,.386,.006);
-  const lens=face(g,temperatureStrip(),-.1065,.662,-.075,.355,.022,.11);lens.userData.cockpitFeature='proportional-temperature-display';
-  for(const z of [.146,-.296])knob(g,m,-.111,.661,z,.017);
-  box(g,m.cabinRubber,-.145,.603,-.075,.028,.040,.426,.014);
-  box(g,m.darkMetal,-.128,.603,-.075,.007,.031,.338,.006);
-  for(const z of [.112,-.262])knob(g,m,-.126,.603,z,.015);
-  for(let i=0;i<8;i++){const z=.062-i*.039;box(g,m.cabinRubber,-.125,.603,z,.009,.024,.034,.003);face(g,legend(['AUTO','FRONT','−','AC','+','FAN','REAR','OFF'][i],i===0?'#e7a55b':'#bdc7cb'),-.119,.603,z,.025,.0065,.07);}
+  // Compact service strip below the vent gallery, with a separate lower climate bank.
+  box(g,m.cabinRubber,-.141,.658,-.075,.025,.032,.342,.011);
+  box(g,m.ventMetal,-.126,.658,-.075,.007,.025,.334,.007);
+  knob(g,m,-.119,.658,.055,.014);disc(g,m.cabinRubber,-.118,.658,.094,.0045);
+  const lens=face(g,serviceDisplay(),-.120,.658,-.096,.216,.021,.12);lens.material.roughness=.22;lens.userData.cockpitFeature='proportional-temperature-display';
+  box(g,m.cabinRubber,-.153,.592,-.075,.027,.032,.331,.013);box(g,m.ventMetal,-.137,.592,-.075,.006,.026,.318,.010);
+  for(const z of [.069,-.219])knob(g,m,-.130,.592,z,.0125);
+  for(let i=0;i<6;i++){const z=.024-i*.039;box(g,m.cabinRubber,-.131,.592,z,.007,.018,.034,.0025);face(g,legend(['AUTO','FRONT','−','AC','+','REAR'][i],i===0?'#e7a55b':'#bdc7cb'),-.1265,.592,z,.024,.006,.07);}
 }
+function passengerScreenTexture(){return texture(2048,256,(c,w,h)=>{
+  c.fillStyle='#03070b';c.fillRect(0,0,w,h);c.textAlign='center';c.textBaseline='middle';
+  // The engine is off: neutral, zero road speed and zero RPM agree with the driver dial.
+  c.strokeStyle='#4a5968';c.lineWidth=2;c.strokeRect(63,52,1695,34);
+  for(let i=0;i<=10;i++){const x=93+i*157;c.fillStyle=i>=9?'#ed5136':'#b4c3d1';c.font='28px Arial';c.fillText(String(i),x,27);c.fillRect(x-1,57,2,17);}
+  c.fillStyle='#9a3029';c.fillRect(1510,54,245,29);c.fillStyle='#d17f45';c.fillRect(65,54,12,29);
+  c.fillStyle='#d5e2ee';c.font='91px Arial';c.fillText('N',375,155);c.fillText('0',1135,153);c.font='27px Arial';c.fillStyle='#8c9eae';c.fillText('GEAR',375,220);c.fillText('km/h',1135,218);c.fillText('RPM × 1000',1640,217);
+  c.fillStyle='#ad6a38';c.fillRect(60,115,3,114);c.fillRect(1876,20,3,214);c.fillStyle='#a9b9c7';c.font='33px Arial';c.fillText('↩',26,152);c.fillText('☼',1950,72);c.fillText('◉',1950,180);c.font='26px Arial';c.fillText('0',1660,155);
+});}
+function roundedRectangle(w,h,r){const s=new THREE.Shape();s.moveTo(-w/2+r,-h/2);s.lineTo(w/2-r,-h/2);s.quadraticCurveTo(w/2,-h/2,w/2,-h/2+r);s.lineTo(w/2,h/2-r);s.quadraticCurveTo(w/2,h/2,w/2-r,h/2);s.lineTo(-w/2+r,h/2);s.quadraticCurveTo(-w/2,h/2,-w/2,h/2-r);s.lineTo(-w/2,-h/2+r);s.quadraticCurveTo(-w/2,-h/2,-w/2+r,-h/2);return s;}
 export function referencePassenger(g,{m}){
-  const z=-.493;box(g,m.darkMetal,-.119,.665,z,.012,.026,.276,.006);box(g,m.cabinRubber,-.1115,.665,z,.004,.020,.265,.004);
-  const t=texture(1536,128,(c,w,h)=>{c.fillStyle='#030607';c.fillRect(0,0,w,h);c.fillStyle='#cbdce5';c.font='500 51px Arial';c.textBaseline='middle';c.fillText('0',42,65);c.font='28px Arial';c.fillText('km/h',112,70);c.font='48px Arial';c.fillText('N',640,65);c.font='italic 39px Arial';c.fillText('812 SUPERFAST',920,66);});face(g,t,-.1085,.665,z,.251,.020,.12);
+  // A planar factory-style screen sits behind a real open bezel, rather than a curved strip.
+  const z0=-.665,z1=-.343,center=(z0+z1)/2,shape=roundedRectangle(.318,.0435,.0025);shape.holes.push(roundedRectangle(.310,.038,.0015));
+  const geo=new THREE.ExtrudeGeometry(shape,{depth:.002,bevelEnabled:true,bevelSize:.0004,bevelThickness:.0004,bevelSegments:2,curveSegments:12}),p=geo.attributes.position;
+  for(let i=0;i<p.count;i++){const z=center-p.getX(i),y=.697+p.getY(i),x=-.160+p.getZ(i);p.setXYZ(i,x,y,z);}geo.computeVertexNormals();mesh(g,geo,m.cabinRubber).userData.cockpitFeature='open-passenger-display-bezel';
+  const map=passengerScreenTexture(),screenMat=new THREE.MeshPhysicalMaterial({map,emissiveMap:map,emissive:'#ffffff',emissiveIntensity:.24,roughness:.18,metalness:.08,clearcoat:1,clearcoatRoughness:.12});
+  const screen=mesh(g,new THREE.PlaneGeometry(.308,.037),screenMat,-.1605,.697,center);screen.rotation.y=Math.PI/2;screen.userData.cockpitFeature='recessed-planar-passenger-screen';
 }

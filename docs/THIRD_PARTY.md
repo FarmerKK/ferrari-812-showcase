@@ -28,4 +28,4 @@ Audio preparation uses Python, NumPy/SciPy and a development-only imageio-ffmpeg
 
 ## Raised wordmark typeface
 
-The small extruded dashboard wordmark uses Optimer typeface data bundled with Three.js, under the MAGENTA Ltd. font license. The complete bundled notice is preserved at public/licenses/three-fonts.txt. No reference photographs are redistributed as site textures.
+The small extruded dashboard wordmark uses Optimer and Helvetiker typeface data bundled with Three.js, under the MAGENTA Ltd. font license. The complete bundled notice is preserved at public/licenses/three-fonts.txt. No reference photographs are redistributed as site textures.

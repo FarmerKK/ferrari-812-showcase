@@ -7,7 +7,7 @@ ok(await page.evaluate(()=>atelier.car.parts.size===62),'62 complete selectable 
 ok(await page.evaluate(()=>atelier.car.materials.seat.isMeshPhysicalMaterial&&atelier.car.materials.seat.normalMap.image.width===1024&&atelier.car.materials.seat.roughnessMap.image.width===1024),'Physical leather uses loaded 1K photographic normal and roughness maps');
 ok(await page.evaluate(()=>atelier.car.parts.get('steering-wheel').visible),'Steering wheel remains visible in cockpit mode');
 ok(await page.evaluate(()=>atelier.environment.mode==='studio'),'Neutral studio lighting on cockpit entry');
-for(const [label,file,expected]of [['Dashboard','dashboard','INTERIOR VIEW'],['Driver','driver','DRIVER COCKPIT'],['Console','console','CENTER CONSOLE'],['Seats','seats','SPORT SEATS'],['Top view','top','INTERIOR TOP VIEW'],['Door','door','DOOR PANEL']]){
+for(const [label,file,expected]of [['Dashboard','dashboard','INTERIOR VIEW'],['Passenger','passenger','PASSENGER DASHBOARD'],['Driver','driver','DRIVER COCKPIT'],['Console','console','CENTER CONSOLE'],['Seats','seats','SPORT SEATS'],['Top view','top','INTERIOR TOP VIEW'],['Door','door','DOOR PANEL']]){
 await page.getByRole('button',{name:label,exact:true}).click();await settled();ok((await page.locator('#camera-label').textContent())===expected,label+' camera completes');
 await page.screenshot({path:'output/playwright/interior-final-'+file+'.png'});
 }

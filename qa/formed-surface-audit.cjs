@@ -2,7 +2,7 @@ async(page)=>{
 await page.goto('http://127.0.0.1:5173/?view=interior');await page.setViewportSize({width:1600,height:1000});await page.waitForFunction(()=>window.atelier?.car?.interior);await page.locator('#loading').waitFor({state:'detached'});await page.waitForFunction(()=>atelier.controls.enabled,null,{timeout:120000});
 const audit=await page.evaluate(()=>{
   const edges=new Map(),key=(p,i)=>[p.getX(i),p.getY(i),p.getZ(i)].map(n=>Math.round(n*1e6)).join(',');let triangles=0;
-  atelier.car.parts.get('dashboard').traverse(o=>{if(!o.isMesh||o.material!==atelier.car.materials.dash)return;const p=o.geometry.attributes.position,index=o.geometry.index,at=i=>index?index.getX(i):i,count=index?index.count:p.count;
+  atelier.car.parts.get('dashboard').traverse(o=>{if(!o.isMesh||![atelier.car.materials.dash,atelier.car.materials.lowerDash].includes(o.material))return;const p=o.geometry.attributes.position,index=o.geometry.index,at=i=>index?index.getX(i):i,count=index?index.count:p.count;
     for(let i=0;i<count;i+=3){const a=key(p,at(i)),b=key(p,at(i+1)),c=key(p,at(i+2));if(a===b||b===c||c===a)continue;triangles++;for(const [u,v]of [[a,b],[b,c],[c,a]]){const k=u<v?u+'|'+v:v+'|'+u;edges.set(k,(edges.get(k)||0)+1);}}
   });
   let openEdges=0;for(const count of edges.values())if(count===1)openEdges++;

@@ -2,7 +2,7 @@
 
 เว็บไซต์ Three.js สำหรับหมุน/ซูม Ferrari 812 ใน 3D ปรับแต่งวัสดุ สำรวจ 62 กลุ่มชิ้นส่วน และเปลี่ยนฉากสนามแข่ง
 
-ตัวถังใช้โมเดลที่สร้างโดย **Jayrenn Reeve** เผยแพร่เป็น **CC0** บน [BlenderKit](https://www.blenderkit.com/asset-gallery-detail/22191abd-fa78-43e9-81fe-6cded0d53483/). ทรงฝากระโปรง ซุ้มล้อ หลังคา และร่องเว้าประตูมาจากโมเดลนี้ ล้อปรับตามภาพอ้างอิง ห้องโดยสารสร้างเพิ่มตามภาพอ้างอิง มีหนังสแกนจาก ambientCG (CC0) รอยเย็บ 3D และมุมภายใน 6 มุม ส่วนเครื่องยนต์และช่วงล่างเพิ่มเติมเป็นภาพจำลอง ไม่มีข้อมูล CAD ของ Ferrari
+ตัวถังใช้โมเดลที่สร้างโดย **Jayrenn Reeve** เผยแพร่เป็น **CC0** บน [BlenderKit](https://www.blenderkit.com/asset-gallery-detail/22191abd-fa78-43e9-81fe-6cded0d53483/). ทรงฝากระโปรง ซุ้มล้อ หลังคา และร่องเว้าประตูมาจากโมเดลนี้ ล้อปรับตามภาพอ้างอิง ห้องโดยสารสร้างเพิ่มตามภาพอ้างอิง มีหนังสแกนจาก ambientCG (CC0) รอยเย็บ 3D และมุมภายใน 7 มุม ส่วนเครื่องยนต์และช่วงล่างเพิ่มเติมเป็นภาพจำลอง ไม่มีข้อมูล CAD ของ Ferrari
 
 ## เปิดใช้งาน
 
@@ -27,7 +27,7 @@ npm run preview -- --port 5173
 - Detach/Reassemble และ Exploded view/Assemble คืนตำแหน่งและการหมุนเดิมของ 62 กลุ่ม
 - Paint, Wheels, Brakes, Exterior, Interior และ Lights เปลี่ยนวัสดุ/geometry จริง
 - Mechanics เปิดประตูพร้อมกระจกและกระจกข้าง เปิดฝากระโปรง หมุนล้อ และปรับพวงมาลัย
-- กล้องมี 15 มุม รวมภายใน 6 มุม, engine และ cinematic; แสงมี daylight, sunset, night และ studio
+- กล้องมี 16 มุม รวมภายใน 7 มุม, engine และ cinematic; แสงมี daylight, sunset, night และ studio
 - Save/Load/Reset เก็บ configuration ใน LocalStorage; Capture PNG บันทึก render
 - Sound → Start engine เปิดเสียงเดินเบา; Rev exhaust เล่นเสียงเร่ง; Stop engine หยุดทั้งสอง มี Volume/Mute และหยุดเมื่อซ่อนแท็บ ใช้เสียงบันทึก Ferrari แบบ CC0 ซึ่งผู้บันทึกไม่ยืนยันรุ่น 812
 - About this reconstruction → Export model ส่งออก GLB ของ configuration ปัจจุบันในสภาพประกอบ
@@ -61,7 +61,7 @@ npx --yes --package @playwright/cli playwright-cli -s=atelier open http://127.0.
 npx --yes --package @playwright/cli playwright-cli -s=atelier run-code --filename qa/detailed-acceptance.cjs
 ```
 
-รุ่น v5 ตรวจ cockpit 33 รายการ โครงสร้างและการเก็บงาน 17 รายการ ผิวปิดและตำแหน่งฐานพวงมาลัย 3 รายการ และหน้าปัด/กล้อง/เสียง 18 รายการ รวม 71 รายการ ส่วน regression ภายนอก 50 รายการผ่านในรุ่น v4 ก่อนหน้า โดยไม่มี JavaScript runtime errors ภาพและไฟล์อยู่ใน `output/playwright/`. ผลทดสอบฟังก์ชันไม่ได้รับรองความเหมือน CAD ต้นฉบับ Scripts `qa/acceptance.cjs` และ `qa/final-smoke.cjs` เป็นการทดสอบรุ่น procedural เก่า ใช้ detailed-acceptance สำหรับรุ่นปัจจุบัน
+รุ่น v6 ตรวจกล้องภายใน 7 มุม สีหนังล่างแบบแยก แผ่นจอผู้โดยสารที่เป็นแนวตรง ระยะพ้นแผงประตู และการทำงานเดิมของ cockpit/เสียง รวม 82 รายการ ส่วน regression ภายนอก 50 รายการผ่านในรุ่น v4 ก่อนหน้า โดยไม่มี JavaScript runtime errors ภาพและไฟล์อยู่ใน `output/playwright/`. ผลทดสอบฟังก์ชันไม่ได้รับรองความเหมือน CAD ต้นฉบับ Scripts `qa/acceptance.cjs` และ `qa/final-smoke.cjs` เป็นการทดสอบรุ่น procedural เก่า ใช้ detailed-acceptance สำหรับรุ่นปัจจุบัน
 
 ## ข้อจำกัด
 
@@ -69,7 +69,7 @@ npx --yes --package @playwright/cli playwright-cli -s=atelier run-code --filenam
 
 Rendering ใช้ ACES, clearcoat, PMREM, shadow maps, bloom และ adaptive DPR. ภายในใช้ RectAreaLight, scanned leather normal/roughness maps และ SSAO ในโหมดคุณภาพสูง. Performance ขึ้นกับ GPU/browser; mobile ตรวจใน Chromium viewport 390 × 844 ยังไม่ได้ทดสอบ physical phone
 
-เปิดภายในได้จากปุ่ม Cockpit หรือ URL ?view=interior; รายละเอียดอยู่ใน docs/COCKPIT.md
+เปิดภายในได้จากปุ่ม Cockpit หรือ URL ?view=interior; มุมฝั่งผู้โดยสารใช้ ?view=passenger; รายละเอียดอยู่ใน docs/COCKPIT.md
 
 Import GLB เป็นตัวเลือกสำหรับ asset ภายนอกที่มีสิทธิ์ใช้งาน ความสามารถขึ้นกับ semantic groups และ material mapping ของไฟล์ ไม่รับประกัน arbitrary GLB ทุกไฟล์ ไม่มี provider credentials ในเว็บ
 
