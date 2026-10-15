@@ -1,7 +1,8 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { buildSeatPadding, seatFront, cushionTop, embroidery, buildDashboard } from './upholstery.js';
+import { buildSeatPadding, seatFront, cushionTop, embroidery } from './upholstery.js';
+import { prepareCockpitMaterials, referenceDashboard, referenceVents, referenceCluster, referenceWheel, referenceConsole, referenceClimate, referencePassenger } from './cockpit-geometry.js';
 
 const V=(x,y,z)=>new THREE.Vector3(x,y,z);
 const smooth=(a,b,t)=>THREE.MathUtils.lerp(a,b,t*t*(3-2*t));
@@ -71,9 +72,11 @@ export async function buildDetailedInterior(car){
   m.cabinCarbon=m.carbon.clone();m.cabinCarbon.map=m.carbon.map.clone();m.cabinCarbon.map.repeat.set(12,12);m.cabinCarbon.color.set('#303438');m.cabinCarbon.roughness=.38;m.cabinCarbon.metalness=.08;m.cabinCarbon.clearcoat=.25;m.cabinCarbon.clearcoatRoughness=.35;
   m.cabinMetal=new THREE.MeshStandardMaterial({color:'#a6abb0',metalness:.92,roughness:.28});m.cabinRubber=new THREE.MeshStandardMaterial({color:'#111317',roughness:.92});m.cabinInsert=new THREE.MeshStandardMaterial({color:'#25282c',roughness:.95,bumpMap:grain,bumpScale:.002});m.cabinRed=new THREE.MeshPhysicalMaterial({color:'#b91830',roughness:.35,clearcoat:.5});
   m.ventSlat=new THREE.MeshStandardMaterial({color:'#25292e',roughness:.48,metalness:.45});
+  prepareCockpitMaterials(m);
   const image=(await new THREE.TextureLoader().loadAsync('/textures/source-ferrari-badge.png')).image;
   function horse(color,bg=null){return canvasTexture(256,256,(ctx,w,h)=>{ctx.drawImage(image,99,74,137,174,44,18,168,215);const im=ctx.getImageData(0,0,w,h);const col=new THREE.Color(color).convertLinearToSRGB();for(let i=0;i<im.data.length;i+=4){const keep=im.data[i]+im.data[i+1]+im.data[i+2]<220&&im.data[i+3]>0;if(keep){im.data[i]=Math.round(col.r*255);im.data[i+1]=Math.round(col.g*255);im.data[i+2]=Math.round(col.b*255);}else im.data[i+3]=0;}ctx.clearRect(0,0,w,h);if(bg){ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);}const tmp=document.createElement('canvas');tmp.width=w;tmp.height=h;tmp.getContext('2d').putImageData(im,0,0);ctx.drawImage(tmp,0,0);});}
   const horseGold=horse('#111111','#f3c832'),horseRed=horse('#c92538');
+  const reference={m,trimMeshes,horseGold,horseWhite:horse('#f2f3f5')};
   const register=(id,name,description,builder,pivot=V(0,0,0),offset=V(0,.6,0))=>{
     const old=parts.get(id);if(old){old.removeFromParent();const geometries=new Set();old.traverse(o=>{if(o.geometry)geometries.add(o.geometry);});geometries.forEach(g=>g.dispose());}
     const g=new THREE.Group();g.name=id;root.add(g);builder(g);for(const child of g.children)child.position.sub(pivot);g.position.copy(pivot);
@@ -84,75 +87,14 @@ export async function buildDetailedInterior(car){
     box(g,m.cabinRubber,0,.177,0,4.32,.081,1.63,.035);
   },V(0,.177,0),V(0,-.12,0));underbody.userData.category='Mechanical';
 
-  register('dashboard','Sculpted dashboard','Curved leather dashboard, contrasting hand-stitched seams, carbon fascia and passenger-side model script.',g=>{
-    buildDashboard(g,m.dash);
-    carbonBox(g,-.137,.735,0,.025,.074,1.45,.012);box(g,m.dash,-.25,.58,-.41,.23,.20,.66,.05);
-    const seam=[];for(let i=0;i<=96;i++){const z=-.73+i/96*1.46;seam.push(V(-.28,.841-.016*(Math.abs(z)/.77)**3+.00035,z));}stitches(g,m.stitch,seam);
-    face(g,textTexture('812 SUPERFAST','#dedee1'),-.119,.687,-.53,.20,.025,.015);
-    box(g,m.cabinRubber,-.40,.575,.35,.21,.075,.49,.025);
-  },V(-.36,.76,0),V(-.3,.85,0));
-
-  register('air-vents','Four turbine air vents','Four deeply recessed circular vents with metallic rings, red rims, internal vanes and rotary hubs.',g=>{
-    for(const z of [.69,.12,-.19,-.69]){const y=.766;
-      const sleeve=add(g,new THREE.CylinderGeometry(.052,.052,.025,64,1,true),m.cabinRubber,-.12,y,z);sleeve.rotation.z=Math.PI/2;
-      roundFace(g,m.cabinRubber,-.118,y,z,.052);ring(g,m.cabinCarbon,-.106,y,z,.052,.005);ring(g,m.cabinMetal,-.099,y,z,.047,.0018);ring(g,m.cabinRed,-.098,y,z,.050,.0016);
-      for(let i=-3;i<=3;i++){const dy=i*.011,length=2*Math.sqrt(.044**2-dy**2);box(g,m.ventSlat,-.11,y+dy,z,.006,.002,length,.0008);}
-      for(let i=0;i<3;i++){const a=i/3*Math.PI*2,o=box(g,m.ventSlat,-.101,y+Math.cos(a)*.022,z+Math.sin(a)*.022,.004,.045,.002,.0008);o.rotation.x=-a;}
-      roundFace(g,m.cabinMetal,-.096,y,z,.008);roundFace(g,m.cabinRubber,-.094,y,z,.005);
-    }
-  },V(-.13,.8,0),V(-.3,.4,0));
-
-  register('instrument-cluster','Yellow tachometer & digital cluster','Yellow central analog tachometer with graduated markings, needle, neutral indicator and two illuminated digital displays.',g=>{
-    // Rounded low binnacle is buried in the pad; no extruded tunnel above the glass.
-    ellipse(g,m.dash,-.306,.812,.426,.219,.116,.198);
-    box(g,m.dash,-.113,.832,.426,.026,.160,.366,.027);
-    box(g,m.cabinRubber,-.096,.834,.426,.013,.135,.344,.025);
-    ring(g,m.cabinMetal,-.086,.838,.426,.063,.0021);
-    const dial=dialTexture();roundFace(g,new THREE.MeshStandardMaterial({map:dial,emissiveMap:dial,emissive:'#ffffff',emissiveIntensity:.24,roughness:.58}),-.083,.838,.426,.0595);
-    face(g,displayTexture('driver'),-.087,.829,.548,.086,.091,.24);face(g,horse('#e6e9ee','#060b12'),-.087,.829,.304,.086,.091,.24);
-  },V(-.25,.837,.426),V(0,.6,.3));
-
-  const wheel=register('steering-wheel','Carbon steering wheel','Flat-bottom wheel with leather grips, carbon spokes, Ferrari center badge, start button, rotary manettino, shift LEDs and metal paddles.',g=>{
-    // Wheel uses a local plane so its controls rotate together about the column.
-    const w=new THREE.Group();w.position.set(.078,.84,.426);w.rotation.z=-.13;g.add(w);
-    const circle=[];for(let i=0;i<72;i++){const a=i/72*Math.PI*2;circle.push(V(0,Math.max(-.138,Math.sin(a)*.165),Math.cos(a)*.165));}tube(w,m.seat,circle,.018,true);
-    const top=[];for(let i=0;i<=24;i++){const a=.31+ i/24*2.52;top.push(V(.002,Math.sin(a)*.165,Math.cos(a)*.165));}tube(w,m.cabinCarbon,top,.019);
-    tube(w,m.cabinCarbon,[V(.002,-.075,.145),V(.003,-.138,.095),V(.003,-.143,0),V(.003,-.138,-.095),V(.002,-.075,-.145)],.021);
-    for(const s of [-1,1]){const grip=[];for(let i=0;i<20;i++){const a=(-.5+i/19)*.75;grip.push(V(.018,Math.sin(a)*.164,s*Math.cos(a)*.165));}stitches(w,m.stitch,grip);
-      const spoke=new THREE.Shape();spoke.moveTo(s*.028,.014);spoke.bezierCurveTo(s*.064,.021,s*.112,.046,s*.14,.025);spoke.lineTo(s*.143,-.027);spoke.bezierCurveTo(s*.108,-.056,s*.071,-.042,s*.031,-.037);spoke.closePath();const arm=add(w,new THREE.ExtrudeGeometry(spoke,{depth:.013,bevelEnabled:true,bevelSize:.004,bevelThickness:.003,bevelSegments:3,curveSegments:20}),m.cabinCarbon,-.007,0,0);arm.rotation.y=Math.PI/2;
-      ellipse(w,m.seat,.003,.006,s*.162,.022,.071,.026);box(w,m.cabinRubber,.013,-.005,s*.108,.017,.061,.043,.009);
-      for(const y of [-.012,.016]){roundFace(w,m.cabinRubber,.028,y,s*.11,.008);face(w,textTexture(y>0?'+':'−'),.029,y,s*.11,.009,.008,.08);}
-      const paddle=box(w,m.cabinMetal,-.051,.012,s*.129,.016,.143,.029,.01);paddle.rotation.x=s*.12;face(w,textTexture(s>0?'−':'+'),-.039,.052,s*.13,.014,.014,.03);
-    }
-    box(w,m.cabinCarbon,-.01,-.062,0,.037,.117,.052,.018);ellipse(w,m.seat,.017,-.003,0,.026,.061,.066);ring(w,m.cabinMetal,.045,.0,0,.025,.002);
-    roundFace(w,new THREE.MeshStandardMaterial({map:horseGold,roughness:.38}),.048,0,0,.024);
-    roundFace(w,m.cabinRed,.033,-.065,.09,.014);face(w,textTexture('START','#ffffff'),.034,-.065,.09,.020,.005,.12);
-    ring(w,m.cabinMetal,.032,-.052,-.10,.018,.002);roundFace(w,m.cabinRed,.035,-.052,-.10,.013);const manettino=box(w,m.cabinRed,.04,-.044,-.094,.008,.026,.006,.002);manettino.rotation.x=-.5;
-    face(w,textTexture('RACE','#e3e4e5'),.027,-.083,-.104,.029,.006,.08);
-    for(let i=0;i<9;i++)roundFace(w,new THREE.MeshStandardMaterial({color:i<5?'#86121d':'#142535',emissive:i<5?'#ef1635':'#112639',emissiveIntensity:i<3?1.2:.1}),.024,.162,(i-4)*.009,.0025);
-  },V(.078,.84,.426),V(.25,.55,.4));
-  car.steering=[wheel];
-
-  register('center-console','Carbon transmission bridge','Sculpted transmission tunnel with three round controls, hazard switch, window toggles, brushed-metal handle and stitched armrest.',g=>{
-    box(g,m.dash,.245,.49,0,.93,.19,.22,.06);carbonBox(g,.125,.60,0,.55,.035,.166,.024);
-    for(const [i,label] of ['R','AUTO','LAUNCH'].entries()){const x=-.087+i*.102;const o=add(g,new THREE.CylinderGeometry(.028,.028,.009,48),m.cabinMetal,x,.623,0);roundFace(g,m.cabinRubber,0,0,0,.001).visible=false;
-      const cap=add(g,new THREE.CircleGeometry(.023,40),m.cabinRubber,x,.629,0);cap.rotation.x=-Math.PI/2;
-      const txt=add(g,new THREE.PlaneGeometry(label==='R'?.014:.038,.011),new THREE.MeshStandardMaterial({map:textTexture(label),transparent:true,emissive:'#e0e3e6',emissiveIntensity:.05}),x,.63,0);txt.rotation.set(-Math.PI/2,0,Math.PI/2);
-    }
-    const hazard=box(g,m.cabinRed,.232,.628,0,.053,.014,.041,.006);const hazardFace=add(g,new THREE.PlaneGeometry(.035,.027),new THREE.MeshStandardMaterial({map:textTexture('△'),transparent:true}),.233,.637,0);hazardFace.rotation.x=-Math.PI/2;
-    box(g,m.cabinMetal,.354,.602,0,.10,.022,.145,.012);box(g,m.cabinRubber,.357,.616,0,.069,.018,.115,.009);box(g,m.cabinMetal,.357,.63,0,.048,.013,.101,.008);
-    for(const z of [-.075,.075])box(g,m.cabinRubber,.305,.628,z,.038,.018,.018,.004);
-    box(g,m.seat,.585,.574,0,.26,.11,.19,.045);
-    for(const s of [-1,1]){stitches(g,m.stitch,[V(-.15,.577,s*.11),V(.05,.58,s*.11),V(.27,.58,s*.11),V(.60,.57,s*.11)]);stitches(g,m.stitch,[V(.50,.628,s*.066),V(.58,.629,s*.066),V(.67,.622,s*.066)]);}
-  },V(.23,.53,0),V(.35,.6,0));
-
-  register('climate-controls','Dual-zone climate controls','Rotary temperature dials, etched control legends, central switches and metallic bezels.',g=>{
-    carbonBox(g,-.091,.665,-.025,.035,.071,.285,.015);
-    for(const z of [-.145,.095]){ring(g,m.cabinMetal,-.063,.665,z,.026,.004);roundFace(g,m.cabinRubber,-.057,.665,z,.022);face(g,textTexture('20°'),-.055,.664,z,.032,.013,.1);}
-    for(let i=0;i<5;i++){box(g,m.cabinRubber,-.058,.663,-.087+i*.033,.008,.025,.026,.003);face(g,textTexture(['−','AC','↑','↓','+'][i]),-.053,.663,-.087+i*.033,.019,.009,.06);}
-  },V(-.07,.66,0),V(.1,.4,0));
-
-  register('passenger-display','Passenger information display','Illuminated passenger-side speed/gear display inset into the leather fascia.',g=>{box(g,m.cabinRubber,-.136,.783,-.477,.014,.078,.327,.006);face(g,displayTexture('passenger'),-.126,.783,-.477,.303,.064,.36);},V(-.13,.79,-.48),V(0,.4,-.3));
+  register('dashboard','Sculpted dashboard','Layered leather eyebrows, formed metal vent gallery, hexagonal grille, accent trough and stitched glovebox.',g=>referenceDashboard(g,reference),V(-.36,.76,0),V(-.3,.85,0));
+  register('air-vents','Four turbine air vents','Recessed bell-mouth aluminium nozzles with open throats, internal vanes, adjustment tabs and fine red rings.',g=>referenceVents(g,reference),V(-.20,.78,0),V(-.3,.4,0));
+  register('instrument-cluster','Yellow tachometer & digital cluster','Contoured recessed instrument binnacle with perforated hood, inset LCDs, yellow tachometer, raised needle and anti-reflective lens.',g=>referenceCluster(g,reference),V(-.25,.837,.426),V(0,.6,.3));
+  let steeringRotor;register('steering-wheel','Carbon steering wheel','Contoured perforated grips, curved carbon spokes, supported column, stationary shift paddles, recessed switches and start/manettino controls.',g=>{steeringRotor=referenceWheel(g,reference);},V(.078,.837,.426),V(.25,.55,.4));
+  car.steering=[steeringRotor];
+  register('center-console','Carbon transmission bridge','Sloping carbon bridge with inset transmission buttons, supporting legs, open undercut and stitched armrest.',g=>referenceConsole(g,reference),V(.23,.53,0),V(.35,.6,0));
+  register('climate-controls','Dual-zone climate controls','Two slim control banks, digital temperature strip, knurled metallic dials and backlit switches.',g=>referenceClimate(g,reference),V(-.12,.63,-.075),V(.1,.4,0));
+  register('passenger-display','Passenger information display','A narrow passenger information strip recessed below the vent gallery.',g=>referencePassenger(g,reference),V(-.13,.704,-.49),V(0,.4,-.3));
 
   for(const [side,z] of [['driver',.419],['passenger',-.419]]){
     register(`${side}-seat`,`${side==='driver'?'Driver':'Passenger'} sport seat`,'Sculpted leather sport seat with curved bolsters, suede center inserts, red piping, double stitching, embroidered headrest and seat rails.',g=>{
@@ -207,13 +149,13 @@ export async function buildDetailedInterior(car){
   root.updateMatrixWorld(true);
   const trimSet=new Set(trimMeshes);trimMeshes.length=0;
   for(const g of parts.values())if(g.userData.category==='Interior'){
-    const inverse=g.matrixWorld.clone().invert(),buckets=new Map(),objects=[];
-    g.traverse(o=>{if(o.isMesh&&!o.isInstancedMesh&&o.visible){const trim=trimSet.has(o),key=o.material.uuid+':'+trim;const geo=o.geometry.index?o.geometry.toNonIndexed():o.geometry.clone();geo.applyMatrix4(inverse.clone().multiply(o.matrixWorld));if(!geo.getAttribute('uv'))geo.setAttribute('uv',new THREE.Float32BufferAttribute(new Float32Array(geo.getAttribute('position').count*2),2));if(!buckets.has(key))buckets.set(key,{material:o.material,trim,geos:[]});buckets.get(key).geos.push(geo);objects.push(o);}});
-    for(const b of buckets.values()){const geometry=mergeGeometries(b.geos);if(!geometry)throw new Error('Interior geometry batching failed');const mesh=add(g,geometry,b.material);mesh.userData.partId=g.userData.partId;if(b.trim)trimMeshes.push(mesh);b.geos.forEach(x=>x.dispose());}
+    const buckets=new Map(),objects=[];
+    g.traverse(o=>{if(o.isMesh&&!o.isInstancedMesh&&o.visible){let container=g;for(let p=o.parent;p&&p!==g;p=p.parent)if(p.userData.articulated){container=p;break;}const trim=trimSet.has(o),key=container.uuid+':'+o.material.uuid+':'+trim;const geo=o.geometry.index?o.geometry.toNonIndexed():o.geometry.clone();geo.applyMatrix4(container.matrixWorld.clone().invert().multiply(o.matrixWorld));if(!geo.getAttribute('uv'))geo.setAttribute('uv',new THREE.Float32BufferAttribute(new Float32Array(geo.getAttribute('position').count*2),2));if(!buckets.has(key))buckets.set(key,{material:o.material,container,trim,geos:[],features:new Set()});const b=buckets.get(key);b.geos.push(geo);if(o.userData.cockpitFeature)b.features.add(o.userData.cockpitFeature);objects.push(o);}});
+    for(const b of buckets.values()){const geometry=mergeGeometries(b.geos);if(!geometry)throw new Error('Interior geometry batching failed');const mesh=add(b.container,geometry,b.material);mesh.userData.partId=g.userData.partId;mesh.userData.cockpitFeatures=[...b.features];if(b.trim)trimMeshes.push(mesh);b.geos.forEach(x=>x.dispose());}
     const oldGeometries=new Set();objects.forEach(o=>{oldGeometries.add(o.geometry);o.removeFromParent();});oldGeometries.forEach(x=>x.dispose());
   }
   root.updateMatrixWorld(true);
-  car.interior={trimMeshes,detailVersion:'812-reference-cockpit-v3',leatherGrain:grain,leatherNormal,leatherRoughness};
+  car.interior={trimMeshes,detailVersion:'812-photo-cockpit-v4',leatherGrain:grain,leatherNormal,leatherRoughness};
   return car;
 }
 

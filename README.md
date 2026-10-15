@@ -38,6 +38,7 @@ npm run preview -- --port 5173
 | ไฟล์ | หน้าที่ |
 | --- | --- |
 | `src/detailed-car.js` | โหลดตัวถัง CC0, จัด 62 กลุ่ม, ผูกวัสดุและชุดล้อ |
+| `src/cockpit-geometry.js` | แผงหน้าปัด มาตรวัด พวงมาลัย และคอนโซลตามภาพถ่ายอ้างอิง |
 | `src/car.js` | วัสดุ ล้อ และเครื่องยนต์/ช่วงล่างจำลองที่ใช้ประกอบ |
 | `src/main.js` | Interaction, animation, cameras, presets และ export/import |
 | `src/environment.js` | สนามสมมุติ แสง PMREM sky และ contact shadows |
@@ -60,7 +61,7 @@ npx --yes --package @playwright/cli playwright-cli -s=atelier open http://127.0.
 npx --yes --package @playwright/cli playwright-cli -s=atelier run-code --filename qa/detailed-acceptance.cjs
 ```
 
-รุ่นปัจจุบันผ่าน regression 50 รายการ, cockpit 33 รายการ, navigation smoke 5 รายการ และการแก้หน้าปัด/กล้อง/เสียง 18 รายการ รวม 106 โดยไม่มี JavaScript runtime errors ภาพและไฟล์อยู่ใน `output/playwright/`. ผลทดสอบฟังก์ชันไม่ได้รับรองความเหมือน CAD ต้นฉบับ Scripts `qa/acceptance.cjs` และ `qa/final-smoke.cjs` เป็นการทดสอบรุ่น procedural เก่า ใช้ detailed-acceptance สำหรับรุ่นปัจจุบัน
+รุ่นปัจจุบันผ่าน regression 50 รายการ, cockpit 33 รายการ, โครงสร้างและการเก็บงานตามภาพถ่าย 17 รายการ และหน้าปัด/กล้อง/เสียง 18 รายการ รวม 118 โดยไม่มี JavaScript runtime errors ภาพและไฟล์อยู่ใน `output/playwright/`. ผลทดสอบฟังก์ชันไม่ได้รับรองความเหมือน CAD ต้นฉบับ Scripts `qa/acceptance.cjs` และ `qa/final-smoke.cjs` เป็นการทดสอบรุ่น procedural เก่า ใช้ detailed-acceptance สำหรับรุ่นปัจจุบัน
 
 ## ข้อจำกัด
 

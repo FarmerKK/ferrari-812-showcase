@@ -1,42 +1,32 @@
 # Test results — 15 October 2026
 
-Production build verification completed in Chromium:
+Current photographic cockpit: `812-photo-cockpit-v4`.
 
-- qa/detailed-acceptance.cjs: 50 passed, 0 JavaScript runtime errors.
-- qa/cabin-acceptance.cjs: 33 passed, 0 JavaScript runtime errors.
-- qa/cabin-smoke.cjs: 5 passed, 0 runtime errors after adding direct Cockpit navigation and camera warmup handling.
-- qa/cabin-refinement.cjs: 18 passed, 0 runtime errors. Covers measured cluster/dashboard bounds, repeated camera transitions, actual audio output, start/rev/stop/mute/volume, return to idle, tab visibility and mobile sound controls.
+- `qa/cabin-acceptance.cjs`: 33 passed after the final steering and finishing changes; no JavaScript runtime errors.
+- `qa/photo-cockpit-structure.cjs`: 17 passed after the final changes; no runtime errors.
+- `qa/cabin-refinement.cjs`: 18 passed after the final changes; no runtime errors.
+- `qa/detailed-acceptance.cjs`: 50 passed earlier in this photographic cockpit revision, before the final wheel and surface finishing pass; no runtime errors.
 
-Total: 106 functional checks. Passing these checks does not certify visual fidelity to official Ferrari CAD.
+118 checks across this revision, with the 68 cockpit/structure/audio checks rerun on the final runtime source. These results verify behavior and measured geometry, not fidelity to official CAD. Desktop viewports: 1440 × 900 and 1600 × 1000. Mobile: 390 × 844 in Chromium.
 
-Desktop viewports: 1440 × 900 and 1600 × 1000. Mobile viewport: 390 × 844.
+## Geometry and visual review
 
-## Current cockpit
+Inspected actual renderer captures of the supplied front-wheel, side-column, console, vent-gallery and instrument-back problem angles. The wheel now has a shallower, smaller airbag, a single flared carbon lower spoke, curved lower rim, separate switch banks, smaller start/Manettino controls, integrated thumb rests and slim bent paddles. Rim, airbag and switches rotate together; column fairing and paddles remain fixed. The tapered inclined fairing enters the padded knee bolster below the tachometer, rather than projecting through its face.
 
-Verified all six interior views, direct ?view=interior entry, header Cockpit entry, seat/stitched seam/belt colors, scanned leather maps, suede/physical leather switching, carbon inlay switching, save/reset/load, roof cutaway restoration, animated door cards, complete vehicle export from isolated seat view, return to exterior and restoration of the previous environment. Mobile view switching and finishes work without horizontal overflow.
+Cluster width is 0.410 m and top 0.932 m. Dashboard top is 0.858 m; wheel crown is 1.016 m. At the inspected instrument plane, column fairing top is 0.759 m. Ray tests find no obstruction through the center-console side passage and confirm the right climate knob is visible ahead of the glovebox. The instrument hood has an enclosed back and outward-facing roof normals. Fine hex grille cells remain inside the recessed gallery below the leather eyebrow.
 
-Reviewed actual production renders of the dashboard, driver wheel/cluster, console, seats, top layout, door card and the supplied problem side angle. The cluster is now 0.396 m wide and reaches 0.928 m high; dashboard reaches 0.850 m and wheel crown 1.021 m. The previous extruded hood reached approximately 1.059 m. Seat inserts/stripes are material regions on shared padded geometry, seam paths follow that surface, and headrest embroidery uses a conforming alpha-cut patch. Leather roughness is softened from the scanned map. Vents are smaller, pedal stems and door handle mounts are added. The V12/manifold remains ahead of the cabin firewall.
+The driver camera uses an elevated eye point and 55-degree vertical field of view. Repeated camera transitions settle correctly. Seat geometry, scanned leather, surface-following seams and conforming headrest embroidery remain intact.
 
-The idle and acceleration MP3 recordings decode and produce measured frequency output in Chromium. Rev finishes back at idle; stop interrupts both sources. Volume, mute, hidden-tab stop, keyboard operation and mobile start/stop passed. No human listening review or physical-phone audio test is claimed. The source recordists do not identify an 812, and About/credits state this limitation.
+## Interaction and sound
 
-## Existing features
+Final cockpit checks cover all six views, direct/header entry, material/color controls, save/reset/load, roof cutaway restoration, animated door cards, complete assembled export from isolated seat view, return to exterior, previous environment restoration and mobile layout/finishes. Earlier full regression covers 62 semantic groups, selection, detachment/reassembly, paint/wheels/brakes/lights, mechanics, environment selection and downloads.
 
-50 regression checks cover 62 selectable groups, raycasting/orbit/zoom, paint and material finishes, wheel styles, calipers, aero, upholstery, lamps, configuration persistence, component selection/detachment, exact reassembly within 1e-6, door/hood/wheel/steering mechanics, original cameras, all four environments, PNG and full assembled GLB downloads, and mobile layout.
+Idle and acceleration recordings decode and produce measured audio output. Start, rev, stop, mute, volume, keyboard operation, return to idle and mobile start/stop pass. The automation host forces actual tab visibility: the production visibility-change handler was tested with a temporary document.hidden fixture and the property restored. An actual background-tab transition is not claimed for this run. No human listening review or physical-phone audio test is claimed. Recordists do not identify an 812; About/credits state that limitation.
 
-## Model export
+## Export and build
 
-Both the static compressed model and the raw export made from isolated seat view were imported in Blender 4.5.3 LTS. Each contains 62 top-level semantic groups, 33 embedded images and no missing images. Blender expands instanced perforations, so its mesh count (1167) differs from live Three.js objects. The downloadable compressed assembled GLB is 14,504,584 bytes; the startup body template is approximately 3.7 MB plus local leather maps.
+The static compressed model and the raw complete export from isolated Seats view both import in Blender 4.5.3 LTS with 62 top-level semantic groups, 1178 mesh objects, 71 materials and 42 embedded images; no missing images. Downloadable compressed model: 22,074,372 bytes, below the 26,214,400-byte per-asset hosting limit. Browser exports remain uncompressed. See `model-inspection.json` and `cutaway-export-inspection.json`.
 
-Reports: model-inspection.json and cutaway-export-inspection.json.
+`npm run build` succeeds with existing Three.js/app bundle-size advisories. Batching preserves articulated steering frames. Camera shader warmup and adaptive quality remain active. No new device performance benchmark is claimed in this finishing pass.
 
-## Build and performance
-
-npm run build succeeds, with bundle-size advisories for Three.js and the app/lighting chunk. Scene sample from the full regression: 517 live mesh objects including hidden style variants, 893 calls and 1,983,116 triangles across shadow/postprocessing passes, 84 FPS at high quality in the test browser. Camera/material shader warm-up samples are much slower. These are samples, not device guarantees.
-
-Rigid interior geometry is batched by material per component. Unseen wheel/engine assemblies are hidden during cockpit inspection and restored for exterior/export. Adaptive DPR remains available; performance mode bypasses SSAO/bloom. Camera transitions restart the performance sample after shader warmup. Adaptive quality requires three slow samples before reducing quality and can recover on desktop.
-
-## Limits
-
-Mobile was checked in resized Chromium rather than physical Android/iOS hardware. The cockpit is a visual reconstruction from the supplied blueprint, not official CAD or a safety-certified seat/restraint model. Displays and switches depict static showroom values. Engine/suspension mechanics remain illustrative. External arbitrary GLB compatibility is not certified. Reflections use generated PMREM; no external HDRI or GTAO is bundled.
-
-Legacy procedural acceptance/final-smoke files are historical. Use the detailed and cabin suites for the current model.
+The cockpit is a photographic reconstruction. Displays, engine/suspension mechanics and switches are illustrative. Mobile was checked in resized Chromium. No exact photographic identity, engineering certification or arbitrary external GLB compatibility is claimed.

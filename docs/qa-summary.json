@@ -2,20 +2,22 @@
   "date": "2026-10-15",
   "timezone": "Asia/Bangkok",
   "productionBuild": true,
+  "detailVersion": "812-photo-cockpit-v4",
   "suites": {
     "exterior": {
       "script": "qa/detailed-acceptance.cjs",
       "passed": 50,
-      "runtimeErrors": []
+      "runtimeErrors": [],
+      "stage": "earlier in this photographic cockpit revision"
     },
     "cockpit": {
       "script": "qa/cabin-acceptance.cjs",
       "passed": 33,
       "runtimeErrors": []
     },
-    "finalNavigation": {
-      "script": "qa/cabin-smoke.cjs",
-      "passed": 5,
+    "photoStructure": {
+      "script": "qa/photo-cockpit-structure.cjs",
+      "passed": 17,
       "runtimeErrors": []
     },
     "refinementAndAudio": {
@@ -40,20 +42,40 @@
       844
     ]
   },
-  "finalScene": {
-    "partGroups": 62,
-    "liveMeshesIncludingHiddenVariants": 517,
-    "renderCallsIncludingShadowAndPostprocessing": 893,
-    "trianglesAcrossPasses": 1983116,
-    "sampleFps": 84,
-    "quality": "high"
+  "structureAudit": {
+    "features": [
+      "formed-vent-gallery",
+      "recessed-instrument-hood",
+      "enclosed-instrument-back",
+      "raised-analog-needle",
+      "analog-tachometer-face",
+      "inset-driver-lcd",
+      "contoured-column-fairing",
+      "column-mounted-paddle",
+      "sloped-transmission-bridge",
+      "curved-transmission-support"
+    ],
+    "columnFaceMaxY": 0.7594418625235557,
+    "columnPoints": 2424,
+    "bridgeObstructions": 0,
+    "exposedKnob": true,
+    "roofSamples": 3522,
+    "roofAverageNormalY": 0.8982965840113278
   },
   "export": {
     "groups": 62,
-    "embeddedImages": 33,
+    "blenderMeshObjects": 1178,
+    "materials": 71,
+    "embeddedImages": 42,
     "missingImages": [],
-    "compressedBytes": 14504584,
+    "compressedBytes": 22074372,
     "completeFromCutawayView": true
+  },
+  "measuredCabinMeters": {
+    "clusterTop": 0.931539612531662,
+    "clusterWidth": 0.41007369756698603,
+    "dashboardTop": 0.8576567789912224,
+    "wheelCrown": 1.0158559714606248
   },
   "materialSources": {
     "body": "Jayrenn Reeve / BlenderKit / CC0",
@@ -61,12 +83,6 @@
     "sound": "jtvdb and biholao / Freesound / CC0; Ferrari model unspecified"
   },
   "physicalMobileDeviceTested": false,
-  "arbitraryThirdPartyGLBCompatibilityCertified": false,
-  "measuredCabinMeters": {
-    "clusterTop": 0.928,
-    "clusterWidth": 0.396,
-    "dashboardTop": 0.85,
-    "wheelCrown": 1.021
-  },
-  "humanAudioListeningReview": false
+  "humanAudioListeningReview": false,
+  "visibilityTest": "Production visibility handler exercised with temporary document.hidden fixture; automation host forces actual tab visibility."
 }

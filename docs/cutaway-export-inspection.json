@@ -1,11 +1,11 @@
 {
   "file": "812-superfast-cockpit-export.glb",
   "blender_version": "4.5.3 LTS",
-  "mesh_objects": 1167,
+  "mesh_objects": 1178,
   "component_groups": 62,
   "nested_geometry_groups_with_inherited_metadata": 8,
-  "materials": 67,
-  "images": 33,
+  "materials": 71,
+  "images": 42,
   "missing_images": [],
   "bounds_in_blender_z_up_meters": {
     "min": [
