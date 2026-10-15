@@ -1,11 +1,11 @@
 {
   "file": "812-superfast-atelier.glb",
   "blender_version": "4.5.3 LTS",
-  "mesh_objects": 1178,
+  "mesh_objects": 1177,
   "component_groups": 62,
   "nested_geometry_groups_with_inherited_metadata": 8,
   "materials": 71,
-  "images": 42,
+  "images": 41,
   "missing_images": [],
   "bounds_in_blender_z_up_meters": {
     "min": [

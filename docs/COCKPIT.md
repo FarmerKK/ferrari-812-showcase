@@ -1,10 +1,12 @@
 # Cockpit reconstruction — 15 October 2026
 
+Current runtime: `812-formed-cockpit-v5`.
+
 The cockpit follows the supplied 812 blueprint and the later real-car photographs. The vehicle remains left-hand drive, following the left-hand-drive reference; the right-hand-drive photo supplies construction and surface details. This is a photographic reconstruction, not official Ferrari CAD.
 
 ## Dashboard and instruments
 
-src/cockpit-geometry.js creates the layered leather eyebrow, open vent gallery, formed aluminium trays, fine red accent, hexagonal grille and separate lower fascia. Four bell-mouth nozzles have open throats, recessed vanes, rotary hubs and rolled red/metal rims. The two central vents sit inside the gallery rather than on a uniform flat panel. The driver area has a separate padded knee housing; the bright gallery tray stops outside the instrument area.
+src/cockpit-geometry.js builds the upper leather pad and lower fascia as closed sweeps with end caps and return surfaces. The central formed aluminium carrier has a curved lower edge that rises around both vent barrels, rounded return edges, integrated collars and a fine red accent. The grille is inset in a supporting frame, and the small dashboard wordmark is actual beveled metal geometry. A slim temperature lens uses a proportioned 2048 × 128 canvas rather than stretching a short label texture across the fascia. Four bell-mouth nozzles have open throats, recessed vanes, rotary hubs and rolled red/metal rims. The two central vents sit inside the gallery rather than on a uniform flat panel. The driver area has a separate padded knee housing; the bright gallery tray stops outside the instrument area.
 
 The instrument hood follows a scalloped contour and wraps over inset side LCDs and a central yellow tachometer. The analog face has a corrected clockwise scale from lower left to lower right, a raised narrow pointer and hub, an inset neutral indicator, stepped barrel and subtle lens. Face, needle, lens and hood occupy separate depths. The readouts are illustrative static showroom values.
 
@@ -12,7 +14,7 @@ The instrument hood follows a scalloped contour and wraps over inset side LCDs a
 
 The wheel uses a flattened carbon rim, perforated side grips, integrated thumb rests and fine inner seams. A single flared lower spoke joins the curved carbon bottom rim. Curved carbon switch wings support separate indicator rockers, light/wiper switch banks, the smaller engine-start button, telephone/audio switches and Manettino selector. The padded airbag follows a rounded trapezoid profile, with the CC0 horse badge set into its bezel. Carbon weave uses a separate finer scale on the wheel.
 
-The lower column uses a flattened, tapered clamshell rather than an exposed round shaft. It is inclined into the padded knee housing below the tachometer. The wheel rotor is an articulated child of a stationary mounting frame: rim, airbag and switches rotate, while the column and slim, bent shift paddles stay fixed. Batching preserves this articulated frame and all selection/export semantics. The driver camera uses a higher eye point and 55-degree vertical field of view so the instruments can be seen above the hub.
+The steering frame moves 52 mm toward the instruments, to X = 0.026 m. Its 128 mm closed fairing, bearing collars and enclosed rear airbag cover connect to a sculpted knee socket below the tachometer. The socket is part of the lower dashboard volume. Hood perforations have their own material and UV repetition, preserving small holes along both axes instead of stretched slots. The wheel rotor is an articulated child of a stationary mounting frame: rim, airbag and switches rotate, while the column and slim, bent shift paddles stay fixed. Batching preserves this articulated frame and all selection/export semantics. The driver camera uses a higher eye point and 55-degree vertical field of view so the instruments can be seen above the hub.
 
 ## Console and supporting detail
 
@@ -31,3 +33,5 @@ Sound opens the recorded-exhaust controls. Start engine plays the idle loop; Rev
 Gauge values, switch labels, engine/suspension details and opening mechanics are illustrative. No engineering dimensions, safety certification, real telemetry or exact photographic identity is claimed. Mobile is verified in a resized browser rather than physical phone hardware. Audio output is measured in Chromium; no human listening review is claimed.
 
 Finishing includes an enclosed rear instrument shell with outward-facing roof normals, a recessed hex grille constrained below the leather eyebrow, and glovebox clearance for the right climate knob. The photo structure suite checks these clearances and the actual open passage under the console. The browser host forces page visibility; the audio suite exercises the production visibility handler with a temporary document.hidden fixture and restores the property.
+
+The geometric surface audit welds coincident triangle positions for the padded dashboard material and checks for unclosed boundaries. The final revision has 46,892 tested triangles and zero open edges. This audit covers the padded dashboard volumes; it is not a claim that every mesh in the vehicle is manifold.

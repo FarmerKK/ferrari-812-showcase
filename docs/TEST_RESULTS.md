@@ -1,32 +1,34 @@
 # Test results — 15 October 2026
 
-Current photographic cockpit: `812-photo-cockpit-v4`.
+Current runtime source: `812-formed-cockpit-v5`.
 
-- `qa/cabin-acceptance.cjs`: 33 passed after the final steering and finishing changes; no JavaScript runtime errors.
-- `qa/photo-cockpit-structure.cjs`: 17 passed after the final changes; no runtime errors.
-- `qa/cabin-refinement.cjs`: 18 passed after the final changes; no runtime errors.
-- `qa/detailed-acceptance.cjs`: 50 passed earlier in this photographic cockpit revision, before the final wheel and surface finishing pass; no runtime errors.
+- `qa/cabin-acceptance.cjs`: 33 passed, zero runtime errors.
+- `qa/photo-cockpit-structure.cjs`: 17 passed, zero runtime errors.
+- `qa/formed-surface-audit.cjs`: 3 passed.
+- `qa/cabin-refinement.cjs`: 18 passed, zero runtime errors.
 
-118 checks across this revision, with the 68 cockpit/structure/audio checks rerun on the final runtime source. These results verify behavior and measured geometry, not fidelity to official CAD. Desktop viewports: 1440 × 900 and 1600 × 1000. Mobile: 390 × 844 in Chromium.
+All 71 checks ran against the final v5 runtime. The previous v4 exterior regression passed 50 checks; it was not rerun for this interior-only revision. Passing checks does not certify visual fidelity or official CAD dimensions. Desktop viewports: 1600 × 1000; mobile: 390 × 844 in Chromium.
 
-## Geometry and visual review
+## Supplied defect angles
 
-Inspected actual renderer captures of the supplied front-wheel, side-column, console, vent-gallery and instrument-back problem angles. The wheel now has a shallower, smaller airbag, a single flared carbon lower spoke, curved lower rim, separate switch banks, smaller start/Manettino controls, integrated thumb rests and slim bent paddles. Rim, airbag and switches rotate together; column fairing and paddles remain fixed. The tapered inclined fairing enters the padded knee bolster below the tachometer, rather than projecting through its face.
+Reviewed renderer captures of the front gallery, instrument back, driver-side column close-up, wheel front and console. Current image files are `formed-gallery-finish.png`, `formed-column-driver-side.png`, `formed-instrument-back.png` and `formed-wheel-detail.png` under `output/playwright/`. Screenshots show unmodified runtime geometry/materials, with the normal interactive camera moved to the supplied problem angles.
 
-Cluster width is 0.410 m and top 0.932 m. Dashboard top is 0.858 m; wheel crown is 1.016 m. At the inspected instrument plane, column fairing top is 0.759 m. Ray tests find no obstruction through the center-console side passage and confirm the right climate knob is visible ahead of the glovebox. The instrument hood has an enclosed back and outward-facing roof normals. Fine hex grille cells remain inside the recessed gallery below the leather eyebrow.
+The padded upper dashboard and lower fascia are closed volumes with end caps and return surfaces. Quantized edge inspection of the padded dashboard material covers 46,892 triangles and finds 0 open edges. This does not certify manifold topology of every vehicle component.
 
-The driver camera uses an elevated eye point and 55-degree vertical field of view. Repeated camera transitions settle correctly. Seat geometry, scanned leather, surface-following seams and conforming headrest embroidery remain intact.
+The formed metal carrier rises around the vent barrels, with rounded returns, integrated collars and a fine red edge. The dashboard wordmark is actual beveled metal lettering. The temperature lens uses a 2048 × 128 drawing sized to its physical aspect ratio, rather than the previous stretched label. Honeycomb cells sit in their frame ahead of the backing. The glovebox clears the right climate dial.
 
-## Interaction and sound
+The steering frame moves forward 52 mm, to X = 0.026 m. The closed fairing is 128 mm along its local axis and joins the padded knee socket and rear bearing. The airbag has an enclosed rear cover. At the inspected instrument plane, fairing top is 0.746 m, below the dial opening. Rim, airbag and switches rotate together; fairing and paddles stay fixed. The instrument hood uses its own finely tiled perforation material to reduce stretched slots. Raised needle, LCD depths, closed hood back and outward roof normals remain intact.
 
-Final cockpit checks cover all six views, direct/header entry, material/color controls, save/reset/load, roof cutaway restoration, animated door cards, complete assembled export from isolated seat view, return to exterior, previous environment restoration and mobile layout/finishes. Earlier full regression covers 62 semantic groups, selection, detachment/reassembly, paint/wheels/brakes/lights, mechanics, environment selection and downloads.
+Cluster width: 0.410 m; cluster top: 0.932 m; dashboard top: 0.861 m. These are model measurements rather than certified vehicle dimensions.
 
-Idle and acceleration recordings decode and produce measured audio output. Start, rev, stop, mute, volume, keyboard operation, return to idle and mobile start/stop pass. The automation host forces actual tab visibility: the production visibility-change handler was tested with a temporary document.hidden fixture and the property restored. An actual background-tab transition is not claimed for this run. No human listening review or physical-phone audio test is claimed. Recordists do not identify an 812; About/credits state that limitation.
+## Behavior and sound
 
-## Export and build
+Final checks cover six interior views, direct/header entry, material/color controls, save/reset/load, cutaway restoration, door-card hinges, complete assembled export from isolated Seats view, return to exterior, previous lighting restoration and mobile layout. Side-passage ray tests confirm the transmission bridge remains open underneath.
 
-The static compressed model and the raw complete export from isolated Seats view both import in Blender 4.5.3 LTS with 62 top-level semantic groups, 1178 mesh objects, 71 materials and 42 embedded images; no missing images. Downloadable compressed model: 22,074,372 bytes, below the 26,214,400-byte per-asset hosting limit. Browser exports remain uncompressed. See `model-inspection.json` and `cutaway-export-inspection.json`.
+Idle/acceleration recordings decode and produce measured audio output. Start/rev/stop/mute/volume, keyboard operation, return to idle and mobile start/stop pass. The host forces actual tab visibility, so the production visibility-change handler is exercised with a temporary document.hidden fixture and the property restored. No actual background-tab transition, human listening review or physical-phone audio test is claimed. The CC0 Ferrari recordings are not identified as an 812 by their recordists.
 
-`npm run build` succeeds with existing Three.js/app bundle-size advisories. Batching preserves articulated steering frames. Camera shader warmup and adaptive quality remain active. No new device performance benchmark is claimed in this finishing pass.
+## Files and build
 
-The cockpit is a photographic reconstruction. Displays, engine/suspension mechanics and switches are illustrative. Mobile was checked in resized Chromium. No exact photographic identity, engineering certification or arbitrary external GLB compatibility is claimed.
+The raw assembled export and compressed static model both import in Blender 4.5.3 LTS, each with 62 semantic groups, 1177 mesh objects, 71 materials and 41 embedded images. Neither has missing images. The static model is 24,048,544 bytes, below the 26,214,400-byte hosting asset limit. Browser exports remain uncompressed. Reports: `model-inspection.json`, `cutaway-export-inspection.json` and `qa-summary.json`.
+
+`npm run build` succeeds with existing Three.js/application bundle-size advisories. No new hardware performance benchmark is claimed. Displays and opening mechanics remain illustrative; mobile was tested in resized Chromium, not a physical phone. This reconstruction is based on the supplied photographs rather than official CAD.

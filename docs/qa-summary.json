@@ -2,14 +2,8 @@
   "date": "2026-10-15",
   "timezone": "Asia/Bangkok",
   "productionBuild": true,
-  "detailVersion": "812-photo-cockpit-v4",
+  "detailVersion": "812-formed-cockpit-v5",
   "suites": {
-    "exterior": {
-      "script": "qa/detailed-acceptance.cjs",
-      "passed": 50,
-      "runtimeErrors": [],
-      "stage": "earlier in this photographic cockpit revision"
-    },
     "cockpit": {
       "script": "qa/cabin-acceptance.cjs",
       "passed": 33,
@@ -24,6 +18,10 @@
       "script": "qa/cabin-refinement.cjs",
       "passed": 18,
       "runtimeErrors": []
+    },
+    "formedSurface": {
+      "script": "qa/formed-surface-audit.cjs",
+      "passed": 3
     }
   },
   "viewports": {
@@ -44,7 +42,12 @@
   },
   "structureAudit": {
     "features": [
+      "closed-padded-dashboard",
+      "sculpted-lower-fascia",
+      "integrated-column-socket",
       "formed-vent-gallery",
+      "integrated-vent-cradle",
+      "raised-metal-wordmark",
       "recessed-instrument-hood",
       "enclosed-instrument-back",
       "raised-analog-needle",
@@ -53,10 +56,11 @@
       "contoured-column-fairing",
       "column-mounted-paddle",
       "sloped-transmission-bridge",
-      "curved-transmission-support"
+      "curved-transmission-support",
+      "proportional-temperature-display"
     ],
-    "columnFaceMaxY": 0.7594418625235557,
-    "columnPoints": 2424,
+    "columnFaceMaxY": 0.7459035838842392,
+    "columnPoints": 673,
     "bridgeObstructions": 0,
     "exposedKnob": true,
     "roofSamples": 3522,
@@ -64,18 +68,21 @@
   },
   "export": {
     "groups": 62,
-    "blenderMeshObjects": 1178,
+    "blenderMeshObjects": 1177,
     "materials": 71,
-    "embeddedImages": 42,
+    "embeddedImages": 41,
     "missingImages": [],
-    "compressedBytes": 22074372,
+    "compressedBytes": 24048544,
     "completeFromCutawayView": true
   },
   "measuredCabinMeters": {
     "clusterTop": 0.931539612531662,
     "clusterWidth": 0.41007369756698603,
-    "dashboardTop": 0.8576567789912224,
-    "wheelCrown": 1.0158559714606248
+    "dashboardTop": 0.8611214777827263,
+    "wheelCrown": 1.0158559714606248,
+    "steeringFrameX": 0.026,
+    "steeringFrameForwardChange": 0.052,
+    "fairingAxisLength": 0.128
   },
   "materialSources": {
     "body": "Jayrenn Reeve / BlenderKit / CC0",
@@ -84,5 +91,20 @@
   },
   "physicalMobileDeviceTested": false,
   "humanAudioListeningReview": false,
-  "visibilityTest": "Production visibility handler exercised with temporary document.hidden fixture; automation host forces actual tab visibility."
+  "visibilityTest": "Production visibility handler exercised with temporary document.hidden fixture; automation host forces actual tab visibility.",
+  "surfaceAudit": {
+    "triangles": 46892,
+    "openEdges": 0,
+    "wheelCenterX": 0.026,
+    "hoodTextureRepeat": [
+      10,
+      34
+    ],
+    "detailVersion": "812-formed-cockpit-v5"
+  },
+  "priorExteriorRegression": {
+    "revision": "812-photo-cockpit-v4",
+    "passed": 50,
+    "runtimeErrors": []
+  }
 }

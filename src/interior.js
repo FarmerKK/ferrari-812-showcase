@@ -90,9 +90,9 @@ export async function buildDetailedInterior(car){
   register('dashboard','Sculpted dashboard','Layered leather eyebrows, formed metal vent gallery, hexagonal grille, accent trough and stitched glovebox.',g=>referenceDashboard(g,reference),V(-.36,.76,0),V(-.3,.85,0));
   register('air-vents','Four turbine air vents','Recessed bell-mouth aluminium nozzles with open throats, internal vanes, adjustment tabs and fine red rings.',g=>referenceVents(g,reference),V(-.20,.78,0),V(-.3,.4,0));
   register('instrument-cluster','Yellow tachometer & digital cluster','Contoured recessed instrument binnacle with perforated hood, inset LCDs, yellow tachometer, raised needle and anti-reflective lens.',g=>referenceCluster(g,reference),V(-.25,.837,.426),V(0,.6,.3));
-  let steeringRotor;register('steering-wheel','Carbon steering wheel','Contoured perforated grips, curved carbon spokes, supported column, stationary shift paddles, recessed switches and start/manettino controls.',g=>{steeringRotor=referenceWheel(g,reference);},V(.078,.837,.426),V(.25,.55,.4));
+  let steeringRotor;register('steering-wheel','Carbon steering wheel','Contoured perforated grips, curved carbon spokes, supported column, stationary shift paddles, recessed switches and start/manettino controls.',g=>{steeringRotor=referenceWheel(g,reference);},V(.026,.837,.426),V(.25,.55,.4));
   car.steering=[steeringRotor];
-  register('center-console','Carbon transmission bridge','Sloping carbon bridge with inset transmission buttons, supporting legs, open undercut and stitched armrest.',g=>referenceConsole(g,reference),V(.23,.53,0),V(.35,.6,0));
+  register('center-console','Carbon transmission bridge','Sloping carbon bridge with inset transmission buttons, curved side brackets, open undercut and stitched armrest.',g=>referenceConsole(g,reference),V(.23,.53,0),V(.35,.6,0));
   register('climate-controls','Dual-zone climate controls','Two slim control banks, digital temperature strip, knurled metallic dials and backlit switches.',g=>referenceClimate(g,reference),V(-.12,.63,-.075),V(.1,.4,0));
   register('passenger-display','Passenger information display','A narrow passenger information strip recessed below the vent gallery.',g=>referencePassenger(g,reference),V(-.13,.704,-.49),V(0,.4,-.3));
 
@@ -155,7 +155,7 @@ export async function buildDetailedInterior(car){
     const oldGeometries=new Set();objects.forEach(o=>{oldGeometries.add(o.geometry);o.removeFromParent();});oldGeometries.forEach(x=>x.dispose());
   }
   root.updateMatrixWorld(true);
-  car.interior={trimMeshes,detailVersion:'812-photo-cockpit-v4',leatherGrain:grain,leatherNormal,leatherRoughness};
+  car.interior={trimMeshes,detailVersion:'812-formed-cockpit-v5',leatherGrain:grain,leatherNormal,leatherRoughness};
   return car;
 }
 

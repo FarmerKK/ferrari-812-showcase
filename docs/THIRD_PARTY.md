@@ -25,3 +25,7 @@ The rebuilt cockpit geometry, stitched seams, belts, buttons and display artwork
 Audio uses edited excerpts from [Ferrari_motor_idle by jtvdb](https://freesound.org/people/jtvdb/sounds/857147/) and [Acceleration 1.wav by biholao](https://freesound.org/people/biholao/sounds/370278/), both identified by their source pages as CC0 1.0. Public high-quality MP3 previews were downloaded for this asset preparation. Edits include a 55 Hz high-pass/8.5 kHz low-pass, peak normalization, fades and an idle-loop join. The source pages do not identify an 812 Superfast; no exact 812 recording claim is made. All playback files are hosted locally. See public/audio/credits.json.
 
 Audio preparation uses Python, NumPy/SciPy and a development-only imageio-ffmpeg binary; these tools and the long source recordings are excluded from the website and source archive. The processed MP3 files are included.
+
+## Raised wordmark typeface
+
+The small extruded dashboard wordmark uses Optimer typeface data bundled with Three.js, under the MAGENTA Ltd. font license. The complete bundled notice is preserved at public/licenses/three-fonts.txt. No reference photographs are redistributed as site textures.

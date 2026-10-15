@@ -61,7 +61,7 @@ npx --yes --package @playwright/cli playwright-cli -s=atelier open http://127.0.
 npx --yes --package @playwright/cli playwright-cli -s=atelier run-code --filename qa/detailed-acceptance.cjs
 ```
 
-รุ่นปัจจุบันผ่าน regression 50 รายการ, cockpit 33 รายการ, โครงสร้างและการเก็บงานตามภาพถ่าย 17 รายการ และหน้าปัด/กล้อง/เสียง 18 รายการ รวม 118 โดยไม่มี JavaScript runtime errors ภาพและไฟล์อยู่ใน `output/playwright/`. ผลทดสอบฟังก์ชันไม่ได้รับรองความเหมือน CAD ต้นฉบับ Scripts `qa/acceptance.cjs` และ `qa/final-smoke.cjs` เป็นการทดสอบรุ่น procedural เก่า ใช้ detailed-acceptance สำหรับรุ่นปัจจุบัน
+รุ่น v5 ตรวจ cockpit 33 รายการ โครงสร้างและการเก็บงาน 17 รายการ ผิวปิดและตำแหน่งฐานพวงมาลัย 3 รายการ และหน้าปัด/กล้อง/เสียง 18 รายการ รวม 71 รายการ ส่วน regression ภายนอก 50 รายการผ่านในรุ่น v4 ก่อนหน้า โดยไม่มี JavaScript runtime errors ภาพและไฟล์อยู่ใน `output/playwright/`. ผลทดสอบฟังก์ชันไม่ได้รับรองความเหมือน CAD ต้นฉบับ Scripts `qa/acceptance.cjs` และ `qa/final-smoke.cjs` เป็นการทดสอบรุ่น procedural เก่า ใช้ detailed-acceptance สำหรับรุ่นปัจจุบัน
 
 ## ข้อจำกัด
 
