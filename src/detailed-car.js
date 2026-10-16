@@ -3,6 +3,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { createCar } from './car.js';
 import { buildDetailedInterior } from './interior.js';
+import { buildDetailedWheels } from './wheels.js';
 
 const labels={
   'main-body':['Body shell','Body','Artist-authored continuous roof, rear quarters and body shell. Kept intact to preserve its surface continuity.'],
@@ -70,15 +71,6 @@ export async function loadDetailedCar(onProgress=()=>{}){
   for(const [id,g] of parts){
     if(/^(left|right)-(front|rear)-(wheel|tire|disc|caliper)$/.test(id)){g.userData.axle=id.includes('-front-')?'front':'rear';g.userData.side=id.startsWith('left-')?1:-1;steerable.push(g);}
     if(/^(left|right)-(front|rear)-(wheel|tire)$/.test(id))wheels.push(g);
-    if(/^(left|right)-(front|rear)-wheel$/.test(id)){
-      const original=new THREE.Group();original.name='artist-rim';for(const child of [...g.children])original.add(child);original.visible=false;g.add(original);
-      const stock=base.parts.get(id);
-      for(const style of ['split-spoke','forged-star']){
-        const rim=stock.clone(true);rim.position.set(0,0,0);rim.quaternion.identity();rim.scale.setScalar(1.065);const splitSpokes=rim.getObjectByName('split-spoke'),starSpokes=rim.getObjectByName('forged-star');splitSpokes.visible=style==='split-spoke';starSpokes.visible=style==='forged-star';splitSpokes.name='split-spokes-geometry';starSpokes.name='star-spokes-geometry';rim.name=style;rim.visible=style==='split-spoke';
-        // Solid gold center cap; keep the refined spoke geometry free of placeholder text.
-        rim.traverse(o=>{if(o.isMesh&&o.geometry.type==='CircleGeometry')o.material=new THREE.MeshStandardMaterial({color:'#e9bd35',metalness:.55,roughness:.3});o.userData.partId=id;});g.add(rim);
-      }
-    }
     if(/^(left|right)-(front|rear)-tire$/.test(id)){
       for(const child of g.children)child.visible=false;
       const tire=base.parts.get(id).clone(true);tire.position.set(0,0,0);tire.quaternion.identity();tire.scale.setScalar(id.includes('-rear-')?1.075:1.042);tire.traverse(o=>{if(o.isMesh)o.userData.partId=id;});g.add(tire);
@@ -88,5 +80,6 @@ export async function loadDetailedCar(onProgress=()=>{}){
   root.updateMatrixWorld(true);
   const car={root,parts,materials:m,wheels,steerable,steering:[parts.get('steering-wheel')].filter(Boolean),source:'licensed-cc0',author:'Jayrenn Reeve',assetUrl:'https://www.blenderkit.com/asset-gallery-detail/22191abd-fa78-43e9-81fe-6cded0d53483/',dimensions:{length:4.657}};
   await buildDetailedInterior(car);
+  await buildDetailedWheels(car);
   return car;
 }

@@ -1,4 +1,14 @@
-# Test results — 15 October 2026
+# Test results — 16 October 2026
+
+Current wheel runtime: `812-forged-wheels-v1`; cockpit: `812-sloping-dashboard-v7`. The production-preview wheel suite passed 19 checks with no JavaScript runtime errors. See [wheel results](wheel-qa-summary.json) and [wheel construction](WHEELS.md).
+
+Both split and star spokes have measured front dish of 45.65 mm and rear dish of 70.29 mm. Every tested spoke mesh and hollow barrel has finite geometry, positive signed volume and zero open edges. The minimum measured separation from retained brake faces to spoke backs is 88.30 mm. These are reconstruction measurements, not factory specifications. Design/finish changes, save/reset/load, wheel spin, steering, explode/assemble and direct ?view=wheel entry pass. Desktop 1600 × 1000 and mobile Chromium viewport 390 × 844 were checked; no physical phone or hardware performance benchmark is claimed.
+
+Final direct/oblique screenshots use actual production geometry in graphite and silver, with both styles. A complete assembled GLB was exported from the isolated Seats view. Raw and compressed files import in Blender 4.5.3 LTS: 62 groups, 1153 meshes, 74 materials, 42 embedded images and no missing images. Compressed download: 25,358,104 bytes. Position and UV quantization remain 16/14 bits; normal quantization is 10 bits to keep the download within the hosting file limit. Runtime browser geometry and textures retain their full authored resolution.
+
+The production build succeeds with the existing bundle-size advisories. The prior cockpit/audio/exterior results below are historical and were not rerun for the wheel change.
+
+## Previous cockpit regression — 15 October 2026
 
 Runtime: `812-sloping-dashboard-v7`. The final combined production-preview run passed 32 targeted checks:
 

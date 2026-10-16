@@ -1,0 +1,247 @@
+{
+  "date": "2026-10-16",
+  "timezone": "Asia/Bangkok",
+  "productionBuild": true,
+  "detailVersion": "812-forged-wheels-v1",
+  "script": "qa/wheel-depth.cjs",
+  "passed": 19,
+  "results": [
+    "Direct wheel URL opens the inspection camera",
+    "Direct wheel URL opens the wheel finishes",
+    "All four wheels retain independent component groups",
+    "All four wheels use the sculpted geometry",
+    "Both spoke designs have measured hub-to-lip depth on every wheel",
+    "Spoke sections are finite, outward-facing closed volumes",
+    "Formed barrels are closed hollow volumes",
+    "Rotating spokes clear the stationary brake faces",
+    "Center caps face outward on left and right sides",
+    "Every wheel contains modeled bolt recesses, hex bolts, valve and enamel cap",
+    "Both wheel styles switch on all four assemblies",
+    "Wheel color and satin finish update the sculpted metal",
+    "Wheel design and finish survive save/reset/load",
+    "Wheel animation rotates the new assembly independently of brakes",
+    "Steering keeps the front wheel and brake alignment",
+    "Explode and assemble restore the wheel pivots",
+    "Mobile wheel view has no horizontal overflow",
+    "Wheel customization works in the mobile viewport",
+    "No JavaScript runtime errors"
+  ],
+  "runtimeErrors": [],
+  "audit": {
+    "version": "812-forged-wheels-v1",
+    "wheels": [
+      {
+        "id": "right-rear-wheel",
+        "version": "812-forged-wheels-v1",
+        "features": [
+          "formed-hollow-barrel",
+          "machined-lip-edge",
+          "concave-split-spokes",
+          "concave-star-spokes",
+          "five-recess-hub",
+          "closed-wheel-mount",
+          "countersunk-bolt-seats",
+          "five-hex-lug-bolts",
+          "center-cap-seal",
+          "center-cap-bezel",
+          "center-cap-body",
+          "horse-enamel-cap",
+          "tire-valve-stem",
+          "valve-dust-cap"
+        ],
+        "spokes": {
+          "concave-split-spokes": {
+            "volume": 0.0009200912286256938,
+            "finite": true,
+            "openEdges": 0,
+            "rootFront": 0.08194848895072937,
+            "tipFront": 0.1522350013256073,
+            "dish": 0.07028651237487793
+          },
+          "concave-star-spokes": {
+            "volume": 0.0009377905278633109,
+            "finite": true,
+            "openEdges": 0,
+            "rootFront": 0.08194848895072937,
+            "tipFront": 0.1522350013256073,
+            "dish": 0.07028651237487793
+          }
+        },
+        "barrel": {
+          "volume": 0.0025994112867905803,
+          "finite": true,
+          "openEdges": 0
+        },
+        "brakeToSpokeClearance": 0.08829597011208534,
+        "capOutwardDistance": 0.08230000000000004
+      },
+      {
+        "id": "left-front-wheel",
+        "version": "812-forged-wheels-v1",
+        "features": [
+          "formed-hollow-barrel",
+          "machined-lip-edge",
+          "concave-split-spokes",
+          "concave-star-spokes",
+          "five-recess-hub",
+          "closed-wheel-mount",
+          "countersunk-bolt-seats",
+          "five-hex-lug-bolts",
+          "center-cap-seal",
+          "center-cap-bezel",
+          "center-cap-body",
+          "horse-enamel-cap",
+          "tire-valve-stem",
+          "valve-dust-cap"
+        ],
+        "spokes": {
+          "concave-split-spokes": {
+            "volume": 0.000920095655507247,
+            "finite": true,
+            "openEdges": 0,
+            "rootFront": 0.09958405792713165,
+            "tipFront": 0.14523500204086304,
+            "dish": 0.045650944113731384
+          },
+          "concave-star-spokes": {
+            "volume": 0.0009378061719739599,
+            "finite": true,
+            "openEdges": 0,
+            "rootFront": 0.09958405792713165,
+            "tipFront": 0.14523500204086304,
+            "dish": 0.045650944113731384
+          }
+        },
+        "barrel": {
+          "volume": 0.0024800399499518375,
+          "finite": true,
+          "openEdges": 0
+        },
+        "brakeToSpokeClearance": 0.10949075222015381,
+        "capOutwardDistance": 0.10030000000000006
+      },
+      {
+        "id": "left-rear-wheel",
+        "version": "812-forged-wheels-v1",
+        "features": [
+          "formed-hollow-barrel",
+          "machined-lip-edge",
+          "concave-split-spokes",
+          "concave-star-spokes",
+          "five-recess-hub",
+          "closed-wheel-mount",
+          "countersunk-bolt-seats",
+          "five-hex-lug-bolts",
+          "center-cap-seal",
+          "center-cap-bezel",
+          "center-cap-body",
+          "horse-enamel-cap",
+          "tire-valve-stem",
+          "valve-dust-cap"
+        ],
+        "spokes": {
+          "concave-split-spokes": {
+            "volume": 0.0009200912286256938,
+            "finite": true,
+            "openEdges": 0,
+            "rootFront": 0.08194848895072937,
+            "tipFront": 0.1522350013256073,
+            "dish": 0.07028651237487793
+          },
+          "concave-star-spokes": {
+            "volume": 0.0009377905278633109,
+            "finite": true,
+            "openEdges": 0,
+            "rootFront": 0.08194848895072937,
+            "tipFront": 0.1522350013256073,
+            "dish": 0.07028651237487793
+          }
+        },
+        "barrel": {
+          "volume": 0.0025994112867905803,
+          "finite": true,
+          "openEdges": 0
+        },
+        "brakeToSpokeClearance": 0.09017226472496986,
+        "capOutwardDistance": 0.08230000000000004
+      },
+      {
+        "id": "right-front-wheel",
+        "version": "812-forged-wheels-v1",
+        "features": [
+          "formed-hollow-barrel",
+          "machined-lip-edge",
+          "concave-split-spokes",
+          "concave-star-spokes",
+          "five-recess-hub",
+          "closed-wheel-mount",
+          "countersunk-bolt-seats",
+          "five-hex-lug-bolts",
+          "center-cap-seal",
+          "center-cap-bezel",
+          "center-cap-body",
+          "horse-enamel-cap",
+          "tire-valve-stem",
+          "valve-dust-cap"
+        ],
+        "spokes": {
+          "concave-split-spokes": {
+            "volume": 0.000920095655507247,
+            "finite": true,
+            "openEdges": 0,
+            "rootFront": 0.09958405792713165,
+            "tipFront": 0.14523500204086304,
+            "dish": 0.045650944113731384
+          },
+          "concave-star-spokes": {
+            "volume": 0.0009378061719739599,
+            "finite": true,
+            "openEdges": 0,
+            "rootFront": 0.09958405792713165,
+            "tipFront": 0.14523500204086304,
+            "dish": 0.045650944113731384
+          }
+        },
+        "barrel": {
+          "volume": 0.0024800399499518375,
+          "finite": true,
+          "openEdges": 0
+        },
+        "brakeToSpokeClearance": 0.10761460661888123,
+        "capOutwardDistance": 0.10030000000000006
+      }
+    ],
+    "partCount": 62
+  },
+  "export": {
+    "groups": 62,
+    "blenderMeshObjects": 1153,
+    "materials": 74,
+    "embeddedImages": 42,
+    "missingImages": [],
+    "compressedBytes": 25358104,
+    "completeFromCutawayView": true,
+    "positionQuantizationBits": 16,
+    "normalQuantizationBits": 10,
+    "uvQuantizationBits": 14
+  },
+  "viewports": {
+    "desktop": [
+      1600,
+      1000
+    ],
+    "mobile": [
+      390,
+      844
+    ]
+  },
+  "physicalMobileDeviceTested": false,
+  "screenshots": [
+    "wheel-split-graphite.png",
+    "wheel-front-face.png",
+    "wheel-front-oblique.png",
+    "wheel-star-rear-oblique.png",
+    "wheel-mobile.png"
+  ],
+  "scope": "Current checks target the wheel change. Earlier cockpit and audio suites were not rerun."
+}

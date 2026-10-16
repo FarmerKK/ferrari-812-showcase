@@ -10,7 +10,7 @@ bpy.ops.export_scene.gltf(
     export_draco_mesh_compression_enable=True,
     export_draco_mesh_compression_level=6,
     export_draco_position_quantization=16,
-    export_draco_normal_quantization=12,
+    export_draco_normal_quantization=10,
     export_draco_texcoord_quantization=14,
 )
 print(f'Compressed model: {target.stat().st_size} bytes')

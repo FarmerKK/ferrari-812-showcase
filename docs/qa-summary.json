@@ -69,12 +69,15 @@
   },
   "export": {
     "groups": 62,
-    "blenderMeshObjects": 1181,
+    "blenderMeshObjects": 1153,
     "materials": 74,
-    "embeddedImages": 41,
+    "embeddedImages": 42,
     "missingImages": [],
-    "compressedBytes": 25833544,
-    "completeFromCutawayView": true
+    "compressedBytes": 25358104,
+    "completeFromCutawayView": true,
+    "positionQuantizationBits": 16,
+    "normalQuantizationBits": 10,
+    "uvQuantizationBits": 14
   },
   "measuredCabinMeters": {
     "passengerLcdDepthRange": 0,
@@ -177,5 +180,11 @@
   "currentScreenshots": [
     "output/playwright/sloped-passenger.png",
     "output/playwright/sloped-section.png"
-  ]
+  ],
+  "latestVerification": {
+    "date": "2026-10-16",
+    "detailVersion": "812-forged-wheels-v1",
+    "passed": 19,
+    "report": "docs/wheel-qa-summary.json"
+  }
 }

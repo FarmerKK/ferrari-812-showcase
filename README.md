@@ -39,6 +39,7 @@ npm run preview -- --port 5173
 | --- | --- |
 | `src/detailed-car.js` | โหลดตัวถัง CC0, จัด 62 กลุ่ม, ผูกวัสดุและชุดล้อ |
 | `src/cockpit-geometry.js` | แผงหน้าปัด มาตรวัด พวงมาลัย และคอนโซลตามภาพถ่ายอ้างอิง |
+| `src/wheels.js` | ล้อแม็กก้านโค้งมีหน้าตัด กระทะล้อกลวง เบ้าน็อต และจุ๊บลมยาง |
 | `src/car.js` | วัสดุ ล้อ และเครื่องยนต์/ช่วงล่างจำลองที่ใช้ประกอบ |
 | `src/main.js` | Interaction, animation, cameras, presets และ export/import |
 | `src/environment.js` | สนามสมมุติ แสง PMREM sky และ contact shadows |
@@ -53,6 +54,8 @@ npm run preview -- --port 5173
 ไฟล์ต้นฉบับ `assets/source/ferrari-812-cc0.blend` อยู่ใน workspace และไม่รวมใน Git; ดาวน์โหลดซ้ำได้จากรายการของผู้สร้าง กระบวนการ Blender เปิดไฟล์ด้วย `use_scripts=False` และ `--disable-autoexec`
 
 ## การทดสอบ
+
+งานล้อรุ่น `812-forged-wheels-v1` ตรวจรูปทรงจริงและ interaction 19 รายการบน production preview ดูผลใน `docs/wheel-qa-summary.json`.
 
 เปิด production preview แล้วใช้ Playwright CLI:
 
@@ -70,6 +73,8 @@ npx --yes --package @playwright/cli playwright-cli -s=atelier run-code --filenam
 Rendering ใช้ ACES, clearcoat, PMREM, shadow maps, bloom และ adaptive DPR. ภายในใช้ RectAreaLight, scanned leather normal/roughness maps และ SSAO ในโหมดคุณภาพสูง. Performance ขึ้นกับ GPU/browser; mobile ตรวจใน Chromium viewport 390 × 844 ยังไม่ได้ทดสอบ physical phone
 
 เปิดภายในได้จากปุ่ม Cockpit หรือ URL ?view=interior; มุมฝั่งผู้โดยสารใช้ ?view=passenger; รายละเอียดอยู่ใน docs/COCKPIT.md
+
+เปิดดูงานล้อที่ ?view=wheel; ก้านล้อและดุมมีระยะเว้าต่างกันจริง ลาย split/star ใช้ผิวสามมิติที่ปิดครบ รายละเอียดและผลตรวจอยู่ใน docs/WHEELS.md และ docs/wheel-qa-summary.json
 
 Import GLB เป็นตัวเลือกสำหรับ asset ภายนอกที่มีสิทธิ์ใช้งาน ความสามารถขึ้นกับ semantic groups และ material mapping ของไฟล์ ไม่รับประกัน arbitrary GLB ทุกไฟล์ ไม่มี provider credentials ในเว็บ
 
