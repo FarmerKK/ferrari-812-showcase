@@ -4,6 +4,8 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { createCar } from './car.js';
 import { buildDetailedInterior } from './interior.js';
 import { buildDetailedWheels } from './wheels.js';
+import { buildResearchedMechanics } from './mechanics.js';
+import { repairImportedDoorShells } from './shell-repair.js';
 
 const labels={
   'main-body':['Body shell','Body','Artist-authored continuous roof, rear quarters and body shell. Kept intact to preserve its surface continuity.'],
@@ -79,7 +81,9 @@ export async function loadDetailedCar(onProgress=()=>{}){
   const keepGeometry=new Set();root.traverse(o=>{if(o.geometry)keepGeometry.add(o.geometry);});base.root.traverse(o=>{if(o.geometry&&!keepGeometry.has(o.geometry))o.geometry.dispose();});
   root.updateMatrixWorld(true);
   const car={root,parts,materials:m,wheels,steerable,steering:[parts.get('steering-wheel')].filter(Boolean),source:'licensed-cc0',author:'Jayrenn Reeve',assetUrl:'https://www.blenderkit.com/asset-gallery-detail/22191abd-fa78-43e9-81fe-6cded0d53483/',dimensions:{length:4.657}};
+  repairImportedDoorShells(car);
   await buildDetailedInterior(car);
   await buildDetailedWheels(car);
+  buildResearchedMechanics(car);
   return car;
 }

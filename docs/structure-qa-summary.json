@@ -1,0 +1,762 @@
+{
+  "brakes": {
+    "passed": 18,
+    "results": [
+      "All four brake assemblies were rebuilt",
+      "Rotor diameter matches the published front and rear sizes",
+      "Actual ventilated rotor thickness matches the technical sheet",
+      "Caliper casting triangles clear the actual rotor envelope",
+      "Separate pads have positive running clearance",
+      "Caliper outer lobes project ahead of the friction face",
+      "Front power unit and rear transaxle occupy separate bays",
+      "Driven halfshafts connect only the rear axle",
+      "New internal assemblies carry their research references",
+      "Rotor rotates with the wheel while the caliper stays fixed",
+      "Steering rods remain connected at the positive limit",
+      "Steering rods remain connected at the negative limit",
+      "Structure reveal exposes the researched internal assemblies",
+      "Assembly restores exterior visibility and all transforms",
+      "Exploded view includes all new assemblies",
+      "New rear transaxle is searchable and inspectable",
+      "Direct structure view works at the mobile viewport",
+      "No JavaScript runtime errors"
+    ],
+    "audit": {
+      "version": "812-researched-structure-v1",
+      "brakes": [
+        {
+          "id": "right-rear-caliper",
+          "measuredDiameter": 0.36000001430511475,
+          "measuredThickness": 0.03200000151991844,
+          "castingTrianglesInsideFrictionEnvelope": 0,
+          "padTrianglesInsideFrictionEnvelope": 0,
+          "padRunningGap": 0.0004999999105930325,
+          "castingFrontOfRotor": 0.04449999967217445
+        },
+        {
+          "id": "left-front-caliper",
+          "measuredDiameter": 0.39800001262973195,
+          "measuredThickness": 0.03800000064074993,
+          "castingTrianglesInsideFrictionEnvelope": 0,
+          "padTrianglesInsideFrictionEnvelope": 0,
+          "padRunningGap": 0.0005000004023313527,
+          "castingFrontOfRotor": 0.04450000202655792
+        },
+        {
+          "id": "left-rear-caliper",
+          "measuredDiameter": 0.36000001430511475,
+          "measuredThickness": 0.03200000151991844,
+          "castingTrianglesInsideFrictionEnvelope": 0,
+          "padTrianglesInsideFrictionEnvelope": 0,
+          "padRunningGap": 0.0004999999105930325,
+          "castingFrontOfRotor": 0.04449999967217445
+        },
+        {
+          "id": "right-front-caliper",
+          "measuredDiameter": 0.39800001262973195,
+          "measuredThickness": 0.03800000064074993,
+          "castingTrianglesInsideFrictionEnvelope": 0,
+          "padTrianglesInsideFrictionEnvelope": 0,
+          "padRunningGap": 0.0005000004023313527,
+          "castingFrontOfRotor": 0.04450000202655792
+        }
+      ],
+      "parts": 77,
+      "newParts": [
+        "front-subframe",
+        "rear-subframe",
+        "chassis-frame",
+        "air-intake",
+        "torque-tube",
+        "rear-transaxle",
+        "rear-halfshafts",
+        "steering-rack",
+        "cooling-system",
+        "oil-system",
+        "fuel-system",
+        "exhaust-manifolds",
+        "exhaust-pipes",
+        "electrical-harness"
+      ],
+      "engine": {
+        "min": [
+          -1.7969999718666076,
+          0.27000000536441804,
+          -0.299623966217041
+        ],
+        "max": [
+          -0.73,
+          0.7299999988079071,
+          0.299623966217041
+        ]
+      },
+      "transaxle": {
+        "min": [
+          0.7700000095367432,
+          0.14500000178813932,
+          -0.22499999403953552
+        ],
+        "max": [
+          1.5349999952316284,
+          0.5069999903440475,
+          0.22499999403953552
+        ]
+      },
+      "rearHalfshafts": {
+        "min": [
+          1.2879999876022339,
+          0.32499998807907104,
+          -0.780299961566925
+        ],
+        "max": [
+          1.371999979019165,
+          0.4090000092983246,
+          0.780299961566925
+        ]
+      },
+      "inventory": [
+        {
+          "id": "steering-wheel",
+          "name": "Carbon steering wheel",
+          "category": "Interior",
+          "basis": "photographic reconstruction",
+          "references": []
+        },
+        {
+          "id": "driver-seat",
+          "name": "Driver sport seat",
+          "category": "Interior",
+          "basis": "photographic reconstruction",
+          "references": []
+        },
+        {
+          "id": "passenger-seat",
+          "name": "Passenger sport seat",
+          "category": "Interior",
+          "basis": "photographic reconstruction",
+          "references": []
+        },
+        {
+          "id": "left-front-fender",
+          "name": "Left front fender",
+          "category": "Body",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "right-front-fender",
+          "name": "Right front fender",
+          "category": "Body",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "windscreen",
+          "name": "Windscreen and wipers",
+          "category": "Body",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "main-body",
+          "name": "Body shell",
+          "category": "Body",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "right-rear-wheel",
+          "name": "Right rear wheel",
+          "category": "Wheels",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "left-front-wheel",
+          "name": "Left front wheel",
+          "category": "Wheels",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "left-rear-wheel",
+          "name": "Left rear wheel",
+          "category": "Wheels",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "right-front-wheel",
+          "name": "Right front wheel",
+          "category": "Wheels",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "front-splitter",
+          "name": "Front splitter",
+          "category": "Exterior",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "left-quarter-window",
+          "name": "Left quarter window",
+          "category": "Body",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "right-quarter-window",
+          "name": "Right quarter window",
+          "category": "Body",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "rear-bumper",
+          "name": "Rear bumper",
+          "category": "Rear",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "front-bumper",
+          "name": "Front bumper",
+          "category": "Front",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "right-rear-tire",
+          "name": "Right rear tire",
+          "category": "Wheels",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "left-rear-tire",
+          "name": "Left rear tire",
+          "category": "Wheels",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "right-front-tire",
+          "name": "Right front tire",
+          "category": "Wheels",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "left-front-tire",
+          "name": "Left front tire",
+          "category": "Wheels",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "front-grille",
+          "name": "Front grille",
+          "category": "Front",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "left-side-window",
+          "name": "Left side window",
+          "category": "Body",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "right-side-window",
+          "name": "Right side window",
+          "category": "Body",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "hood",
+          "name": "Sculpted hood",
+          "category": "Front",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "left-mirror",
+          "name": "Left mirror",
+          "category": "Body",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "right-mirror",
+          "name": "Right mirror",
+          "category": "Body",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "left-headlight",
+          "name": "Left headlight",
+          "category": "Front",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "right-headlight",
+          "name": "Right headlight",
+          "category": "Front",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "rear-window",
+          "name": "Rear window",
+          "category": "Body",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "rear-deck",
+          "name": "Rear deck",
+          "category": "Rear",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "exhaust",
+          "name": "Quad exhaust system",
+          "category": "Rear",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "left-door",
+          "name": "Left door",
+          "category": "Body",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "right-door",
+          "name": "Right door",
+          "category": "Body",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "dashboard",
+          "name": "Sculpted dashboard",
+          "category": "Interior",
+          "basis": "photographic reconstruction",
+          "references": []
+        },
+        {
+          "id": "taillights",
+          "name": "Quad taillights",
+          "category": "Rear",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "center-console",
+          "name": "Carbon transmission bridge",
+          "category": "Interior",
+          "basis": "photographic reconstruction",
+          "references": []
+        },
+        {
+          "id": "interior-trim",
+          "name": "Carpeted cabin & sill trim",
+          "category": "Interior",
+          "basis": "photographic reconstruction",
+          "references": []
+        },
+        {
+          "id": "right-rear-caliper",
+          "name": "Rear fixed brake caliper",
+          "category": "Brakes",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0030/rear-brake-callipers"
+          ]
+        },
+        {
+          "id": "right-rear-disc",
+          "name": "Rear CCM rotor & bell",
+          "category": "Brakes",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0035/rear-suspension-shock-absorber-and-brake-disc"
+          ]
+        },
+        {
+          "id": "left-rear-caliper",
+          "name": "Rear fixed brake caliper",
+          "category": "Brakes",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0030/rear-brake-callipers"
+          ]
+        },
+        {
+          "id": "left-rear-disc",
+          "name": "Rear CCM rotor & bell",
+          "category": "Brakes",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0035/rear-suspension-shock-absorber-and-brake-disc"
+          ]
+        },
+        {
+          "id": "right-front-caliper",
+          "name": "Front fixed brake caliper",
+          "category": "Brakes",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0029/front-brake-callipers"
+          ]
+        },
+        {
+          "id": "left-front-caliper",
+          "name": "Front fixed brake caliper",
+          "category": "Brakes",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0029/front-brake-callipers"
+          ]
+        },
+        {
+          "id": "right-front-disc",
+          "name": "Front CCM rotor & bell",
+          "category": "Brakes",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0033/front-suspension-shock-absorber-and-brake-disc"
+          ]
+        },
+        {
+          "id": "left-front-disc",
+          "name": "Front CCM rotor & bell",
+          "category": "Brakes",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0033/front-suspension-shock-absorber-and-brake-disc"
+          ]
+        },
+        {
+          "id": "chassis",
+          "name": "Underbody & cabin floor",
+          "category": "Mechanical",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "rear-diffuser",
+          "name": "Rear diffuser",
+          "category": "Exterior",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "right-front-suspension",
+          "name": "Front double-arm suspension",
+          "category": "Mechanical",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0034/front-suspension-arms"
+          ]
+        },
+        {
+          "id": "left-front-suspension",
+          "name": "Front double-arm suspension",
+          "category": "Mechanical",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0034/front-suspension-arms"
+          ]
+        },
+        {
+          "id": "right-rear-suspension",
+          "name": "Rear linked suspension",
+          "category": "Mechanical",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0036/rear-suspension-arms"
+          ]
+        },
+        {
+          "id": "left-rear-suspension",
+          "name": "Rear linked suspension",
+          "category": "Mechanical",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0036/rear-suspension-arms"
+          ]
+        },
+        {
+          "id": "engine",
+          "name": "65\u00b0 V12 crankcase & cylinder banks",
+          "category": "Engine",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.ferrari.com/content/dam/ferrari-fcom/old/pdf/cs_ferrari_812_superfast_gbr.pdf",
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0001/crankcase"
+          ]
+        },
+        {
+          "id": "engine-covers",
+          "name": "Twin V12 intake plenums & cam covers",
+          "category": "Engine",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0012/intake-manifold"
+          ]
+        },
+        {
+          "id": "body-return-panels",
+          "name": "Fixed rear body returns",
+          "category": "Body",
+          "basis": "retained artist asset or prior project geometry",
+          "references": []
+        },
+        {
+          "id": "air-vents",
+          "name": "Four turbine air vents",
+          "category": "Interior",
+          "basis": "photographic reconstruction",
+          "references": []
+        },
+        {
+          "id": "instrument-cluster",
+          "name": "Yellow tachometer & digital cluster",
+          "category": "Interior",
+          "basis": "photographic reconstruction",
+          "references": []
+        },
+        {
+          "id": "climate-controls",
+          "name": "Dual-zone climate controls",
+          "category": "Interior",
+          "basis": "photographic reconstruction",
+          "references": []
+        },
+        {
+          "id": "passenger-display",
+          "name": "Passenger information display",
+          "category": "Interior",
+          "basis": "photographic reconstruction",
+          "references": []
+        },
+        {
+          "id": "pedal-box",
+          "name": "Perforated aluminium pedals",
+          "category": "Interior",
+          "basis": "photographic reconstruction",
+          "references": []
+        },
+        {
+          "id": "left-door-panel",
+          "name": "Driver door panel",
+          "category": "Interior",
+          "basis": "photographic reconstruction",
+          "references": []
+        },
+        {
+          "id": "left-seatbelt",
+          "name": "Driver red seatbelt",
+          "category": "Interior",
+          "basis": "photographic reconstruction",
+          "references": []
+        },
+        {
+          "id": "right-door-panel",
+          "name": "Passenger door panel",
+          "category": "Interior",
+          "basis": "photographic reconstruction",
+          "references": []
+        },
+        {
+          "id": "right-seatbelt",
+          "name": "Passenger red seatbelt",
+          "category": "Interior",
+          "basis": "photographic reconstruction",
+          "references": []
+        },
+        {
+          "id": "front-subframe",
+          "name": "Front frame & suspension towers",
+          "category": "Mechanical",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0102/structures-and-elements-front-of-vehicle"
+          ]
+        },
+        {
+          "id": "rear-subframe",
+          "name": "Rear frame & transaxle cradle",
+          "category": "Mechanical",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0104/structures-and-elements-rear-of-vehicle"
+          ]
+        },
+        {
+          "id": "chassis-frame",
+          "name": "Central sills, bulkhead & tunnel",
+          "category": "Mechanical",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0103/structures-and-elements-centre-of-vehicle"
+          ]
+        },
+        {
+          "id": "air-intake",
+          "name": "Twin airboxes & intake ducts",
+          "category": "Engine",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0013/air-intake",
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0012/intake-manifold"
+          ]
+        },
+        {
+          "id": "torque-tube",
+          "name": "Central torque tube & propeller shaft",
+          "category": "Mechanical",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0022/transmission-housing",
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0023/transmission-pipe"
+          ]
+        },
+        {
+          "id": "rear-transaxle",
+          "name": "Rear DCT transaxle & differential",
+          "category": "Mechanical",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0025/gearbox-housing",
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0000/spare-assembly-units"
+          ]
+        },
+        {
+          "id": "rear-halfshafts",
+          "name": "Rear halfshafts & CV joints",
+          "category": "Mechanical",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0036/rear-suspension-arms"
+          ]
+        },
+        {
+          "id": "steering-rack",
+          "name": "EPS rack, bellows & tie rods",
+          "category": "Mechanical",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0031/electric-steering-box"
+          ]
+        },
+        {
+          "id": "cooling-system",
+          "name": "Radiators, fans & coolant hoses",
+          "category": "Engine",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0021/cooling-radiators-and-air-ducts",
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0020/cooling-header-tank-and-pipes"
+          ]
+        },
+        {
+          "id": "oil-system",
+          "name": "Oil reservoir & lubrication lines",
+          "category": "Engine",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0018/lubrication-system-tank"
+          ]
+        },
+        {
+          "id": "fuel-system",
+          "name": "Rear fuel tank, pumps & feed lines",
+          "category": "Mechanical",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0009/fuel-tank-fuel-system-pumps-and-pipes",
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0010/fuel-tank-and-filler-neck"
+          ]
+        },
+        {
+          "id": "exhaust-manifolds",
+          "name": "Twelve exhaust primaries & catalysts",
+          "category": "Engine",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0014/pre-catalytic-and-catalytic-converter-not-applicable-for-vehicles-with-gpf-euro-6d-"
+          ]
+        },
+        {
+          "id": "exhaust-pipes",
+          "name": "Dual exhaust pipes & rear silencers",
+          "category": "Mechanical",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0016/silencers"
+          ]
+        },
+        {
+          "id": "electrical-harness",
+          "name": "Power distribution & main harness routes",
+          "category": "Mechanical",
+          "basis": "diagram-derived reconstruction",
+          "references": [
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0039/battery",
+            "https://www.eurospares.co.uk/ferrari/812/812-superfast/part-diagrams/0134/main-wiring-harnesses"
+          ]
+        }
+      ]
+    },
+    "runtimeErrors": []
+  },
+  "views": {
+    "fixedRearPanelStable": true,
+    "shellRepair": {
+      "version": "door-shell-repair-v1",
+      "stats": [
+        {
+          "id": "left-door",
+          "inputTriangles": 17800,
+          "doorTriangles": 9727,
+          "fixedRearTriangles": 869,
+          "hingePoint": [
+            -0.88,
+            0.622,
+            0.86
+          ],
+          "hingeBasis": "Reconstructed outer hinge region; not a measured factory hinge axis."
+        },
+        {
+          "id": "right-door",
+          "inputTriangles": 17800,
+          "doorTriangles": 9727,
+          "fixedRearTriangles": 869,
+          "hingePoint": [
+            -0.88,
+            0.622,
+            -0.86
+          ],
+          "hingeBasis": "Reconstructed outer hinge region; not a measured factory hinge axis."
+        }
+      ]
+    },
+    "parts": 77
+  },
+  "export": {
+    "version": "812-sloping-dashboard-v7",
+    "parts": 77,
+    "source": "complete assembled export from isolated Seats view"
+  }
+}

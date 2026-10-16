@@ -30,7 +30,7 @@ report = {
     'missing_images': [img.name for img in bpy.data.images if img.source == 'FILE' and not img.packed_file and not Path(bpy.path.abspath(img.filepath)).exists()],
     'bounds_in_blender_z_up_meters': bounds,
     'parts': [{'id': o.get('partId'), 'name': o.get('name'), 'category': o.get('category')} for o in parts],
-    'note': 'Artist-authored CC0 body by Jayrenn Reeve, with reference-style wheels and illustrative procedural internals. Not official Ferrari CAD.'
+    'note': 'Artist-authored CC0 body by Jayrenn Reeve, with reference-style wheels and diagram-derived internal assemblies; exact mechanical dimensions are reconstructed except published rotor sizes. Not official Ferrari CAD.'
 }
 report_path.parent.mkdir(parents=True, exist_ok=True)
 report_path.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding='utf-8')

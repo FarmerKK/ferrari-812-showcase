@@ -1,11 +1,11 @@
 {
   "file": "812-superfast-atelier.glb",
   "blender_version": "4.5.3 LTS",
-  "mesh_objects": 1153,
-  "component_groups": 62,
+  "mesh_objects": 1171,
+  "component_groups": 77,
   "nested_geometry_groups_with_inherited_metadata": 4,
-  "materials": 74,
-  "images": 42,
+  "materials": 78,
+  "images": 43,
   "missing_images": [],
   "bounds_in_blender_z_up_meters": {
     "min": [
@@ -21,9 +21,19 @@
   },
   "parts": [
     {
+      "id": "air-intake",
+      "name": "Twin airboxes & intake ducts",
+      "category": "Engine"
+    },
+    {
       "id": "air-vents",
       "name": "Four turbine air vents",
       "category": "Interior"
+    },
+    {
+      "id": "body-return-panels",
+      "name": "Fixed rear body returns",
+      "category": "Body"
     },
     {
       "id": "center-console",
@@ -36,9 +46,19 @@
       "category": "Mechanical"
     },
     {
+      "id": "chassis-frame",
+      "name": "Central sills, bulkhead & tunnel",
+      "category": "Mechanical"
+    },
+    {
       "id": "climate-controls",
       "name": "Dual-zone climate controls",
       "category": "Interior"
+    },
+    {
+      "id": "cooling-system",
+      "name": "Radiators, fans & coolant hoses",
+      "category": "Engine"
     },
     {
       "id": "dashboard",
@@ -51,14 +71,29 @@
       "category": "Interior"
     },
     {
+      "id": "electrical-harness",
+      "name": "Power distribution & main harness routes",
+      "category": "Mechanical"
+    },
+    {
       "id": "engine",
-      "name": "V12 engine assembly",
+      "name": "65° V12 crankcase & cylinder banks",
       "category": "Engine"
     },
     {
       "id": "engine-covers",
-      "name": "V12 engine covers",
+      "name": "Twin V12 intake plenums & cam covers",
       "category": "Engine"
+    },
+    {
+      "id": "exhaust-manifolds",
+      "name": "Twelve exhaust primaries & catalysts",
+      "category": "Engine"
+    },
+    {
+      "id": "exhaust-pipes",
+      "name": "Dual exhaust pipes & rear silencers",
+      "category": "Mechanical"
     },
     {
       "id": "exhaust",
@@ -79,6 +114,16 @@
       "id": "front-splitter",
       "name": "Front splitter",
       "category": "Exterior"
+    },
+    {
+      "id": "front-subframe",
+      "name": "Front frame & suspension towers",
+      "category": "Mechanical"
+    },
+    {
+      "id": "fuel-system",
+      "name": "Rear fuel tank, pumps & feed lines",
+      "category": "Mechanical"
     },
     {
       "id": "hood",
@@ -107,12 +152,12 @@
     },
     {
       "id": "left-front-caliper",
-      "name": "Left front brake caliper",
+      "name": "Front fixed brake caliper",
       "category": "Brakes"
     },
     {
       "id": "left-front-disc",
-      "name": "Left front brake disc",
+      "name": "Front CCM rotor & bell",
       "category": "Brakes"
     },
     {
@@ -122,7 +167,7 @@
     },
     {
       "id": "left-front-suspension",
-      "name": "Left front suspension",
+      "name": "Front double-arm suspension",
       "category": "Mechanical"
     },
     {
@@ -152,17 +197,17 @@
     },
     {
       "id": "left-rear-caliper",
-      "name": "Left rear brake caliper",
+      "name": "Rear fixed brake caliper",
       "category": "Brakes"
     },
     {
       "id": "left-rear-disc",
-      "name": "Left rear brake disc",
+      "name": "Rear CCM rotor & bell",
       "category": "Brakes"
     },
     {
       "id": "left-rear-suspension",
-      "name": "Left rear suspension",
+      "name": "Rear linked suspension",
       "category": "Mechanical"
     },
     {
@@ -189,6 +234,11 @@
       "id": "main-body",
       "name": "Body shell",
       "category": "Body"
+    },
+    {
+      "id": "oil-system",
+      "name": "Oil reservoir & lubrication lines",
+      "category": "Engine"
     },
     {
       "id": "passenger-display",
@@ -221,6 +271,21 @@
       "category": "Exterior"
     },
     {
+      "id": "rear-halfshafts",
+      "name": "Rear halfshafts & CV joints",
+      "category": "Mechanical"
+    },
+    {
+      "id": "rear-subframe",
+      "name": "Rear frame & transaxle cradle",
+      "category": "Mechanical"
+    },
+    {
+      "id": "rear-transaxle",
+      "name": "Rear DCT transaxle & differential",
+      "category": "Mechanical"
+    },
+    {
       "id": "rear-window",
       "name": "Rear window",
       "category": "Body"
@@ -237,12 +302,12 @@
     },
     {
       "id": "right-front-caliper",
-      "name": "Right front brake caliper",
+      "name": "Front fixed brake caliper",
       "category": "Brakes"
     },
     {
       "id": "right-front-disc",
-      "name": "Right front brake disc",
+      "name": "Front CCM rotor & bell",
       "category": "Brakes"
     },
     {
@@ -252,7 +317,7 @@
     },
     {
       "id": "right-front-suspension",
-      "name": "Right front suspension",
+      "name": "Front double-arm suspension",
       "category": "Mechanical"
     },
     {
@@ -282,17 +347,17 @@
     },
     {
       "id": "right-rear-caliper",
-      "name": "Right rear brake caliper",
+      "name": "Rear fixed brake caliper",
       "category": "Brakes"
     },
     {
       "id": "right-rear-disc",
-      "name": "Right rear brake disc",
+      "name": "Rear CCM rotor & bell",
       "category": "Brakes"
     },
     {
       "id": "right-rear-suspension",
-      "name": "Right rear suspension",
+      "name": "Rear linked suspension",
       "category": "Mechanical"
     },
     {
@@ -316,6 +381,11 @@
       "category": "Body"
     },
     {
+      "id": "steering-rack",
+      "name": "EPS rack, bellows & tie rods",
+      "category": "Mechanical"
+    },
+    {
       "id": "steering-wheel",
       "name": "Carbon steering wheel",
       "category": "Interior"
@@ -326,10 +396,15 @@
       "category": "Rear"
     },
     {
+      "id": "torque-tube",
+      "name": "Central torque tube & propeller shaft",
+      "category": "Mechanical"
+    },
+    {
       "id": "windscreen",
       "name": "Windscreen and wipers",
       "category": "Body"
     }
   ],
-  "note": "Artist-authored CC0 body by Jayrenn Reeve, with reference-style wheels and illustrative procedural internals. Not official Ferrari CAD."
+  "note": "Artist-authored CC0 body by Jayrenn Reeve, with reference-style wheels and diagram-derived internal assemblies; exact mechanical dimensions are reconstructed except published rotor sizes. Not official Ferrari CAD."
 }

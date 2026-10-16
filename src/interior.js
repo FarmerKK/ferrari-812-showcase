@@ -84,7 +84,8 @@ export async function buildDetailedInterior(car){
   };
   const carbonBox=(g,...a)=>{const o=box(g,m.cabinCarbon,...a);trimMeshes.push(o);return o;};
   const underbody=register('chassis','Underbody & cabin floor','Illustrative low underbody shell supporting the detailed cockpit without the source placeholder cabin blocks.',g=>{
-    box(g,m.cabinRubber,0,.177,0,4.32,.081,1.63,.035);
+    const outline=[[-2.16,-.78],[-1.80,-.78],[-1.80,-.54],[-.99,-.54],[-.99,-.78],[.91,-.78],[.91,-.62],[1.75,-.62],[1.75,-.78],[2.16,-.78],[2.16,.78],[1.75,.78],[1.75,.62],[.91,.62],[.91,.78],[-.99,.78],[-.99,.54],[-1.80,.54],[-1.80,.78],[-2.16,.78]],shape=new THREE.Shape(outline.map(p=>new THREE.Vector2(...p)));
+    const geometry=new THREE.ExtrudeGeometry(shape,{depth:.012,bevelEnabled:false});geometry.rotateX(Math.PI/2);geometry.translate(0,.131,0);add(g,geometry,m.cabinRubber);
   },V(0,.177,0),V(0,-.12,0));underbody.userData.category='Mechanical';
 
   register('dashboard','Sculpted dashboard','Layered leather eyebrows, formed metal vent gallery, hexagonal grille, accent trough and stitched glovebox.',g=>referenceDashboard(g,reference),V(-.36,.76,0),V(-.3,.85,0));
@@ -112,9 +113,15 @@ export async function buildDetailedInterior(car){
   }
 
   register('interior-trim','Carpeted cabin & sill trim','Deep charcoal carpets, fitted mats, center tunnel, rear bulkhead and polished sill plates.',g=>{
-    box(g,m.cabinRubber,.10,.24,0,1.77,.07,1.43,.055);box(g,m.cabinRubber,.83,.63,0,.09,.75,1.39,.05);
-    box(g,m.cabinRubber,-.655,.535,0,.05,.54,1.40,.025);
-    for(const s of [-1,1]){box(g,m.cabinInsert,-.35,.29,s*.42,.61,.03,.45,.04);box(g,m.cabinMetal,.22,.30,s*.752,.90,.025,.065,.008);const plate=add(g,new THREE.PlaneGeometry(.3,.042),new THREE.MeshStandardMaterial({map:textTexture('Ferrari','#17191b','#bbc0c5')}),.22,.315,s*.752);plate.rotation.x=-Math.PI/2;stitches(g,m.stitch,[V(-.67,.308,s*.65),V(-.09,.308,s*.65),V(-.08,.308,s*.195),V(-.67,.308,s*.195),V(-.67,.308,s*.65)]);}
+    for(const s of [-1,1]){const outline=[[-.78,.11],[.60,.11],[.78,.24],[.78,.70],[-.78,.70]],shape=new THREE.Shape(outline.map(([x,z])=>new THREE.Vector2(x,z*s))),geo=new THREE.ExtrudeGeometry(shape,{depth:.03,bevelEnabled:false});geo.rotateX(Math.PI/2);geo.translate(0,.24,0);add(g,geo,m.cabinRubber);box(g,m.cabinRubber,.72,.395,s*.4875,.05,.28,.415,.018);box(g,m.cabinRubber,-.655,.30,s*.41,.05,.11,.58,.012);}
+    box(g,m.cabinRubber,.83,.775,0,.09,.46,1.39,.025);box(g,m.cabinRubber,-.655,.58,0,.05,.45,1.40,.015);
+    // Enclose the luggage bay above the fuel tank and rear cradle. The normal
+    // rear-glass view must show its carpeted deck, not exposed suspension.
+    box(g,m.cabinInsert,1.42,.865,0,1.12,.020,1.22,.008);
+    for(const s of [-1,1])box(g,m.cabinInsert,1.42,.91,s*.615,1.12,.08,.020,.008);
+    box(g,m.cabinInsert,1.965,.91,0,.025,.08,1.24,.008);
+    const section=new THREE.Shape([[-.11,.225],[-.11,.29],[-.09,.314],[.09,.314],[.11,.29],[.11,.225],[.100,.225],[.100,.286],[.086,.304],[-.086,.304],[-.100,.286],[-.100,.225]].map(p=>new THREE.Vector2(...p))),tunnel=new THREE.ExtrudeGeometry(section,{depth:1.43,bevelEnabled:false});tunnel.rotateY(Math.PI/2);tunnel.translate(-.68,0,0);add(g,tunnel,m.cabinRubber);
+    for(const s of [-1,1]){box(g,m.cabinInsert,-.35,.2475,s*.42,.61,.015,.45,.01);box(g,m.cabinMetal,.22,.30,s*.752,.90,.025,.065,.008);const plate=add(g,new THREE.PlaneGeometry(.3,.042),new THREE.MeshStandardMaterial({map:textTexture('Ferrari','#17191b','#bbc0c5')}),.22,.315,s*.752);plate.rotation.x=-Math.PI/2;const corners=[V(-.67,.256,s*.65),V(-.09,.256,s*.65),V(-.08,.256,s*.195),V(-.67,.256,s*.195),V(-.67,.256,s*.65)],edge=[];for(let k=0;k<corners.length-1;k++)for(let i=0;i<16;i++)edge.push(corners[k].clone().lerp(corners[k+1],i/16));edge.push(corners.at(-1));stitches(g,m.stitch,edge);}
   },V(.05,.30,0),V(0,-.22,0));
 
   register('pedal-box','Perforated aluminium pedals','Three brushed-metal sport pedal faces with recessed perforations and a left footrest.',g=>{
@@ -132,16 +139,16 @@ export async function buildDetailedInterior(car){
       const inlay=box(g,m.cabinCarbon,.21,.59,s*.699,.79,.095,.013,.025);trimMeshes.push(inlay);
       // Seam follows the inner padded edge instead of standing above the door.
       const seam=[];for(let i=0;i<=70;i++){const x=-.25+i/70*1.0,u=(x-.25)/.585;seam.push(V(x,.79+.079*Math.sqrt(Math.max(0,1-u*u-.36)),s*(.754-.032*.6)));}stitches(g,m.stitch,seam);
-      box(g,m.seat,.25,.576,s*.68,.58,.061,.12,.025);tube(g,m.cabinMetal,[V(.01,.636,s*.686),V(.11,.678,s*.684),V(.28,.671,s*.684),V(.37,.624,s*.684)],.01);
-      for(const [x,y] of [[.01,.636],[.37,.624]])box(g,m.cabinRubber,x,y,s*.698,.032,.032,.035,.008);
-      box(g,m.cabinRubber,.25,.62,s*.639,.07,.019,.026,.005);
+      box(g,m.seat,.25,.576,s*.705,.58,.061,.10,.025);tube(g,m.cabinMetal,[V(.01,.636,s*.711),V(.11,.678,s*.709),V(.28,.671,s*.709),V(.37,.624,s*.709)],.01);
+      for(const [x,y] of [[.01,.636],[.37,.624]])box(g,m.cabinRubber,x,y,s*.723,.032,.032,.035,.008);
+      box(g,m.cabinRubber,.25,.62,s*.669,.07,.019,.026,.005);
       const speaker=add(g,new THREE.CircleGeometry(.072,48),m.cabinRubber,-.14,.483,s*.702);speaker.rotation.y=s>0?Math.PI:0;
       const dots=new THREE.InstancedMesh(new THREE.CircleGeometry(.0015,5),m.cabinMetal,220),matrix=new THREE.Matrix4();let n=0;for(let x=-.064;x<=.064;x+=.008)for(let y=-.064;y<=.064;y+=.008)if(x*x+y*y<.0040&&n<220){matrix.makeRotationY(s>0?Math.PI:0);matrix.setPosition(-.14+x,.483+y,s*.697);dots.setMatrixAt(n++,matrix);}dots.count=n;g.add(dots);
       stitches(g,m.stitch,[V(-.16,.46,s*.708),V(.2,.45,s*.708),V(.68,.46,s*.708)]);
     },V(-.997,.622,s*.4975),V(0,.1,s*.85));
     register(`${side}-seatbelt`,`${side==='left'?'Driver':'Passenger'} red seatbelt`,'Woven red shoulder belt, metallic guide and buckle with contrasting red release button.',g=>{
-      const z=s*.67;webbing(g,m.belt,[V(.76,1.071,z),V(.60,.934,z),V(.38,.64,z),V(.29,.38,z)]);
-      box(g,m.cabinMetal,.74,1.067,z,.042,.037,.056,.006);box(g,m.cabinRubber,.38,.41,s*.166,.055,.074,.045,.008);box(g,m.cabinRed,.374,.453,s*.166,.038,.009,.028,.003);
+      const z=s*.64;webbing(g,m.belt,[V(.86,1.025,z),V(.80,.934,z),V(.72,.64,z),V(.68,.38,z)]);
+      box(g,m.cabinMetal,.86,1.025,z,.042,.037,.056,.006);box(g,m.cabinRubber,.38,.41,s*.166,.055,.074,.045,.008);box(g,m.cabinRed,.374,.453,s*.166,.038,.009,.028,.003);
     },V(.55,.74,s*.67),V(.15,.3,s*.5));
   }
   // Batch rigid upholstery/control surfaces by material within each selectable part.

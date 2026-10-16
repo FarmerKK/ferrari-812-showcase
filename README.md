@@ -1,6 +1,6 @@
 # 812 Superfast · Interactive Atelier
 
-เว็บไซต์ Three.js สำหรับหมุน/ซูม Ferrari 812 ใน 3D ปรับแต่งวัสดุ สำรวจ 62 กลุ่มชิ้นส่วน และเปลี่ยนฉากสนามแข่ง
+เว็บไซต์ Three.js สำหรับหมุน/ซูม Ferrari 812 ใน 3D ปรับแต่งวัสดุ สำรวจ 77 กลุ่มชิ้นส่วน และเปลี่ยนฉากสนามแข่ง
 
 ตัวถังใช้โมเดลที่สร้างโดย **Jayrenn Reeve** เผยแพร่เป็น **CC0** บน [BlenderKit](https://www.blenderkit.com/asset-gallery-detail/22191abd-fa78-43e9-81fe-6cded0d53483/). ทรงฝากระโปรง ซุ้มล้อ หลังคา และร่องเว้าประตูมาจากโมเดลนี้ ล้อปรับตามภาพอ้างอิง ห้องโดยสารสร้างเพิ่มตามภาพอ้างอิง มีหนังสแกนจาก ambientCG (CC0) รอยเย็บ 3D และมุมภายใน 7 มุม ส่วนเครื่องยนต์และช่วงล่างเพิ่มเติมเป็นภาพจำลอง ไม่มีข้อมูล CAD ของ Ferrari
 
@@ -24,10 +24,11 @@ npm run preview -- --port 5173
 ## การใช้งาน
 
 - ลากเพื่อ orbit; scroll/pinch เพื่อ zoom; คลิกรถหรือค้นใน Parts explorer เพื่อเลือกชิ้นส่วน
-- Detach/Reassemble และ Exploded view/Assemble คืนตำแหน่งและการหมุนเดิมของ 62 กลุ่ม
+- Detach/Reassemble และ Exploded view/Assemble คืนตำแหน่งและการหมุนเดิมของ 77 กลุ่ม
 - Paint, Wheels, Brakes, Exterior, Interior และ Lights เปลี่ยนวัสดุ/geometry จริง
+- Mechanics → Reveal structure แสดงโครงสร้าง ชุดส่งกำลัง และระบบท่อที่เพิ่มตามข้อมูลอ้างอิง
 - Mechanics เปิดประตูพร้อมกระจกและกระจกข้าง เปิดฝากระโปรง หมุนล้อ และปรับพวงมาลัย
-- กล้องมี 16 มุม รวมภายใน 7 มุม, engine และ cinematic; แสงมี daylight, sunset, night และ studio
+- กล้องมี 17 มุม รวมภายใน 7 มุม, engine, structure และ cinematic; แสงมี daylight, sunset, night และ studio
 - Save/Load/Reset เก็บ configuration ใน LocalStorage; Capture PNG บันทึก render
 - Sound → Start engine เปิดเสียงเดินเบา; Rev exhaust เล่นเสียงเร่ง; Stop engine หยุดทั้งสอง มี Volume/Mute และหยุดเมื่อซ่อนแท็บ ใช้เสียงบันทึก Ferrari แบบ CC0 ซึ่งผู้บันทึกไม่ยืนยันรุ่น 812
 - About this reconstruction → Export model ส่งออก GLB ของ configuration ปัจจุบันในสภาพประกอบ
@@ -37,9 +38,12 @@ npm run preview -- --port 5173
 
 | ไฟล์ | หน้าที่ |
 | --- | --- |
-| `src/detailed-car.js` | โหลดตัวถัง CC0, จัด 62 กลุ่ม, ผูกวัสดุและชุดล้อ |
+| `src/detailed-car.js` | โหลดตัวถัง CC0, จัด 77 กลุ่ม, ผูกวัสดุและชุดล้อ |
 | `src/cockpit-geometry.js` | แผงหน้าปัด มาตรวัด พวงมาลัย และคอนโซลตามภาพถ่ายอ้างอิง |
 | `src/wheels.js` | ล้อแม็กก้านโค้งมีหน้าตัด กระทะล้อกลวง เบ้าน็อต และจุ๊บลมยาง |
+| `src/mechanics.js` | เบรก เครื่องยนต์ เกียร์ ช่วงล่าง โครงสร้าง และระบบท่อจากการศึกษาชิ้นส่วน Superfast |
+| `src/shell-repair.js` | แยกผิวด้านท้ายออกจากประตูและตัดแผ่นก่อสร้างที่ยื่นเข้าในห้องโดยสาร |
+| `docs/STRUCTURE_RESEARCH.md` | ที่มา ระดับความเชื่อมั่น และสิ่งที่ยังเป็นการประมาณ |
 | `src/car.js` | วัสดุ ล้อ และเครื่องยนต์/ช่วงล่างจำลองที่ใช้ประกอบ |
 | `src/main.js` | Interaction, animation, cameras, presets และ export/import |
 | `src/environment.js` | สนามสมมุติ แสง PMREM sky และ contact shadows |

@@ -43,3 +43,7 @@ Finishing includes an enclosed rear instrument shell with outward-facing roof no
 The geometric surface audit welds coincident triangle positions for the padded dashboard material and checks for unclosed boundaries. The final count is recorded in qa-summary.json; the padded upper and lower materials are both inspected for unclosed boundaries. This audit covers the padded dashboard volumes; it is not a claim that every mesh in the vehicle is manifold.
 
 The slope check casts downward rays at three longitudinal positions on the actual leather mesh and records their heights. It verifies a shallow descending section while retaining the separate LCD planarity and visibility checks. The current results are in qa-summary.json.
+
+## Structure-fit revision — 16 October 2026
+
+The thin undertray, fitted carpet floor, open central passage, bulkheads and rear luggage liner are adjusted around the new mechanical packaging. Armrests clear the seat bolsters; belt anchors remain inside the glazing. Dashboard/ramp/screen geometry remains v7. New mechanical groups are hidden in cabin inspection views; the assembled rear-glass view is enclosed by the luggage liner. See ASSEMBLY_AUDIT.md and STRUCTURE_RESEARCH.md.

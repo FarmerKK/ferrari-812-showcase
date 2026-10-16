@@ -7,3 +7,6 @@ output/
 .openai/local/
 assets/source/*.blend
 assets/source/*.blend1
+
+__pycache__/
+*.pyc

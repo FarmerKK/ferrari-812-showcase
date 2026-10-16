@@ -1,9 +1,4 @@
 {
-  "date": "2026-10-16",
-  "timezone": "Asia/Bangkok",
-  "productionBuild": true,
-  "detailVersion": "812-forged-wheels-v1",
-  "script": "qa/wheel-depth.cjs",
   "passed": 19,
   "results": [
     "Direct wheel URL opens the inspection camera",
@@ -13,20 +8,19 @@
     "Both spoke designs have measured hub-to-lip depth on every wheel",
     "Spoke sections are finite, outward-facing closed volumes",
     "Formed barrels are closed hollow volumes",
-    "Rotating spokes clear the stationary brake faces",
+    "Both spoke designs clear the rebuilt caliper faces [{\"id\":\"right-rear-wheel\",\"gap\":0.006231908958781673},{\"id\":\"left-front-wheel\",\"gap\":0.022448539496920716},{\"id\":\"left-rear-wheel\",\"gap\":0.006231908958781673},{\"id\":\"right-front-wheel\",\"gap\":0.022448539496920716}]",
     "Center caps face outward on left and right sides",
     "Every wheel contains modeled bolt recesses, hex bolts, valve and enamel cap",
     "Both wheel styles switch on all four assemblies",
     "Wheel color and satin finish update the sculpted metal",
     "Wheel design and finish survive save/reset/load",
-    "Wheel animation rotates the new assembly independently of brakes",
+    "Wheel and rotor rotate together while the caliper stays fixed",
     "Steering keeps the front wheel and brake alignment",
     "Explode and assemble restore the wheel pivots",
     "Mobile wheel view has no horizontal overflow",
     "Wheel customization works in the mobile viewport",
     "No JavaScript runtime errors"
   ],
-  "runtimeErrors": [],
   "audit": {
     "version": "812-forged-wheels-v1",
     "wheels": [
@@ -39,7 +33,6 @@
           "concave-split-spokes",
           "concave-star-spokes",
           "five-recess-hub",
-          "closed-wheel-mount",
           "countersunk-bolt-seats",
           "five-hex-lug-bolts",
           "center-cap-seal",
@@ -72,7 +65,7 @@
           "finite": true,
           "openEdges": 0
         },
-        "brakeToSpokeClearance": 0.08829597011208534,
+        "brakeToSpokeClearance": 0.006231908958781673,
         "capOutwardDistance": 0.08230000000000004
       },
       {
@@ -84,7 +77,6 @@
           "concave-split-spokes",
           "concave-star-spokes",
           "five-recess-hub",
-          "closed-wheel-mount",
           "countersunk-bolt-seats",
           "five-hex-lug-bolts",
           "center-cap-seal",
@@ -117,7 +109,7 @@
           "finite": true,
           "openEdges": 0
         },
-        "brakeToSpokeClearance": 0.10949075222015381,
+        "brakeToSpokeClearance": 0.022448539496920716,
         "capOutwardDistance": 0.10030000000000006
       },
       {
@@ -129,7 +121,6 @@
           "concave-split-spokes",
           "concave-star-spokes",
           "five-recess-hub",
-          "closed-wheel-mount",
           "countersunk-bolt-seats",
           "five-hex-lug-bolts",
           "center-cap-seal",
@@ -162,7 +153,7 @@
           "finite": true,
           "openEdges": 0
         },
-        "brakeToSpokeClearance": 0.09017226472496986,
+        "brakeToSpokeClearance": 0.006231908958781673,
         "capOutwardDistance": 0.08230000000000004
       },
       {
@@ -174,7 +165,6 @@
           "concave-split-spokes",
           "concave-star-spokes",
           "five-recess-hub",
-          "closed-wheel-mount",
           "countersunk-bolt-seats",
           "five-hex-lug-bolts",
           "center-cap-seal",
@@ -207,41 +197,11 @@
           "finite": true,
           "openEdges": 0
         },
-        "brakeToSpokeClearance": 0.10761460661888123,
+        "brakeToSpokeClearance": 0.022448539496920716,
         "capOutwardDistance": 0.10030000000000006
       }
     ],
-    "partCount": 62
+    "partCount": 77
   },
-  "export": {
-    "groups": 62,
-    "blenderMeshObjects": 1153,
-    "materials": 74,
-    "embeddedImages": 42,
-    "missingImages": [],
-    "compressedBytes": 25358104,
-    "completeFromCutawayView": true,
-    "positionQuantizationBits": 16,
-    "normalQuantizationBits": 10,
-    "uvQuantizationBits": 14
-  },
-  "viewports": {
-    "desktop": [
-      1600,
-      1000
-    ],
-    "mobile": [
-      390,
-      844
-    ]
-  },
-  "physicalMobileDeviceTested": false,
-  "screenshots": [
-    "wheel-split-graphite.png",
-    "wheel-front-face.png",
-    "wheel-front-oblique.png",
-    "wheel-star-rear-oblique.png",
-    "wheel-mobile.png"
-  ],
-  "scope": "Current checks target the wheel change. Earlier cockpit and audio suites were not rerun."
+  "runtimeErrors": []
 }

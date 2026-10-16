@@ -1,4 +1,20 @@
-# Test results — 16 October 2026
+# Structure and clearance verification — 16 October 2026
+
+Current runtime: `812-researched-structure-v1`, with 77 selectable groups. The brake/structure suite passes 18 checks; the wheel suite passes 19 and passenger-layout suite passes 12 during this revision. These are geometry/interaction checks, not a photographic-identity score. No JavaScript errors were recorded.
+
+The final assembled raw GLB is audited in Blender at neutral steering, both UI steering limits (±0.45 rad) and opened doors/hood. Each pose contains no unreviewed contact involving a new mechanical assembly and introduces no component-pair name absent from neutral. Remaining surface contacts are explicitly interpreted in [ASSEMBLY_AUDIT.md](ASSEMBLY_AUDIT.md); the reports do not claim that every source panel is a watertight manufacturing solid.
+
+All four caliper castings and pads clear the actual rotor friction envelope. Published mesh sizes are 398 × 38 mm front and 360 × 32 mm rear. Minimum pad gap is 0.50 mm; conservative spoke/caliper axial clearance is 22.45 mm front and 6.23 mm rear, including both spoke styles. Gap values are project reconstruction values, not Ferrari service tolerances. Disc and wheel spin together; caliper remains fixed. Steering rods and uprights follow the front wheels.
+
+Desktop 1600 × 1000 and mobile Chromium viewport 390 × 844 were checked. Actual runtime captures cover closed front/side/rear, opened panels, cabin, brake throat and exposed structure. No physical-phone or hardware benchmark is claimed.
+
+Final raw and compressed exports import in Blender 4.5.3 LTS: 77 semantic groups, 1171 mesh objects, 78 materials and 43 embedded images; no missing images. Compressed download: 25,430,868 bytes, below the 26,214,400-byte hosting limit. Draco position/normal/UV precision remains 16/10/14 bits. Identical binary views are shared losslessly; browser geometry remains at its authored resolution.
+
+The production build passes with existing Three.js/application bundle-size advisories. Audio was not changed; its earlier verification is retained below.
+
+---
+
+## Historical wheel/cockpit verification
 
 Current wheel runtime: `812-forged-wheels-v1`; cockpit: `812-sloping-dashboard-v7`. The production-preview wheel suite passed 19 checks with no JavaScript runtime errors. See [wheel results](wheel-qa-summary.json) and [wheel construction](WHEELS.md).
 

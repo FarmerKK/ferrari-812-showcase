@@ -28,3 +28,9 @@ Revision v6 follows the additional passenger-dashboard photos and the request fo
 Revision v7 changes the longitudinal section of the upper passenger leather to a shallow descending ramp. It retains the planar LCD. The emblem and front stitching follow the sampled revised surface, and the vent-pod upper edge is reduced to remove protruding fins.
 
 Wheel revision `812-forged-wheels-v1` replaces the flat procedural rim clones with swept solid spokes, a continuous formed hollow barrel, perforated hub, recessed hex hardware, enamel cap and valve. Front and rear wheels have separate dish depths. Runtime wheel part IDs and axle pivots remain unchanged. See WHEELS.md. Regenerate the downloadable model from the final assembled browser export and inspect the compressed result in Blender.
+
+## Researched structure revision — 16 October 2026
+
+`mechanics.js` replaces the engine, covers, four suspension assemblies and eight brake assemblies. Fourteen additional mechanical groups and a fixed rear-body-return group bring the current total to 77. `shell-repair.js` clips inward source construction sheets away from the cabin and keeps the rear skin stationary during door opening. It runs before cockpit construction. The full model is audited in world space with `tools/audit_assembly_intersections.py`; findings are interpreted separately from fastening/seal contacts.
+
+The static model compression retains 16/10/14-bit position/normal/UV Draco quantization. `dedupe_glb.py` then shares byte-identical buffer views (including repeated embedded textures) without altering their bytes or decoded geometry. Browser geometry remains uncompressed at runtime and exports retain the full authored geometry.

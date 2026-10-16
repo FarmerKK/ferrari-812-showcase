@@ -1,0 +1,32 @@
+{
+  "final": {
+    "groups": 77,
+    "surfaceContactPairs": 84,
+    "classifiedMechanicalJoints": 20,
+    "unreviewedMechanicalPairs": 0,
+    "introducedPairNames": 0
+  },
+  "steer-negative": {
+    "groups": 77,
+    "surfaceContactPairs": 8,
+    "classifiedMechanicalJoints": 6,
+    "unreviewedMechanicalPairs": 0,
+    "introducedPairNames": 0
+  },
+  "steer-positive": {
+    "groups": 77,
+    "surfaceContactPairs": 8,
+    "classifiedMechanicalJoints": 6,
+    "unreviewedMechanicalPairs": 0,
+    "introducedPairNames": 0
+  },
+  "panels-open": {
+    "groups": 77,
+    "surfaceContactPairs": 8,
+    "classifiedMechanicalJoints": 0,
+    "unreviewedMechanicalPairs": 0,
+    "introducedPairNames": 0
+  },
+  "modelSha256": "fe0b18f069ede52ba173f1dbe05ef89f3f90f94cff6e3153454daf84a5dc1510",
+  "limits": "Neutral and three UI limit poses only; no continuous sweep, fully enclosed volume test, manufacturing tolerance or suspension dynamics certification."
+}

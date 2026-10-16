@@ -13,4 +13,7 @@ bpy.ops.export_scene.gltf(
     export_draco_normal_quantization=10,
     export_draco_texcoord_quantization=14,
 )
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from dedupe_glb import deduplicate
+print(deduplicate(target))
 print(f'Compressed model: {target.stat().st_size} bytes')
