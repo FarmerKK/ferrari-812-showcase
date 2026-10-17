@@ -4,19 +4,6 @@
 
 ตัวถังใช้โมเดลที่สร้างโดย **Jayrenn Reeve** เผยแพร่เป็น **CC0** บน [BlenderKit](https://www.blenderkit.com/asset-gallery-detail/22191abd-fa78-43e9-81fe-6cded0d53483/). ทรงฝากระโปรง ซุ้มล้อ หลังคา และร่องเว้าประตูมาจากโมเดลนี้ ล้อปรับตามภาพอ้างอิง ห้องโดยสารสร้างเพิ่มตามภาพอ้างอิง มีหนังสแกนจาก ambientCG (CC0) รอยเย็บ 3D และมุมภายใน 7 มุม ส่วนเครื่องยนต์และช่วงล่างเพิ่มเติมเป็นภาพจำลอง ไม่มีข้อมูล CAD ของ Ferrari
 
-## เปิดใช้งาน
-
-ต้องมี Node.js 20.19+ หรือ 22.12+ และ npm
-
-```powershell
-cd D:\Project\GPT\ferrari-812-showcase
-npm install
-npm run dev
-```
-
-```powershell
-npm run build
-npm run preview -- --port 5173
 ```
 
 ไฟล์ static อยู่ใน `dist/`. หน้าเริ่มต้นโหลดโมเดล Draco ประมาณ 3.7 MB พร้อม decoder ภายในเว็บ ไม่ต้องมี backend หรือ API key
